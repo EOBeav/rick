@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Comparison: Daikin FIT vs. Lennox Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .comparison-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+    <!-- Header -->
+    <header class="bg-blue-900 text-white py-12 px-6 text-center">
+        <h1 class="text-4xl font-bold mb-4">HVAC System Comparison</h1>
+        <p class="text-xl opacity-90">Daikin FIT vs. Lennox Elite Series (2026 Models)</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        
+        <!-- Quick Comparison Table -->
+        <section class="mb-16 overflow-x-auto">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <span class="bg-blue-100 text-blue-700 p-2 rounded mr-3">📊</span>
+                Technical Specifications
+            </h2>
+            <table class="w-full bg-white rounded-xl shadow-sm border-collapse">
+                <thead>
+                    <tr class="bg-slate-100 text-left">
+                        <th class="p-4 border-b">Feature</th>
+                        <th class="p-4 border-b text-blue-700">Daikin FIT (DC6VS)</th>
+                        <th class="p-4 border-b text-red-700">Lennox Elite (EL18KCV)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="p-4 border-b font-medium">Compressor Type</td>
+                        <td class="p-4 border-b">Inverter Variable Speed</td>
+                        <td class="p-4 border-b">Inverter Variable Speed</td>
+                    </tr>
+                    <tr class="bg-slate-50">
+                        <td class="p-4 border-b font-medium">Efficiency (SEER2)</td>
+                        <td class="p-4 border-b">Up to 16.9</td>
+                        <td class="p-4 border-b">Up to 19.5</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border-b font-medium">Refrigerant</td>
+                        <td class="p-4 border-b">R-32</td>
+                        <td class="p-4 border-b">R-454B</td>
+                    </tr>
+                    <tr class="bg-slate-50">
+                        <td class="p-4 border-b font-medium">Unit Design</td>
+                        <td class="p-4 border-b">Side Discharge (Compact)</td>
+                        <td class="p-4 border-b">Top Discharge (Standard)</td>
+                    </tr>
+                    <tr>
+                        <td class="p-4 border-b font-medium">Coil Material</td>
+                        <td class="p-4 border-b">All-Aluminum</td>
+                        <td class="p-4 border-b">Quantum™ Aluminum</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Cost & Warranty Cards -->
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <!-- Daikin Card -->
+            <div class="comparison-card bg-white p-8 rounded-2xl shadow-md border-t-4 border-blue-500">
+                <h3 class="text-2xl font-bold text-blue-700 mb-4">Daikin FIT Package</h3>
+                <div class="mb-6">
+                    <p class="text-sm uppercase tracking-wider text-slate-500 font-bold mb-1">Estimated System Price</p>
+                    <p class="text-4xl font-bold">~$13,000</p>
+                    <p class="text-xs text-slate-400 mt-1">*Based on 3T system proposal</p>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start">
+                        <span class="text-green-500 mr-2">✓</span>
+                        <span><strong>12-Year</strong> Limited Parts Warranty</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-500 mr-2">✓</span>
+                        <span><strong>12-Year</strong> Labor Warranty (w/ Daikin Care)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-500 mr-2">✓</span>
+                        <span>12-Year Unit Replacement Warranty</span>
+                    </li>
+                </ul>
+                <div class="bg-blue-50 p-4 rounded-lg italic text-sm text-blue-800">
+                    "Better labor protection and a more compact footprint for tight installations."
+                </div>
+            </div>
+
+            <!-- Lennox Card -->
+            <div class="comparison-card bg-white p-8 rounded-2xl shadow-md border-t-4 border-red-500">
+                <h3 class="text-2xl font-bold text-red-700 mb-4">Lennox Elite Package</h3>
+                <div class="mb-6">
+                    <p class="text-sm uppercase tracking-wider text-slate-500 font-bold mb-1">Estimated System Price</p>
+                    <p class="text-4xl font-bold">~$16,000+</p>
+                    <p class="text-xs text-slate-400 mt-1">*Ranges $6k-$8k for AC unit alone</p>
+                </div>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start">
+                        <span class="text-green-500 mr-2">✓</span>
+                        <span><strong>10-Year</strong> Limited Parts Warranty</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-green-500 mr-2">✓</span>
+                        <span><strong>10-Year</strong> Labor Warranty (Option)</span>
+                    </li>
+                    <li class="flex items-start text-slate-400">
+                        <span class="mr-2">⚠</span>
+                        <span>Coil reliability is a frequent discussion point in reviews.</span>
+                    </li>
+                </ul>
+                <div class="bg-red-50 p-4 rounded-lg italic text-sm text-red-800">
+                    "Higher peak efficiency (19.5 SEER2) but higher upfront investment."
+                </div>
+            </div>
+        </div>
+
+        <!-- The Recommendation -->
+        <section class="bg-green-600 text-white p-10 rounded-3xl shadow-xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold mb-4">Final Recommendation</h2>
+                <p class="text-lg mb-6 leading-relaxed">
+                    Based on the 2026 technical data and current market pricing, we recommend the <strong>Daikin FIT (DC6VS)</strong> system for the following reasons:
+                </p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-green-700/50 p-4 rounded-xl">
+                        <h4 class="font-bold mb-2">Cost Value</h4>
+                        <p class="text-sm">The Daikin system typically offers a lower total installed cost (~$13k vs $16k+) without sacrificing variable-speed comfort.</p>
+                    </div>
+                    <div class="bg-green-700/50 p-4 rounded-xl">
+                        <h4 class="font-bold mb-2">Superior Warranty</h4>
+                        <p class="text-sm">Daikin provides a 12-year labor and parts guarantee, providing 20% longer protection than the standard Lennox offering.</p>
+                    </div>
+                    <div class="bg-green-700/50 p-4 rounded-xl">
+                        <h4 class="font-bold mb-2">Reliability Profile</h4>
+                        <p class="text-sm">While Lennox has higher SEER2, Daikin's side-discharge architecture is highly praised for its reliability and quiet operation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-slate-400 text-sm border-t border-slate-200">
+        <p>&copy; 2026 Homeowner's HVAC Comparison Tool</p>
+    </footer>
+
+</body>
+</html>
