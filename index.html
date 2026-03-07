@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #ff9671;
+            --primary-dark: #e88562;
+            --secondary: #2c5e5e; /* Complementary Teal */
+            --bg-soft: #fdfaf6;
+            --text-main: #2d3436;
+        }
+
+        body {
+            background-color: var(--bg-soft);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        .accent-border {
+            border-top: 4px solid var(--primary);
+        }
+
+        .link-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(255, 150, 113, 0.2);
+            border-color: var(--primary);
+        }
+
+        .section-icon {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .other-icon {
+            background-color: var(--secondary);
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl mb-4">
+                Personal <span style="color: var(--primary);">Directory</span>
+            </h1>
+            <p class="text-lg text-gray-600">A curated collection of resources and bookmarks.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            
+            <!-- Folder Section -->
+            <section class="space-y-6">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="section-icon p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">In This Folder</h2>
+                </div>
+
+                <div class="grid gap-4" id="folder-links">
+                    <!-- Placeholder Links -->
+                    <a href="#" class="link-card bg-white p-4 rounded-xl flex items-center justify-between group">
+                        <span class="font-medium text-gray-700 group-hover:text-[#ff9671]">Project Documentation</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-[#ff9671]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#" class="link-card bg-white p-4 rounded-xl flex items-center justify-between group">
+                        <span class="font-medium text-gray-700 group-hover:text-[#ff9671]">Asset Library</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-[#ff9671]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center text-gray-400 text-sm">
+                        Add more links here...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other Section -->
+            <section class="space-y-6">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="other-icon p-2 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800">Other</h2>
+                </div>
+
+                <div class="grid gap-4" id="other-links">
+                    <!-- Placeholder Links -->
+                    <a href="#" class="link-card bg-white p-4 rounded-xl flex items-center justify-between group">
+                        <span class="font-medium text-gray-700 group-hover:text-[#2c5e5e]">External Portal</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-[#2c5e5e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </a>
+                    <a href="#" class="link-card bg-white p-4 rounded-xl flex items-center justify-between group">
+                        <span class="font-medium text-gray-700 group-hover:text-[#2c5e5e]">Social Media</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-[#2c5e5e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer Info -->
+        <footer class="mt-20 pt-8 border-t border-gray-200 text-center text-gray-500 text-sm">
+            <p>Select your links and update the <code>href</code> attributes in the HTML file.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
