@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee - Powerful Open Source Raw Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --rt-dark: #121212;
+            --rt-card: #1e1e1e;
+            --rt-accent: #ff8c00;
+            --rt-text: #e0e0e0;
+        }
+        body {
+            background-color: var(--rt-dark);
+            color: var(--rt-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        .feature-card {
+            background: var(--rt-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+        }
+        .feature-card:hover {
+            transform: translateY(-5-px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-color: var(--rt-accent);
+        }
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(18,18,18,0) 0%, rgba(18,18,18,1) 100%);
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+        }
+        .tab-active {
+            border-bottom: 3px solid var(--rt-accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#1a1a1a] border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                <i class="fas fa-camera text-white"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">RawTherapee <span class="text-orange-500">5.12</span></span>
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium">
+            <a href="#exposure" class="hover:text-orange-500 transition">Exposure</a>
+            <a href="#lab" class="hover:text-orange-500 transition">L*a*b*</a>
+            <a href="#detail" class="hover:text-orange-500 transition">Detail</a>
+            <a href="#local" class="hover:text-orange-500 transition">Local Adjustments</a>
+        </div>
+        <button class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-md text-sm font-semibold transition">
+            Download Free
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-section h-[60vh] flex flex-col items-center justify-center text-center px-4">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">The Artisan's RAW Processor.</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mb-8 leading-relaxed">
+            A free, cross-platform raw image processing program designed for developing photographs with incredible precision.
+        </p>
+        <div class="flex space-x-4">
+            <a href="#exposure" class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition">Explore Features</a>
+            <a href="https://rawpedia.rawtherapee.com" target="_blank" class="border border-white px-8 py-3 rounded-full font-bold hover:bg-white/10 transition">View RawPedia</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-20">
+
+        <!-- Exposure Section -->
+        <section id="exposure" class="mb-32">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-3xl font-bold">Exposure & Tone</h2>
+                <div class="h-[2px] flex-grow bg-gray-800"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card p-8 rounded-2xl">
+                    <i class="fas fa-sun text-4xl text-orange-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Auto Levels</h3>
+                    <p class="text-gray-400 leading-relaxed">Instantly analyze image data to calculate the optimal exposure compensation, preserving details in both highlights and shadows.</p>
+                </div>
+                <div class="feature-card p-8 rounded-2xl">
+                    <i class="fas fa-wave-square text-4xl text-orange-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Dual Tone Curves</h3>
+                    <p class="text-gray-400 leading-relaxed">Use two independent tone curves for ultimate control over contrast. Apply curves in different color spaces for unique visual results.</p>
+                </div>
+                <div class="feature-card p-8 rounded-2xl">
+                    <i class="fas fa-adjust text-4xl text-orange-500 mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4">Shadows/Highlights</h3>
+                    <p class="text-gray-400 leading-relaxed">High-quality compression algorithm that recovers lost detail in blown-out skies or dark foregrounds without unnatural halos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- L*a*b* Section -->
+        <section id="lab" class="mb-32 bg-zinc-900/50 p-12 rounded-3xl border border-zinc-800">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-orange-500 font-bold uppercase tracking-widest text-sm">Advanced Color</span>
+                    <h2 class="text-4xl font-bold mt-2 mb-6">L*a*b* Adjustments Panel</h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        The secret weapon of RawTherapee. L*a*b* separates Luminosity from Color, allowing you to boost saturation or change brightness without shifting the hue.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                            <span><strong>LH (Lightness vs Hue):</strong> Make specific colors (like yellow flowers) pop against dark backgrounds.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                            <span><strong>CH (Chromaticity vs Hue):</strong> Selectively saturate or desaturate specific color ranges.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-check-circle text-orange-500 mt-1"></i>
+                            <span><strong>HH (Hue vs Hue):</strong> Shift one hue toward another—perfect for correcting skin tones.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative group">
+                    <div class="bg-gradient-to-tr from-orange-500 to-red-600 rounded-2xl p-1">
+                        <div class="bg-zinc-900 rounded-2xl p-6">
+                            <h4 class="text-center font-mono text-sm text-gray-500 mb-4">L*A*B EQUALIZER PREVIEW</h4>
+                            <div class="h-48 flex items-end justify-between space-x-2">
+                                <div class="w-full bg-orange-500/20 border-t-2 border-orange-500" style="height: 40%"></div>
+                                <div class="w-full bg-orange-500/20 border-t-2 border-orange-500" style="height: 60%"></div>
+                                <div class="w-full bg-orange-500/40 border-t-2 border-orange-500" style="height: 85%"></div>
+                                <div class="w-full bg-orange-500/20 border-t-2 border-orange-500" style="height: 45%"></div>
+                                <div class="w-full bg-orange-500/10 border-t-2 border-orange-500" style="height: 30%"></div>
+                            </div>
+                            <div class="mt-4 flex justify-between text-[10px] uppercase tracking-tighter text-gray-400">
+                                <span>Red</span><span>Yel</span><span>Gre</span><span>Cya</span><span>Blu</span><span>Mag</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Section -->
+        <section id="detail" class="mb-32">
+            <div class="flex items-center space-x-4 mb-12">
+                <h2 class="text-3xl font-bold">Precision Detail</h2>
+                <div class="h-[2px] flex-grow bg-gray-800"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Capture Sharpening</h3>
+                    <p class="text-gray-400 mb-6">Found in the <strong>Raw Tab</strong>, this tool corrects the softness introduced by your camera's sensor and lens before any further processing occurs. It provides much finer detail than standard Unsharp Masking.</p>
+                    <div class="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                        <p class="text-sm italic"><i class="fas fa-lightbulb mr-2"></i>Tip: Always view at <strong>1:1 Zoom</strong> (100%) to see the true effect of sharpening and noise reduction.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Noise Reduction</h3>
+                    <p class="text-gray-400 mb-6">Utilize the <strong>Impulse Noise Reduction</strong> to eliminate "salt and pepper" artifacts and the powerful <strong>Luminance/Chrominance</strong> sliders to clean up high-ISO shots without losing textures.</p>
+                    <div class="flex space-x-4">
+                        <div class="flex-1 text-center p-4 border border-zinc-800 rounded-xl">
+                            <span class="block text-xs uppercase text-gray-500 mb-1">Method</span>
+                            <span class="font-bold">RL Deconvolution</span>
+                        </div>
+                        <div class="flex-1 text-center p-4 border border-zinc-800 rounded-xl">
+                            <span class="block text-xs uppercase text-gray-500 mb-1">Method</span>
+                            <span class="font-bold">Unsharp Mask</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Local Adjustments -->
+        <section id="local" class="mb-32 text-center">
+            <h2 class="text-4xl font-bold mb-4">Local Adjustments</h2>
+            <p class="text-gray-400 max-w-3xl mx-auto mb-16 text-lg">
+                The most powerful tool in the recent 5.10 update. Based on "u-point" technology, it allows for targeted editing without complex manual masks.
+            </p>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="p-6 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-orange-500 transition">
+                    <h4 class="font-bold mb-2">Color & Light</h4>
+                    <p class="text-sm text-gray-500">Target specific hues and adjust their exposure locally.</p>
+                </div>
+                <div class="p-6 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-orange-500 transition">
+                    <h4 class="font-bold mb-2">Shape Detection</h4>
+                    <p class="text-sm text-gray-500">Intelligent masking that finds edges and boundaries automatically.</p>
+                </div>
+                <div class="p-6 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-orange-500 transition">
+                    <h4 class="font-bold mb-2">Denoise/Sharpen</h4>
+                    <p class="text-sm text-gray-500">Apply detail tools to only parts of your image.</p>
+                </div>
+                <div class="p-6 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-orange-500 transition">
+                    <h4 class="font-bold mb-2">Vibrance</h4>
+                    <p class="text-sm text-gray-500">Boost color in specific areas like the sky or foliage.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workflow Section -->
+        <section id="workflow" class="mb-20">
+            <h2 class="text-3xl font-bold mb-12">Pro Workflow Tips</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-zinc-800/50 p-8 rounded-2xl">
+                    <h4 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-bolt text-yellow-500 mr-3"></i> Speed Up Your Editing
+                    </h4>
+                    <p class="text-gray-400 mb-4">Create a <code>base.pp3</code> profile. This profile should include your default corrections like <strong>Chromatic Aberration</strong> and <strong>Lens Profiles</strong>. Set it to auto-apply in <strong>Preferences > Image Processing</strong>.</p>
+                    <div class="bg-black/30 p-4 rounded font-mono text-xs text-orange-400">
+                        Preferences -> Image Processing -> Default Processing Profile
+                    </div>
+                </div>
+                <div class="bg-zinc-800/50 p-8 rounded-2xl">
+                    <h4 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-file-export text-green-500 mr-3"></i> Batch Processing
+                    </h4>
+                    <p class="text-gray-400 mb-4">Don't wait for every image to export. Add them to the <strong>Queue</strong> (shortcut: <code>Ctrl+Q</code> or <code>B</code>) and process them all at once when you're finished editing.</p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li>• Supports 16-bit TIFF for Photoshop hand-off.</li>
+                        <li>• High-quality JPEG subsampling options.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-900 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-8 md:mb-0">
+                <span class="text-2xl font-bold tracking-tight">RawTherapee</span>
+                <p class="text-gray-500 text-sm mt-2">Free. Open Source. Professional.</p>
+            </div>
+            <div class="flex space-x-6 text-gray-400">
+                <a href="#" class="hover:text-white transition">Forum</a>
+                <a href="#" class="hover:text-white transition">Wiki</a>
+                <a href="#" class="hover:text-white transition">GitHub</a>
+                <a href="#" class="hover:text-white transition">Donate</a>
+            </div>
+        </div>
+        <div class="text-center mt-12 text-gray-700 text-xs">
+            Built for photographers by photographers. Licensed under GPLv3.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
