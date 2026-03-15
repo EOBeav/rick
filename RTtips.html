@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee: The Ultimate Efficiency Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .tab-active { border-bottom: 2px solid #3b82f6; color: #3b82f6; }
+        .step-card { transition: transform 0.2s ease; }
+        .step-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white py-12 px-6 shadow-xl">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">RawTherapee Workflow Efficiency</h1>
+            <p class="text-slate-400 text-lg">Master the "Do This First" strategy to automate your raw processing.</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        
+        <!-- Section: The Ultimate Base Profile -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 text-xl">1</span>
+                The "MyBase" Custom Profile Setup
+            </h2>
+            <p class="mb-6 text-slate-600 leading-relaxed">To stop repeating tedious adjustments for every photo, create a <code>mybase.pp3</code> profile. This profile should be set as your <strong>Global Default</strong> in <em>Preferences > Image Processing > Default Processing Profile</em>.</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Color Management -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 step-card">
+                    <h3 class="font-bold text-xl mb-3 text-blue-700">1. Color Management</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li>• Go to the <strong>Color Tab</strong>.</li>
+                        <li>• Under <strong>Input Profile</strong>, select <em>Custom</em>.</li>
+                        <li>• Browse and select your specific camera's ICC/DCP profile.</li>
+                        <li>• <strong>Pro Tip:</strong> Enable <em>"Abstract Profile"</em> for more perceptual adjustments.</li>
+                    </ul>
+                </div>
+
+                <!-- Exposure -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 step-card">
+                    <h3 class="font-bold text-xl mb-3 text-blue-700">2. Exposure & Tone</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li>• Go to the <strong>Exposure Tab</strong>.</li>
+                        <li>• Enable <strong>Auto Matched Tone Curve</strong>. This analyzes the embedded JPEG to give you a natural starting point.</li>
+                        <li>• Set <em>Exposure Compensation</em> to 0 (neutral).</li>
+                    </ul>
+                </div>
+
+                <!-- Capture Sharpening -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 step-card">
+                    <h3 class="font-bold text-xl mb-3 text-blue-700">3. Raw / Capture Sharpening</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li>• Go to the <strong>Raw Tab</strong>.</li>
+                        <li>• Enable <strong>Capture Sharpening</strong>. </li>
+                        <li>• This sharpens at the demosaicing stage, which is far more efficient and cleaner than standard sharpening.</li>
+                    </ul>
+                </div>
+
+                <!-- Lens Correction -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 step-card">
+                    <h3 class="font-bold text-xl mb-3 text-blue-700">4. Lens Profile</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li>• Go to the <strong>Transform Tab</strong>.</li>
+                        <li>• Under <strong>Lens Profile Correction</strong>, choose <em>Automatic</em>.</li>
+                        <li>• Ensure <em>"Read lens profile from metadata"</em> is selected to let RT pull data from the EXIF.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="text-blue-800 font-semibold">How to Save:</p>
+                <p class="text-blue-700 text-sm">Once these are set, click the <strong>Save Profile</strong> icon at the top right, name it <code>mybase.pp3</code>, and set it as your default in Preferences.</p>
+            </div>
+        </section>
+
+        <!-- Section: Pro Tips & Hacks -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 flex items-center">
+                <span class="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 text-xl">2</span>
+                Pro Tips & "Workflow Hacks"
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-1">🚀 The 1:1 Rule</h4>
+                    <p class="text-slate-600">Many modules (like Noise Reduction and Sharpening) <strong>only</strong> show their true effect at 100% zoom. Don't waste time tweaking them at "Fit to Screen" view; always use the 1:1 icon.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-1">🛠 The "Crop Blackout" Hack</h4>
+                    <p class="text-slate-600">By default, cropped areas are visible. Click the <strong>Black/Gray/White</strong> icons in the top toolbar to hide the cropped-out parts. This makes judging composition much easier.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-1">🎨 Lab Mode for "Pop"</h4>
+                    <p class="text-slate-600">Use the <strong>L*a*b* Adjustments</strong> panel at the bottom of the Exposure tab. Increasing <em>Chromaticity</em> here adds color without shifting hues, which is safer than using the Standard Saturation slider.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h4 class="font-bold text-slate-800 mb-1">⚡ Fast Queueing</h4>
+                    <p class="text-slate-600">Don't wait for images to export. Hit <strong>Ctrl+B</strong> (or the Gear icon) to send your current edit to the Queue and immediately move to the next photo. Process them all in a batch at the end.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-400 text-sm mt-20 border-t pt-8">
+            <p>Optimized for RawTherapee 5.10 and later.</p>
+        </footer>
+    </main>
+
+</body>
+</html>
