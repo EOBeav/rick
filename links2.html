@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Links in this folder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 2rem;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        /* This is the magic container */
+        .link-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows links to drop to the next row */
+            gap: 15px;       /* Adds spacing between the links */
+            justify-content: center; /* Centers the links horizontally */
+            padding: 20px;
+        }
+
+        /* Styling for the individual links */
+        .link-card {
+            background: white;
+            color: #007bff;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            
+            /* Ensures cards don't get too squished */
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Project Folder</h1>
+
+    <div class="link-container">
+        <a href="page1.html" class="link-card">Page One</a>
+        <a href="about-us.html" class="link-card">About Us</a>
+        <a href="contact.html" class="link-card">Contact</a>
+        <a href="portfolio.html" class="link-card">Portfolio</a>
+        <a href="services.html" class="link-card">Our Services</a>
+        <a href="blog.html" class="link-card">Latest News</a>
+        <a href="team.html" class="link-card">Meet The Team</a>
+    </div>
+
+</body>
+</html>
