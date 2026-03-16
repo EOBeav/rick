@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Color Correction Regions in RawTherapee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .feature-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16 px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Mastering Color Correction Regions</h1>
+        <p class="text-xl text-gray-300 max-w-2xl mx-auto">Learn how to leverage the Color Toning masking tool in RawTherapee to gain surgical control over your edits.</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto py-12 px-6">
+        
+        <!-- Quick Start Section -->
+        <section id="basics" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-lg">1</span>
+                The Foundation: Locating the Tool
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div>
+                    <p class="mb-4 text-gray-600 leading-relaxed">
+                        The <strong>Color Correction Regions</strong> are housed inside the <strong>Color Tab</strong> (the palette icon) under the <strong>Color Toning</strong> module.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="mt-1 bg-green-100 p-1 rounded">
+                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="ml-3">Enable <strong>Color Toning</strong>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="mt-1 bg-green-100 p-1 rounded">
+                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="ml-3">Switch the method to <strong>Color Correction Regions</strong>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="mt-1 bg-green-100 p-1 rounded">
+                                <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <span class="ml-3">Click <strong>Add</strong> to create your first region.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-200 rounded-xl aspect-video flex items-center justify-center text-gray-400 italic p-4 text-center border-2 border-dashed border-gray-300">
+                    <p>[Interface Tip: Look for the 'Color Toning' drop-down at the bottom of the Color Tab]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Masking Strategy -->
+        <section id="masking" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="bg-blue-600 text-white w-8 h-8 rounded-full inline-flex items-center justify-center mr-3 text-lg">2</span>
+                The Precision Masking Workflow
+            </h2>
+            <p class="mb-8 text-gray-600">The power of this tool lies in its ability to isolate specific tones using L*a*b* parameters. Follow this sequence for accurate results:</p>
+            
+            <div class="space-y-6">
+                <!-- Step A -->
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2">A. Visualize the Mask</h3>
+                    <p class="text-gray-600">Check the <strong>Show Mask</strong> box. By default, RawTherapee shows the mask in black and white (white is what will be affected). This is essential to ensure you aren't bleeding into unwanted areas like the sky or skin tones.</p>
+                </div>
+
+                <!-- Step B -->
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2">B. Use the L-Channel Equalizer</h3>
+                    <p class="text-gray-600">Most masking is best handled via the <strong>L (Luminance)</strong> equalizer. If you want to target only the shadows of a building, pull the right side of the curve down to zero. This excludes highlights from the selection.</p>
+                </div>
+
+                <!-- Step C -->
+                <div class="feature-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+                    <h3 class="font-bold text-xl mb-2">C. Slope and Fall-off</h3>
+                    <p class="text-gray-600">Adjust the <strong>Slope</strong> and <strong>Offset</strong> sliders. The Slope controls how aggressively the mask picks up surrounding colors, while the Offset helps refine the black point of the mask.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pro Tips -->
+        <section id="pro-tips" class="mb-16 bg-blue-50 p-8 rounded-3xl border border-blue-100">
+            <h2 class="text-2xl font-bold mb-6 text-blue-900">Pro Tips for Accurate Results</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="flex items-start">
+                    <div class="bg-blue-600 text-white p-2 rounded-lg mr-4 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-900">Expand the Panel</h4>
+                        <p class="text-sm text-blue-800">Use the double-headed arrow to drag the Color Toning panel massively wide. This allows you to make extremely fine adjustments to the curves that are impossible in a small window.</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="bg-blue-600 text-white p-2 rounded-lg mr-4 shrink-0">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-900">Save Your Curves</h4>
+                        <p class="text-sm text-blue-800">Once you've crafted a perfect mask curve, click the <strong>Save Current Curve</strong> icon. You can reload this <code>.rtc</code> file in other modules or images to save hours of work.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Case Table -->
+        <section id="cases">
+            <h2 class="text-2xl font-bold mb-6">Common Masking Scenarios</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left bg-white rounded-xl shadow-sm border border-gray-100">
+                    <thead class="bg-gray-100 text-gray-700">
+                        <tr>
+                            <th class="p-4">Goal</th>
+                            <th class="p-4">Equalizer Setting</th>
+                            <th class="p-4">Slider Tweak</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="p-4 font-medium">Warm Shadows only</td>
+                            <td class="p-4">L-Curve: High at start, zero at middle.</td>
+                            <td class="p-4">Low Slope for soft transition.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium">Sky Saturation</td>
+                            <td class="p-4">CH-Curve (Chrominance vs Hue): Boost Blues.</td>
+                            <td class="p-4">Adjust Hue slider to isolate cyan/blue.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium">Skin Tone Protection</td>
+                            <td class="p-4">Avoid Color Shift: ON.</td>
+                            <td class="p-4">Use 'Red/Skin Tones Protection' slider.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-12 px-6 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-gray-500 mb-2">Produced for RawTherapee Enthusiasts</p>
+            <p class="text-xs text-gray-400">Note: Functionality may vary slightly between development builds and stable releases like 5.10.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
