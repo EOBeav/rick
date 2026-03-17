@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee Exposure Tool Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .tool-card {
+            background-color: #2d2d2d;
+            border: 1px solid #404040;
+            transition: transform 0.2s;
+        }
+        .tool-card:hover {
+            border-color: #60a5fa;
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+        .rt-orange {
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-700 pb-6">
+            <h1 class="text-4xl font-bold mb-2">The <span class="rt-orange">Exposure Tool</span> in RawTherapee</h1>
+            <p class="text-gray-400">A comprehensive guide to managing luminance, tone curves, and highlight preservation.</p>
+        </header>
+
+        <!-- Main Exposure Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-blue-600 w-2 h-8 mr-3 rounded"></span>
+                Standard Exposure Controls
+            </h2>
+            <div class="grid gap-4 md:grid-cols-2">
+                <div class="tool-card p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">Exposure Compensation</h3>
+                    <p class="text-sm text-gray-300">The primary slider for shifting the image brightness. It works in EV (Exposure Value) steps, simulating a change in camera exposure.</p>
+                </div>
+                <div class="tool-card p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">Black Level</h3>
+                    <p class="text-sm text-gray-300">Sets the black point of the image. Increasing this makes shadows deeper and darker, helping to remove "haze" or lift contrast at the bottom of the histogram.</p>
+                </div>
+                <div class="tool-card p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">Shadows & Highlights</h3>
+                    <p class="text-sm text-gray-300">Separate from the dedicated "Shadows/Highlights" tool, these sliders in the Exposure tool allow for quick recovery of clipped areas or lifting of dark zones.</p>
+                </div>
+                <div class="tool-card p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2">Saturation</h3>
+                    <p class="text-sm text-gray-300">A simple global adjustment for color intensity. Note that RawTherapee also offers Lab-based saturation in other panels for more natural results.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auto-Matched Tone Curve -->
+        <section class="mb-12 bg-blue-900/20 border border-blue-500/30 p-8 rounded-xl">
+            <h2 class="text-2xl font-semibold mb-4 text-blue-400">The Auto-Matched Tone Curve</h2>
+            <p class="mb-4 leading-relaxed">
+                Raw files are inherently "flat." Normally, a camera applies a proprietary tone curve to a JPEG to make it look pleasing. RawTherapee's <strong>Auto-Matched Tone Curve</strong> feature analyzes the embedded JPEG preview inside your Raw file (created by the camera) and attempts to match that look.
+            </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-2">
+                <li><span class="font-bold">Purpose:</span> Gives you a starting point that looks like the "camera-processed" image.</li>
+                <li><span class="font-bold">How it works:</span> It automatically adjusts the Tone Curves (usually Tone Curve 1) to replicate the contrast and brightness of the camera's default profile.</li>
+                <li><span class="font-bold">Manual Tweak:</span> Even after auto-matching, you can manually adjust the points on the curve to further refine the look.</li>
+            </ul>
+        </section>
+
+        <!-- Tone Curves -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-green-600 w-2 h-8 mr-3 rounded"></span>
+                Tone Curve 1 & 2
+            </h2>
+            <div class="space-y-6">
+                <div class="tool-card p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 accent-text">The Dual Curve Workflow</h3>
+                    <p class="text-gray-300 mb-4">RawTherapee provides two curves. You can use <span class="text-white font-mono">Tone Curve 1</span> for global contrast (like an S-curve) and <span class="text-white font-mono">Tone Curve 2</span> for fine-tuning specific regions, or vice versa.</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-black/30 p-3 rounded"><strong>Standard:</strong> Classic control points.</div>
+                        <div class="bg-black/30 p-3 rounded"><strong>Flexible:</strong> Uses splines for smoother transitions.</div>
+                        <div class="bg-black/30 p-3 rounded"><strong>Parametric:</strong> Controlled by sliders (Highlights, Lights, Darks, Shadows).</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlight Preservation -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center">
+                <span class="bg-red-600 w-2 h-8 mr-3 rounded"></span>
+                Preserving & Reconstructing Highlights
+            </h2>
+            <div class="tool-card p-6 rounded-lg mb-4">
+                <h3 class="font-bold text-lg mb-4">Highlight Reconstruction Methods</h3>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-gray-600 pl-4">
+                        <p class="font-semibold">Luminance Recovery</p>
+                        <p class="text-sm text-gray-400">Recovers details in clipped channels using luminance data from non-clipped channels. Best for subtle recovery.</p>
+                    </div>
+                    <div class="border-l-4 border-gray-600 pl-4">
+                        <p class="font-semibold">Color Propagation</p>
+                        <p class="text-sm text-gray-400">The most powerful method. It "bleeds" color from surrounding unclipped pixels into the clipped areas. Excellent for skies and skin.</p>
+                    </div>
+                    <div class="border-l-4 border-gray-600 pl-4">
+                        <p class="font-semibold">CIELab / Blend</p>
+                        <p class="text-sm text-gray-400">Blends clipped areas to a neutral white or attempts to guess the color based on Lab space logic.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-yellow-900/20 border border-yellow-700/50 rounded text-sm italic">
+                <strong>Pro Tip:</strong> Use the "Highlight Compression" slider in the Exposure tool to pull back "blown" highlights before they hit the tone curves.
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+            Generated Guide for RawTherapee 5.x Workflows
+        </footer>
+    </div>
+</body>
+</html>
