@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering the RawTherapee File Browser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .feature-card { transition: transform 0.2s; }
+        .feature-card:hover { transform: translateY(-4px); }
+        .pro-tip { border-left-width: 4px; border-color: #f59e0b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white py-12 px-6 shadow-lg">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold mb-4">RawTherapee File Browser</h1>
+            <p class="text-xl text-slate-300">The gateway to your raw workflow. Learn how to sort, filter, and batch process images with maximum efficiency.</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-12 px-6">
+        
+        <!-- Sorting and Filtering -->
+        <section class="mb-16">
+            <div class="flex items-center mb-6">
+                <div class="bg-blue-600 p-2 rounded-lg mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold">Sorting & Filtering</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm feature-card border border-slate-200">
+                    <h3 class="text-xl font-semibold mb-3">Ranking System</h3>
+                    <p class="text-slate-600">Use keys 0-5 to rank images and +/- to color code them. This is the fastest way to "cull" a photoshoot directly in the browser.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm feature-card border border-slate-200">
+                    <h3 class="text-xl font-semibold mb-3">Exif Filtering</h3>
+                    <p class="text-slate-600">The filter bar allows you to show only images taken with a specific lens, focal length, or ISO—perfect for analyzing your gear's performance.</p>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-amber-50 rounded-lg pro-tip">
+                <span class="font-bold text-amber-800 uppercase text-xs">Pro Tip:</span>
+                <p class="text-amber-900 italic text-sm">Right-click the filter button to "Invert Filter." This allows you to quickly find images that <strong>don't</strong> match your current selection criteria.</p>
+            </div>
+        </section>
+
+        <!-- The Inspect Tab -->
+        <section class="mb-16">
+            <div class="flex items-center mb-6">
+                <div class="bg-indigo-600 p-2 rounded-lg mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold">The Inspect Tab (Key: F)</h2>
+            </div>
+            <p class="mb-6 text-lg text-slate-700">Located on the right side of the File Browser, the Inspect tab lets you peek into an image without opening it in the Editor.</p>
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 font-bold mr-3">1.</span>
+                        <span><strong>Instant Focus Check:</strong> Hover your mouse over the thumbnail while the Inspect tab is open to see a 100% crop of that area.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 font-bold mr-3">2.</span>
+                        <span><strong>RAW Data:</strong> It shows the raw histogram, which is much more accurate for checking clipped highlights than the processed JPG preview.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-indigo-600 font-bold mr-3">3.</span>
+                        <span><strong>Metadata:</strong> Quickly view full EXIF data including camera serial numbers, shutter count, and specific lens settings.</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Batch Edit -->
+        <section class="mb-16">
+            <div class="flex items-center mb-6">
+                <div class="bg-emerald-600 p-2 rounded-lg mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold">Batch Edit</h2>
+            </div>
+            <div class="bg-slate-900 text-slate-100 p-8 rounded-xl">
+                <p class="mb-4">You don't need to open every photo to apply changes. Select multiple images in the browser and use the right-hand panel:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="text-emerald-400 font-semibold mb-1">Apply Profiles</h4>
+                        <p class="text-sm">Right-click > Processing Profile Operations > Apply. Sync dozens of photos to a "Standard" base profile in seconds.</p>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg">
+                        <h4 class="text-emerald-400 font-semibold mb-1">Copy/Paste State</h4>
+                        <p class="text-sm">Ctrl+C on one image, select the rest, and Ctrl+V to paste the specific editing "DNA" across your set.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fast Export -->
+        <section class="mb-16">
+            <div class="flex items-center mb-6">
+                <div class="bg-rose-600 p-2 rounded-lg mr-4">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold">Fast Export</h2>
+            </div>
+            <div class="bg-white p-6 rounded-xl border-2 border-rose-100">
+                <p class="text-lg text-slate-700 mb-4">The "Fast Export" shortcut allows you to bypass the Queue tab for immediate results.</p>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
+                        <span>Select images and click the <strong>Hard Drive icon</strong> (Save) at the bottom.</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
+                        <span>Define your output (JPG/TIFF) and location in the popup.</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
+                        <span><strong>Tip:</strong> If you use "Put to Queue," check the "Auto-start" box in the Queue tab to begin processing instantly.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-200 py-8 text-center text-slate-600 border-t border-slate-300">
+        <p>RawTherapee Workflow Guide &bull; Designed for Efficiency</p>
+    </footer>
+
+</body>
+</html>
