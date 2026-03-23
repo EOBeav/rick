@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee: Mastering the Transform Tab</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --sidebar-bg: #252525;
+            --accent-color: #ff9d00;
+            --text-main: #e0e0e0;
+            --text-dim: #b0b0b0;
+            --border-color: #333;
+            --header-bg: #000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 40px;
+            border-bottom: 2px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex-grow: 1;
+        }
+
+        aside {
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        aside h3 {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 12px;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            padding: 40px 60px;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #fff;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .tool-card {
+            background-color: #222;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .pro-tip {
+            background-color: rgba(255, 157, 0, 0.05);
+            border: 1px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .pro-tip::before {
+            content: "PRO TIP";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: var(--accent-color);
+            color: black;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .img-placeholder {
+            background-color: #333;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #444;
+            margin: 15px 0;
+            color: #777;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            aside { display: none; }
+            main { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>RawTherapee Lab</h1>
+    <div style="color: var(--text-dim); font-size: 0.9rem;">Transform Tab Mastery</div>
+</header>
+
+<div class="container">
+    <aside>
+        <h3>Tools</h3>
+        <nav>
+            <ul>
+                <li><a href="#crop">Crop Tool</a></li>
+                <li><a href="#resize">Resize & Sharpening</a></li>
+                <li><a href="#lens-geometry">Lens Geometry</a></li>
+                <li><a href="#perspective">Perspective Control</a></li>
+                <li><a href="#rotation">Rotation & Fill</a></li>
+            </ul>
+        </nav>
+        
+        <h3 style="margin-top: 40px;">Deep Dives</h3>
+        <nav>
+            <ul>
+                <li><a href="#workflow">Order of Operations</a></li>
+                <li><a href="#interpolation">Interpolation Methods</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="intro">
+            <h2>The Geometry of Light</h2>
+            <p>The <strong>Transform Tab</strong> (indicated by the set square icon) is where you define the physical boundaries and structural integrity of your image. While the Exposure and Color tabs deal with light and pigment, the Transform tab deals with pixels, perspective, and optics.</p>
+        </section>
+
+        <section id="crop">
+            <h2>1. Crop Tool</h2>
+            <div class="tool-card">
+                <p>The Crop tool allows you to remove distracting edges and redefine your composition. Unlike many editors, RawTherapee allows you to see the "cropped-out" pixels by default, which can be toggled in the top toolbar.</p>
+                <ul>
+                    <li><strong>Aspect Ratio:</strong> Lock to original, custom, or standard print sizes.</li>
+                    <li><strong>Guides:</strong> Use Rule of Thirds, Golden Ratio, or Harmony to aid composition.</li>
+                </ul>
+            </div>
+            
+            <div class="pro-tip">
+                <strong>Clean Visualization:</strong> If you find the dotted crop box distracting, go to <em>Preferences > Image Processing</em> and set "Crop editing guides shown when not editing" to <strong>None</strong>. Also, use the black/gray/white icons in the top toolbar to "black out" the area you're cutting away for a cleaner preview.
+            </div>
+        </section>
+
+        <section id="resize">
+            <h2>2. Resize</h2>
+            <div class="tool-card">
+                <p>This is crucial for web export. If you want your final image to be smaller than the raw sensor data, you must enable this module.</p>
+                <ul>
+                    <li><strong>Scale:</strong> Resize by percentage or fixed pixel dimensions.</li>
+                    <li><strong>Post-Resize Sharpening:</strong> Essential for maintaining crispness after downsampling.</li>
+                </ul>
+            </div>
+
+            <div class="pro-tip">
+                <strong>The Secret to Sharp Exports:</strong> Never rely on global sharpening alone for web images. Downscaling inherently softens pixels. Always enable <strong>Post-Resize Sharpening</strong> within the Resize module to re-introduce definition to the new, smaller pixel grid.
+            </div>
+        </section>
+
+        <section id="lens-geometry">
+            <h2>3. Lens Geometry & Profile Correction</h2>
+            <p>Most modern lenses have inherent distortion (barrel or pincushion). This module fixes that automatically using LCP profiles or manually via sliders.</p>
+            <div class="tool-card">
+                <h3>Vignetting Correction</h3>
+                <p>Removes the dark corners caused by lens optics. You can use the "Automatic" setting if an LCP profile is loaded, or adjust the strength and midpoint manually.</p>
+            </div>
+        </section>
+
+        <section id="perspective">
+            <h2>4. Perspective Control</h2>
+            <p>Crucial for architectural and street photography. Use this to straighten "leaning" buildings or correct a tilted horizon.</p>
+            <ul>
+                <li><strong>Vertical/Horizontal:</strong> Correct keystoning.</li>
+                <li><strong>Auto-Crop:</strong> Automatically zooms the image to fill the frame after a perspective shift so you don't see empty "black wedges."</li>
+            </ul>
+
+            <div class="pro-tip">
+                <strong>Keep it Natural:</strong> When correcting vertical perspective (e.g., tall buildings), try not to go to a perfect 90-degree parallel. Leaving a slight 2-3% "lean" often looks more natural to the human eye than a mathematically perfect correction.
+            </div>
+        </section>
+
+        <section id="rotation">
+            <h2>5. Rotation & Auto-Fill</h2>
+            <div class="tool-card">
+                <p>The most precise way to level a horizon is the "Select Straight Line" button. Click it, drag a line along your horizon, and RawTherapee does the rest.</p>
+            </div>
+        </section>
+
+        <section id="workflow" style="border-top: 1px solid var(--border-color); padding-top: 40px;">
+            <h2>Pro Workflow: The Golden Rule</h2>
+            <p><strong>Transform First, Polish Later:</strong> Always perform your Crops, Rotations, and Lens Corrections <em>before</em> fine-tuning your Sharpening or Noise Reduction. Large geometrical shifts can slightly alter the appearance of fine noise and detail; seeing the final "shape" of your image first ensures you aren't sharpening pixels you plan to cut away later.</p>
+        </section>
+    </main>
+</div>
+
+<footer>
+    &copy; 2024 RawTherapee Educational Template. "Transform your vision, one pixel at a time."
+</footer>
+
+</body>
+</html>
