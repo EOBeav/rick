@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee: HaldCLut & Film Simulation Guide</title>
+    <style>
+        /* Based on the aesthetic of rickscheibner.com */
+        :root {
+            --bg-color: #1a1a1a;
+            --sidebar-bg: #252525;
+            --accent-color: #ff9d00;
+            --text-main: #e0e0e0;
+            --text-dim: #b0b0b0;
+            --border-color: #333;
+            --header-bg: #000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Layout */
+        header {
+            background-color: var(--header-bg);
+            padding: 20px 40px;
+            border-bottom: 2px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            flex-grow: 1;
+        }
+
+        /* Sidebar */
+        aside {
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        aside h3 {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            margin-bottom: 12px;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 60px;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .img-placeholder {
+            background-color: #333;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #444;
+            margin: 20px 0;
+            color: #777;
+            font-style: italic;
+            border-radius: 4px;
+        }
+
+        .pro-tip {
+            background-color: rgba(255, 157, 0, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .pro-tip::before {
+            content: "PRO TIP";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background-color: var(--accent-color);
+            color: black;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        code {
+            background-color: #000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffca7a;
+        }
+
+        footer {
+            background-color: var(--header-bg);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                display: none;
+            }
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>RawTherapee Lab</h1>
+    <div style="color: var(--text-dim); font-size: 0.9rem;">Digital Darkroom Techniques</div>
+</header>
+
+<div class="container">
+    <aside>
+        <h3>Navigation</h3>
+        <nav>
+            <ul>
+                <li><a href="#what-is-haldclut">What is HaldCLut?</a></li>
+                <li><a href="#how-to-use">Setup & Usage</a></li>
+                <li><a href="#film-simulations">Film Simulations</a></li>
+                <li><a href="#pro-tips">Pro Tips</a></li>
+                <li><a href="#advanced">Advanced Control</a></li>
+            </ul>
+        </nav>
+        
+        <h3 style="margin-top: 40px;">Resources</h3>
+        <nav>
+            <ul>
+                <li><a href="https://rawpedia.rawtherapee.com/Film_Simulation" target="_blank">RawPedia: Film Sim</a></li>
+                <li><a href="https://github.com/Beep6581/HaldCLUT" target="_blank">Free HaldCLut Pack</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section id="what-is-haldclut">
+            <h2>The Power of HaldCLut</h2>
+            <p>HaldCLut is a specialized technology used in RawTherapee to apply complex color transformations. Unlike a simple slider that changes "Saturation" or "Contrast" globally, a HaldCLut (Color Look-Up Table) tells the software: <em>"Whenever you see this specific shade of blue, turn it into this specific shade of teal."</em></p>
+            <p>This allows for precise <strong>Film Simulations</strong>—emulating the exact color response, grain characteristics, and tonality of classic stocks like Kodak Portra 400 or Fuji Velvia.</p>
+            
+            <div class="img-placeholder">
+                [Visual Comparison: Raw Image vs. Kodak Portra Simulation]
+            </div>
+        </section>
+
+        <section id="how-to-use">
+            <h2>Setting Up the Library</h2>
+            <p>To use HaldCLuts in RawTherapee, you first need a library of .png CLut files. You don't apply them one by one; you point the software to a folder.</p>
+            <ol>
+                <li>Open <strong>Preferences</strong> (the cog icon at the bottom left).</li>
+                <li>Go to the <strong>Image Processing</strong> tab.</li>
+                <li>Under <strong>Film Simulation</strong>, locate the <strong>HaldCLUT directory</strong> field.</li>
+                <li>Select the folder where you have stored your <code>.png</code> LUT files.</li>
+            </ol>
+            <p>Once set, navigate to the <strong>Color Tab</strong> (the palette icon) in the editor, expand <strong>Film Simulation</strong>, and you will see your entire library in the dropdown menu.</p>
+            
+            <div class="pro-tip">
+                RawTherapee treats the directory recursively. You can organize your LUTs into subfolders like "B&W", "Vintage", and "Cinematic", and they will appear neatly categorized in the dropdown menu.
+            </div>
+        </section>
+
+        <section id="film-simulations">
+            <h2>Why Use HaldCLut Over Presets?</h2>
+            <p>Presets (<code>.pp3</code> files) simply move existing sliders. If a preset moves "Exposure" to +1.0, you've lost that room for adjustment. HaldCLuts are <strong>Internal Transformations</strong>. They happen within the processing pipeline, leaving all your sliders at zero so you can still tweak the image on top of the simulation.</p>
+        </section>
+
+        <section id="pro-tips">
+            <h2>Pro Tips for Professional Results</h2>
+            
+            <h3>1. The "Amount" Slider is Your Best Friend</h3>
+            <p>Most Film Simulations are designed for perfectly exposed images. If the effect feels too heavy, don't delete it—use the <strong>Strength</strong> slider. Setting it to 50-70% often yields a more "modern-pro" look than 100%.</p>
+
+            <h3>2. Fix the Gamma First</h3>
+            <p>Many CLuts are designed for a linear workspace. If your image looks "washed out" or "crushed" after applying a LUT, try changing the <strong>Input Profile</strong> under the Color Management tab, or adjust the <strong>Gamma</strong> slider within the Film Simulation tool itself.</p>
+
+            <h3>3. Use the L*a*b* Adjustments in Tandem</h3>
+            <p>HaldCLuts handle the "color recipe," but for the "pop," nothing beats the L*a*b* panel. Apply your LUT first, then go to the <strong>Exposure Tab > L*a*b* Adjustments</strong> to fine-tune the Chromaticity (saturation) and Lightness curves.</p>
+            
+            <div class="img-placeholder">
+                [Screenshot: L*a*b* Curves boosting a Film Simulation]
+            </div>
+        </section>
+
+        <section id="advanced">
+            <h2>The Technical Edge</h2>
+            <p>RawTherapee supports high-precision HaldCLuts. Standard 8-bit LUTs can cause "banding" or "posterization" in smooth gradients like skies. Always look for <strong>Level 12</strong> or <strong>Level 16</strong> HaldCLuts for the highest fidelity. These files are larger, but they ensure your 16-bit raw data isn't degraded during the color shift.</p>
+        </section>
+    </main>
+</div>
+
+<footer>
+    &copy; 2024 RawTherapee Educational Template. Based on the design language of Rick Scheibner.
+</footer>
+
+</body>
+</html>
