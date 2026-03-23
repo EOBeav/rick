@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RawTherapee: The Color Tab Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --rt-dark: #1a1a1a;
+            --rt-panel: #2d2d2d;
+            --rt-accent: #4a9eff;
+            --rt-text: #e0e0e0;
+            --rt-muted: #a0a0a0;
+            --rt-tip-bg: #1e293b;
+            --rt-tip-border: #3b82f6;
+        }
+
+        body {
+            background-color: var(--rt-dark);
+            color: var(--rt-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .header-gradient {
+            background: linear-gradient(180deg, #333 0%, #1a1a1a 100%);
+            border-bottom: 1px solid #444;
+        }
+
+        .tool-card {
+            background-color: var(--rt-panel);
+            border: 1px solid #3d3d3d;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+
+        .tool-card:hover {
+            border-color: var(--rt-accent);
+        }
+
+        .pro-tip {
+            background-color: var(--rt-tip-bg);
+            border-left: 4px solid var(--rt-tip-border);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .nav-link {
+            color: var(--rt-muted);
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--rt-accent);
+        }
+
+        .icon-circle {
+            background: #3d3d3d;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            color: var(--rt-accent);
+        }
+
+        code {
+            background: #000;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="header-gradient sticky top-0 z-50 py-4 px-6 mb-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-palette text-2xl text-blue-400"></i>
+                <h1 class="text-xl font-bold tracking-tight">RawTherapee <span class="text-blue-400 font-light">Color Master</span></h1>
+            </div>
+            <nav class="hidden md:flex gap-8 text-sm font-medium">
+                <a href="#whitebalance" class="nav-link">White Balance</a>
+                <a href="#vibrance" class="nav-link">Vibrance</a>
+                <a href="#toning" class="nav-link">Color Toning</a>
+                <a href="#local" class="nav-link">Local Adjustments</a>
+            </nav>
+            <button class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm transition shadow-lg">
+                Download RT 5.12
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-4 gap-12">
+        
+        <!-- Left Sidebar Navigation -->
+        <aside class="hidden lg:block">
+            <div class="sidebar">
+                <h3 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4">The Color Pipeline</h3>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#whitebalance" class="block p-2 hover:bg-gray-800 rounded transition border-l-2 border-transparent hover:border-blue-500">1. White Balance</a></li>
+                    <li><a href="#vibrance" class="block p-2 hover:bg-gray-800 rounded transition border-l-2 border-transparent hover:border-blue-500">2. Vibrance & Saturation</a></li>
+                    <li><a href="#toning" class="block p-2 hover:bg-gray-800 rounded transition border-l-2 border-transparent hover:border-blue-500">3. Color Toning</a></li>
+                    <li><a href="#regions" class="block p-2 hover:bg-gray-800 rounded transition border-l-2 border-transparent hover:border-blue-500">4. Color Correction Regions</a></li>
+                    <li><a href="#local" class="block p-2 hover:bg-gray-800 rounded transition border-l-2 border-transparent hover:border-blue-500">5. Local Adjustments</a></li>
+                </ul>
+                
+                <div class="mt-8 p-4 bg-gray-800 rounded-lg border border-gray-700">
+                    <p class="text-xs text-gray-400 italic">"Separating luminosity from color is the key to professional editing."</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="lg:col-span-3 space-y-16 pb-20">
+            
+            <!-- Introduction -->
+            <section id="intro">
+                <h2 class="text-4xl font-bold mb-4">Mastering the Color Tab</h2>
+                <p class="text-xl text-gray-400">The Color tab in RawTherapee is where the soul of your image is refined. It provides professional-grade tools to correct color casts, enhance mood, and isolate specific hues with surgical precision.</p>
+            </section>
+
+            <!-- White Balance Section -->
+            <section id="whitebalance" class="scroll-mt-24">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="icon-circle"><i class="fa-solid fa-temperature-high"></i></div>
+                    <h3 class="text-2xl font-bold">White Balance</h3>
+                </div>
+                <div class="tool-card p-6 mb-6">
+                    <p class="mb-4 text-gray-300">The first step in any color workflow. This tool tells RawTherapee what "neutral white" looks like in your specific lighting conditions.</p>
+                    <ul class="list-disc ml-6 space-y-2 text-gray-400">
+                        <li><strong>Method:</strong> Choose from Camera, Auto, or Manual presets (Daylight, Cloudy, etc.).</li>
+                        <li><strong>Temperature:</strong> Adjust the Blue-Yellow axis (Kelvin).</li>
+                        <li><strong>Tint:</strong> Fine-tune the Green-Magenta axis.</li>
+                    </ul>
+                </div>
+                <div class="pro-tip">
+                    <div class="flex items-center gap-2 mb-2 text-blue-400">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span class="font-bold uppercase tracking-wider text-sm">Pro Tip</span>
+                    </div>
+                    <p>Use the <strong>Spot White Balance</strong> (pipette tool) and click on a neutrally gray area of your image. For absolute precision, if you are in a difficult lighting situation, right-click the picker to adjust the sample area size (e.g., 16x16) to average out noise.</p>
+                </div>
+            </section>
+
+            <!-- Vibrance Section -->
+            <section id="vibrance" class="scroll-mt-24">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="icon-circle"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3 class="text-2xl font-bold">Vibrance & Saturation</h3>
+                </div>
+                <div class="tool-card p-6">
+                    <p class="text-gray-300 mb-4">While Saturation affects every pixel equally, <strong>Vibrance</strong> is "smart" saturation. It boosts muted colors more than already vibrant ones and includes built-in protection for skin tones.</p>
+                    <div class="bg-black/30 p-4 rounded border border-gray-700">
+                        <p class="text-sm italic text-gray-400">Note: High Saturation settings can lead to "spray tan" effects on skin. Always prefer Vibrance for portraits.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Color Toning Section -->
+            <section id="toning" class="scroll-mt-24">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="icon-circle"><i class="fa-solid fa-sliders"></i></div>
+                    <h3 class="text-2xl font-bold">Color Toning</h3>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="tool-card p-6">
+                        <h4 class="font-bold text-blue-400 mb-2">Split Toning</h4>
+                        <p class="text-sm text-gray-400">Apply one color to the highlights and another to the shadows. Classic for the "Orange and Teal" cinematic look.</p>
+                    </div>
+                    <div class="tool-card p-6">
+                        <h4 class="font-bold text-blue-400 mb-2">Masking Tool</h4>
+                        <p class="text-sm text-gray-400">Exclusive to RT 5.10+, use Hue, Chroma, or Luminance masks to restrict color toning to specific brightness levels.</p>
+                    </div>
+                </div>
+                <div class="pro-tip bg-gray-900 border-gray-600 border-l-4">
+                    <div class="flex items-center gap-2 mb-2 text-gray-400">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span class="font-bold uppercase tracking-wider text-sm">Workflow Strategy</span>
+                    </div>
+                    <p>When using Color Toning, always check the <strong>Method</strong> dropdown. Methods like "L*a*b* Blend" allow you to add color without destroying the natural luminosity of the scene.</p>
+                </div>
+            </section>
+
+            <!-- Local Adjustments Section -->
+            <section id="local" class="scroll-mt-24">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="icon-circle"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="text-2xl font-bold">Local Adjustments (The Power Tool)</h3>
+                </div>
+                <div class="tool-card p-8">
+                    <p class="text-gray-300 mb-6">Local Adjustments in RawTherapee 5.10 are arguably the most powerful feature in the software. They function like "layers" in Photoshop but are based on <strong>DeltaE</strong>—a mathematical difference in color and light.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="text-blue-500 font-mono text-xl">01</div>
+                            <div>
+                                <h4 class="font-bold">Add a Spot</h4>
+                                <p class="text-sm text-gray-400">Place a center point on the color you want to target (e.g., an eye or a leaf).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-blue-500 font-mono text-xl">02</div>
+                            <div>
+                                <h4 class="font-bold">Scope Selection</h4>
+                                <p class="text-sm text-gray-400">The "Scope" slider determines how similar a color must be to the center point to be included in the mask.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="text-blue-500 font-mono text-xl">03</div>
+                            <div>
+                                <h4 class="font-bold">Add Tool to Spot</h4>
+                                <p class="text-sm text-gray-400">Select "Color & Light" or "Tone Equalizer" to apply changes only to that specific region.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="flex items-center gap-2 mb-2 text-blue-400">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="font-bold uppercase tracking-wider text-sm">The "Magic Pop" Secret</span>
+                    </div>
+                    <p>To make a subject truly "pop," add a Local Adjustment spot to your subject, increase <strong>Chromaticity</strong> (in the L*a*b* adjustments panel), and slightly lift the <strong>Lightness</strong>. This creates separation without the "halo" artifacts often found in other software.</p>
+                </div>
+            </section>
+
+            <!-- Conclusion/CTA -->
+            <section class="border-t border-gray-800 pt-12 text-center">
+                <h3 class="text-2xl font-bold mb-4">Ready to start processing?</h3>
+                <p class="text-gray-400 mb-8">RawTherapee is a complex beast, but the Color tab is where the magic happens. Experiment with the L*a*b* adjustments for the most natural-looking results.</p>
+                <div class="flex justify-center gap-4">
+                    <a href="#" class="px-6 py-3 bg-white text-black font-bold rounded hover:bg-gray-200 transition">View Official Documentation</a>
+                    <a href="#" class="px-6 py-3 border border-gray-600 rounded hover:border-white transition">Back to Top</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-black py-12 px-6 mt-20 border-t border-gray-900 text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <p>&copy; 2024 RawTherapee Learning Center. Inspired by the Scheibner Template.</p>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition">Terms of Service</a>
+                <a href="#" class="hover:text-white transition">Community Forum</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple visibility observer for sidebar highlighting
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = document.querySelector(`.sidebar a[href="#${id}"]`);
+                if (entry.isIntersecting) {
+                    navLink?.classList.add('bg-gray-800', 'border-blue-500', 'text-white');
+                } else {
+                    navLink?.classList.remove('bg-gray-800', 'border-blue-500', 'text-white');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
