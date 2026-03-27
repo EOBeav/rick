@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietary Wellness Blueprint - Patient Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #ffffff;
+            --dark-navy: #00171f;
+            --deep-blue: #003459;
+            --cerulean: #007ea7;
+            --sky-blue: #00a8e8;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f9;
+            color: var(--dark-navy);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--dark-navy);
+            color: var(--white);
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid var(--sky-blue);
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .intro-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--cerulean);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            height: 100%;
+        }
+
+        .card-header {
+            padding: 1.2rem;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .include-header { background-color: var(--cerulean); }
+        .avoid-header { background-color: var(--deep-blue); }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .food-title {
+            font-weight: 700;
+            display: block;
+            color: var(--deep-blue);
+            margin-bottom: 0.25rem;
+        }
+
+        .food-desc {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .example-tag {
+            display: inline-block;
+            background: #e1f5fe;
+            color: var(--cerulean);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .hydration-bar {
+            background: linear-gradient(90deg, var(--cerulean), var(--sky-blue));
+            color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .hydration-bar h2 { margin: 0; font-size: 1.5rem; }
+        .hydration-bar p { margin: 0.5rem 0 0 0; }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        .disclaimer {
+            font-style: italic;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Dietary Wellness Blueprint</h1>
+    <p>Personalized Nutritional Guidance for Renal and Metabolic Health</p>
+</header>
+
+<div class="container">
+    <div class="intro-card">
+        <h2 style="color: var(--deep-blue); margin-top: 0;">Clinical Summary</h2>
+        <p>This plan is designed to manage <strong>high blood pressure</strong>, support <strong>liver health (fatty infiltration)</strong>, and prevent the recurrence of <strong>kidney stones</strong> while addressing weight management (BMI 35.3).</p>
+    </div>
+
+    <div class="section-grid">
+        <!-- INCLUSION SECTION -->
+        <div class="card">
+            <div class="card-header include-header">
+                <span>✓</span> Foods to Include
+            </div>
+            <div class="card-content">
+                <ul>
+                    <li>
+                        <span class="food-title">Citrate-Rich Fruits</span>
+                        <span class="food-desc">Citrate helps prevent calcium from binding with other substances to form kidney stones.</span>
+                        <div class="example-tag">Lemonade, fresh lemons, oranges, melons</div>
+                    </li>
+                    <li>
+                        <span class="food-title">High-Phytate Whole Grains</span>
+                        <span class="food-desc">Phytates can help reduce the crystallization of minerals in the urine.</span>
+                        <div class="example-tag">Wheat, rice, beans, barley</div>
+                    </li>
+                    <li>
+                        <span class="food-title">Plant-Based Fibers</span>
+                        <span class="food-desc">High fiber intake supports weight management and improves liver health.</span>
+                        <div class="example-tag">Legumes, lentils, leafy greens, broccoli</div>
+                    </li>
+                    <li>
+                        <span class="food-title">Calcium-Rich Pairings</span>
+                        <span class="food-desc">Eating calcium with oxalate-rich meals helps minerals bind in the stomach instead of the kidneys.</span>
+                        <div class="example-tag">Low-fat yogurt, skim milk (consumed with meals)</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AVOIDANCE SECTION -->
+        <div class="card">
+            <div class="card-header avoid-header">
+                <span>✕</span> Foods to Avoid
+            </div>
+            <div class="card-content">
+                <ul>
+                    <li>
+                        <span class="food-title">High-Sodium (Salt) Products</span>
+                        <span class="food-desc">Sodium forces kidneys to excrete more calcium, increasing stone risk and raising blood pressure.</span>
+                        <div class="example-tag">Canned soups, deli meats, fast food, table salt</div>
+                    </li>
+                    <li>
+                        <span class="food-title">Excessive Animal Proteins</span>
+                        <span class="food-desc">Can increase uric acid levels and decrease citrate in urine, promoting stone formation.</span>
+                        <div class="example-tag">Red meat, shellfish, organ meats</div>
+                    </li>
+                    <li>
+                        <span class="food-title">Refined Sugars & Fructose</span>
+                        <span class="food-desc">Fructose increases stone-forming chemicals and worsens fatty liver conditions.</span>
+                        <div class="example-tag">Soft drinks, candy, high-fructose corn syrup</div>
+                    </li>
+                    <li>
+                        <span class="food-title">Saturated Fats</span>
+                        <span class="food-desc">Reducing these supports gallbladder health and manages cholesterol.</span>
+                        <div class="example-tag">Fried foods, butter, full-fat dairy, lard</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="hydration-bar">
+        <h2>Primary Goal: Critical Hydration</h2>
+        <p>Drink at least <strong>12 eight-ounce glasses</strong> (approx. 3 liters) of fluid daily, prioritizing water, to keep urine diluted.</p>
+    </div>
+
+    <footer>
+        <p class="disclaimer">Note: Sodium intake should be restricted to no more than 2,000 mg (1 teaspoon) per day. If using Vitamin C supplements, keep dosage under 1,000 mg daily.</p>
+        <p>© 2026 Renal & Metabolic Wellness Care Team. Consult with a registered dietitian for a specific meal plan.</p>
+    </footer>
+</div>
+
+</body>
+</html>
