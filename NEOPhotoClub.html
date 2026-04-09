@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NE Oregon Photo Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .photo-placeholder {
+            background-color: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            min-height: 300px;
+        }
+
+        .photo-placeholder:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-camera text-blue-600 text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">NE Oregon Photo Club</span>
+                </div>
+                <div class="hidden md:flex space-x-8 font-medium text-sm text-gray-600">
+                    <a href="#about" class="hover:text-blue-600 transition">About</a>
+                    <a href="#gallery" class="hover:text-blue-600 transition">Gallery</a>
+                    <a href="#events" class="hover:text-blue-600 transition">Events</a>
+                    <a href="#join" class="hover:text-blue-600 transition">Join Us</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-gradient h-screen flex items-center justify-center text-center text-white px-4">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Capturing the Beauty of the Blue Mountains</h1>
+            <p class="text-xl md:text-2xl mb-8 font-light text-gray-200">A community of photographers in North Eastern Oregon dedicated to the art of light and landscape.</p>
+            <a href="#gallery" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all transform hover:scale-105">View Our Work</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">Explore, Learn, and Create</h2>
+                    <p class="text-gray-600 text-lg mb-4">
+                        Founded in the heart of NE Oregon, our club brings together photographers of all skill levels—from smartphone enthusiasts to seasoned professionals. We focus on celebrating the unique rugged beauty of our region.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Monthly workshops and critiques</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Field trips to the Wallowas and beyond</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-green-500"></i> Annual community exhibitions</li>
+                    </ul>
+                </div>
+                <!-- Placeholder for an "About Us" Image -->
+                <div class="photo-placeholder rounded-2xl">
+                    <div class="text-center p-6">
+                        <i class="fas fa-image text-gray-400 text-4xl mb-2"></i>
+                        <p class="text-gray-500 text-sm font-mono">CODE YOUR "ABOUT" PHOTO HERE<br>&lt;img src="..." class="rounded-2xl"&gt;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Featured Member Gallery</h2>
+            <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Recent captures from our latest excursions into the Oregon wilderness.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PHOTO SLOT 1 -->
+                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-gray-200">
+                    <div class="photo-placeholder h-64">
+                        <div class="text-center">
+                            <i class="fas fa-image text-gray-300 text-3xl mb-2"></i>
+                            <p class="text-gray-400 text-xs font-mono">PHOTO SLOT 1</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="font-semibold text-gray-800">Summer in the Wallowas</h3>
+                        <p class="text-sm text-gray-500">By Member Name</p>
+                    </div>
+                </div>
+
+                <!-- PHOTO SLOT 2 -->
+                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-gray-200">
+                    <div class="photo-placeholder h-64">
+                        <div class="text-center">
+                            <i class="fas fa-image text-gray-300 text-3xl mb-2"></i>
+                            <p class="text-gray-400 text-xs font-mono">PHOTO SLOT 2</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="font-semibold text-gray-800">Umatilla Morning Mist</h3>
+                        <p class="text-sm text-gray-500">By Member Name</p>
+                    </div>
+                </div>
+
+                <!-- PHOTO SLOT 3 -->
+                <div class="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-gray-200">
+                    <div class="photo-placeholder h-64">
+                        <div class="text-center">
+                            <i class="fas fa-image text-gray-300 text-3xl mb-2"></i>
+                            <p class="text-gray-400 text-xs font-mono">PHOTO SLOT 3</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-left">
+                        <h3 class="font-semibold text-gray-800">High Desert Sunset</h3>
+                        <p class="text-sm text-gray-500">By Member Name</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-10 text-center">Upcoming Events</h2>
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <div class="flex items-center p-6 border border-gray-100 rounded-xl hover:shadow-md transition bg-gray-50">
+                    <div class="text-center pr-6 border-r border-gray-200">
+                        <span class="block text-2xl font-bold text-blue-600">15</span>
+                        <span class="text-xs uppercase font-semibold text-gray-500">MAY</span>
+                    </div>
+                    <div class="pl-6">
+                        <h4 class="font-bold text-lg">Golden Hour Field Trip</h4>
+                        <p class="text-gray-600">Location: Pendleton River Parkway • 6:30 PM</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-6 border border-gray-100 rounded-xl hover:shadow-md transition bg-gray-50">
+                    <div class="text-center pr-6 border-r border-gray-200">
+                        <span class="block text-2xl font-bold text-blue-600">02</span>
+                        <span class="text-xs uppercase font-semibold text-gray-500">JUN</span>
+                    </div>
+                    <div class="pl-6">
+                        <h4 class="font-bold text-lg">Monthly Critique & Coffee</h4>
+                        <p class="text-gray-600">Location: Local Library Annex • 10:00 AM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Join -->
+    <section id="join" class="py-20 bg-blue-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Join Us?</h2>
+            <p class="text-blue-200 mb-10 max-w-xl mx-auto text-lg">Membership is open to everyone. Whether you're just starting or you've been shooting for decades, we'd love to see your perspective.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button class="bg-white text-blue-900 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition">Contact Coordinator</button>
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-500 transition border border-blue-400">Join Mailing List</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-white border-t border-gray-200 text-center text-gray-500 text-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>&copy; 2024 NE Oregon Photo Club. Dedicated to the light of the East.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
