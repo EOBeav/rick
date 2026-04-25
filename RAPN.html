@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Recovery Guide | Rick Scheibner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .status-badge { @apply px-3 py-1 rounded-full text-xs font-semibold; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800">Your Recovery Guide</h1>
+                    <p class="text-sm text-slate-500 font-medium">Rick Scheibner • Hospital Stay Summary</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <span class="status-badge bg-emerald-100 text-emerald-700">Heading Home: 04/23/2026</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8">
+        
+        <!-- Plain Language Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Hospital Stay</h3>
+                <p class="text-3xl font-black text-slate-800">3 Days</p>
+                <p class="text-sm text-slate-500 mt-1 italic">Everything went smoothly</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">The Procedure</h3>
+                <p class="text-lg font-bold text-blue-600">Robot-Assisted Surgery</p>
+                <p class="text-sm text-slate-500 mt-1">Partial kidney removal</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Current Status</h3>
+                <p class="text-2xl font-bold text-emerald-600">Doing Great</p>
+                <p class="text-sm text-slate-500 mt-1">Walking & eating well</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column: Story of Your Stay -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <h2 class="text-2xl font-bold text-slate-800 px-1">Your Hospital Journey</h2>
+
+                <!-- Day 1 -->
+                <div class="relative pl-8 pb-8 border-l-2 border-blue-100 last:border-0 ml-4">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">1</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-3">April 21: Surgery Day</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            Doctors used a robotic system to carefully remove the growth on your left kidney while keeping as much of the healthy kidney as possible. 
+                        </p>
+                        <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 space-y-2">
+                            <p class="text-sm font-semibold text-blue-800 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                Success Highlights:
+                            </p>
+                            <ul class="text-xs text-blue-700 space-y-1 ml-6 list-disc">
+                                <li>The growth was completely removed.</li>
+                                <li>The kidney's blood supply was only paused for 26 minutes.</li>
+                                <li>Very little blood was lost (about 1 cup).</li>
+                                <li>No complications occurred during the operation.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="relative pl-8 pb-8 border-l-2 border-blue-100 last:border-0 ml-4">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold shadow-lg">2</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-3">April 22: Resting & Recovering</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            You spent the day resting. Your vital signs (blood pressure and heart rate) were excellent. You were alert, chatting with the staff, and not in any major pain. Your stomach was slightly sore, which is normal, but not swollen.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="relative pl-8 last:border-0 ml-4">
+                    <div class="absolute -left-[17px] top-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold shadow-lg">3</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-lg mb-3">April 23: Ready for Home</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            You hit all the goals needed to go home safely!
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="text-emerald-500 font-bold text-lg">✓</div>
+                                <p class="text-xs font-medium text-slate-700">Walking around by yourself</p>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="text-emerald-500 font-bold text-lg">✓</div>
+                                <p class="text-xs font-medium text-slate-700">Using the bathroom normally</p>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="text-emerald-500 font-bold text-lg">✓</div>
+                                <p class="text-xs font-medium text-slate-700">Pain managed by pills</p>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="text-emerald-500 font-bold text-lg">✓</div>
+                                <p class="text-xs font-medium text-slate-700">Eating and drinking well</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Instructions -->
+            <div class="space-y-6">
+                
+                <!-- Follow Up -->
+                <div class="bg-slate-800 text-white rounded-2xl p-6 shadow-xl border border-slate-700">
+                    <h3 class="font-bold mb-4 flex items-center gap-2 text-emerald-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Your Next Visits
+                    </h3>
+                    <div class="space-y-5">
+                        <div class="relative pl-4 border-l-2 border-emerald-500">
+                            <p class="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">Main Doctor (PCP)</p>
+                            <p class="font-bold text-sm">Follow-up Check-in</p>
+                            <p class="text-xs text-slate-300 mt-1">1:40 PM Today (04/23)</p>
+                        </div>
+                        <div class="relative pl-4 border-l-2 border-slate-500">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Kidney Specialist (Urology)</p>
+                            <p class="font-bold text-sm">Dr. Burt's Office</p>
+                            <p class="text-xs text-slate-300 mt-1">Check scheduled appointments</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medicine Schedule -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                    <h3 class="font-black text-xs text-slate-400 uppercase tracking-widest mb-5">Medicines to Take</h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-rose-50 rounded-xl border border-rose-100">
+                            <p class="text-sm font-bold text-rose-900">Strong Pain Relief (Norco)</p>
+                            <p class="text-[11px] text-rose-700 mt-1 leading-snug">Take 1 to 2 pills every 4-6 hours, only if your pain is severe.</p>
+                        </div>
+                        <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <p class="text-sm font-bold text-blue-900">Tylenol</p>
+                            <p class="text-[11px] text-blue-700 mt-1 leading-snug">Every 4 hours as needed for mild pain. Do not exceed 4,000mg a day.</p>
+                        </div>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-100">
+                            <p class="text-sm font-bold text-amber-900">Senokot (Stool Softener)</p>
+                            <p class="text-[11px] text-amber-700 mt-1 leading-snug">Take twice daily. Pain meds can cause constipation, so this helps keep things moving.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                            <p class="text-sm font-bold text-slate-500">Verapamil</p>
+                            <p class="text-[11px] text-slate-400 mt-1 leading-snug">Keep taking your normal blood pressure pill every night.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Signs -->
+                <div class="bg-red-600 text-white rounded-2xl p-6 shadow-lg">
+                    <h3 class="font-bold mb-3 text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        Red Flags: Call Us If...
+                    </h3>
+                    <ul class="text-[11px] space-y-2 opacity-90 font-medium">
+                        <li class="flex items-start gap-2"><span>•</span> You have a fever over 101.5°F</li>
+                        <li class="flex items-start gap-2"><span>•</span> You keep throwing up</li>
+                        <li class="flex items-start gap-2"><span>•</span> You can't pee at all</li>
+                        <li class="flex items-start gap-2"><span>•</span> Incisions start bleeding heavily</li>
+                        <li class="flex items-start gap-2"><span>•</span> Pain gets worse and pills don't help</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-4 py-12 text-center text-slate-400 text-xs">
+        <p>This guide is for informational purposes for Rick Scheibner. <br> Always follow your doctor's specific verbal instructions.</p>
+    </footer>
+
+</body>
+</html>
