@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Flight Itinerary | EF Go Ahead Tours</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0C2340',      // Premium deep navy
+                            blue: '#1D4ED8',      // Rich accent blue
+                            teal: '#0D9488',      // Go Ahead modern teal
+                            amber: '#D97706',     // Warning/Highlight gold
+                            danger: '#DC2626',    // Urgent emergency red
+                            slate: '#F8FAFC'      // Soft background
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom print stylesheet styles */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-card {
+                border: 1px solid #e2e8f0 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen antialiased flex flex-col">
+
+    <!-- Top Emergency Bar / Priority Alert Banner -->
+    <div class="bg-gradient-to-r from-brand-danger to-red-700 text-white px-4 py-2 text-sm text-center font-medium shadow-md flex items-center justify-center gap-2 flex-wrap relative z-50">
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-white text-brand-danger animate-pulse">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i> 24/7 EMERGENCY
+        </span>
+        <span>Delayed or canceled flight? Call On-Tour Support immediately:</span>
+        <a href="tel:1-617-619-1911" class="underline font-bold hover:text-red-100 transition duration-150">
+            <i class="fa-solid fa-phone mr-1"></i> +1 617-619-1911
+        </a>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="bg-brand-navy text-white shadow-lg sticky top-0 z-40 transition-all duration-300 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Abstract brand icon representing flight & discovery -->
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-earth-americas text-brand-navy text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight leading-tight">EF GO AHEAD</h1>
+                    <p class="text-xs uppercase tracking-widest text-teal-400 font-semibold">Tours &amp; Travel</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2 transition duration-200">
+                    <i class="fa-solid fa-print"></i>
+                    <span class="hidden md:inline">Print Itinerary</span>
+                </button>
+                <div class="hidden sm:block text-right">
+                    <span class="text-xs text-slate-400 block font-medium">Reservation Code</span>
+                    <span class="font-mono text-emerald-400 font-bold bg-white/10 px-2 py-0.5 rounded text-sm">BE6LWK</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+        
+        <!-- Live Alert & Countdown Component -->
+        <section id="countdown-banner" class="bg-gradient-to-r from-brand-navy to-slate-900 text-white rounded-2xl shadow-xl overflow-hidden print-card relative">
+            <!-- Semi-transparent airplane graphic backdrop -->
+            <div class="absolute right-0 top-0 bottom-0 opacity-10 pointer-events-none flex items-center pr-10">
+                <i class="fa-solid fa-plane text-[12rem] rotate-45"></i>
+            </div>
+            
+            <div class="p-6 md:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+                <div class="space-y-2">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="bg-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-teal-500/30">
+                            Upcoming Tour
+                        </span>
+                        <span class="text-slate-300 text-xs">Date of issue: Jun 17, 2026</span>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Budapest - Vienna - Prague - Salzburg - Amsterdam</h2>
+                    <p class="text-slate-300 flex items-center gap-2 text-sm md:text-base">
+                        <i class="fa-regular fa-calendar text-teal-400"></i>
+                        <span>Jun 19, 2026 – Jun 29, 2026</span>
+                        <span class="text-slate-500">|</span>
+                        <i class="fa-solid fa-passport text-teal-400"></i>
+                        <span>Tour Code: <strong>VIBG</strong></span>
+                    </p>
+                </div>
+                
+                <!-- Countdown Dynamic Block -->
+                <div class="bg-white/5 border border-white/10 p-4 rounded-xl flex flex-col sm:flex-row items-center gap-4 min-w-[280px]">
+                    <div class="text-center sm:text-left">
+                        <span class="text-xs text-slate-400 block uppercase tracking-wider font-semibold">Time Until Departure</span>
+                        <span class="text-xs text-yellow-400 font-medium">Pasco (PSC) Flight - 07:05 AM</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div class="bg-white/10 rounded px-2 py-1 min-w-[50px]">
+                            <span id="cd-days" class="font-mono text-lg md:text-xl font-bold block text-teal-400">00</span>
+                            <span class="text-[9px] uppercase text-slate-400 block">Days</span>
+                        </div>
+                        <div class="bg-white/10 rounded px-2 py-1 min-w-[50px]">
+                            <span id="cd-hours" class="font-mono text-lg md:text-xl font-bold block text-teal-400">00</span>
+                            <span class="text-[9px] uppercase text-slate-400 block">Hrs</span>
+                        </div>
+                        <div class="bg-white/10 rounded px-2 py-1 min-w-[50px]">
+                            <span id="cd-mins" class="font-mono text-lg md:text-xl font-bold block text-teal-400">00</span>
+                            <span class="text-[9px] uppercase text-slate-400 block">Mins</span>
+                        </div>
+                        <div class="bg-white/10 rounded px-2 py-1 min-w-[50px]">
+                            <span id="cd-secs" class="font-mono text-lg md:text-xl font-bold block text-teal-400">00</span>
+                            <span class="text-[9px] uppercase text-slate-400 block">Secs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Success Toast Notifications -->
+        <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-opacity duration-300">
+            <span class="text-teal-400"><i class="fa-solid fa-circle-check text-xl"></i></span>
+            <span id="toast-message" class="text-sm font-medium">Text copied successfully</span>
+        </div>
+
+        <!-- Main Itinerary Flight Timeline -->
+        <div class="max-w-4xl mx-auto space-y-6 w-full">
+            
+            <!-- Timeline Filter Controls -->
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between flex-wrap gap-3 no-print">
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm font-bold text-slate-700">Displaying:</span>
+                    <span id="active-traveler-badge" class="bg-brand-blue/10 text-brand-blue font-bold px-3 py-1 rounded-full text-xs">
+                        Susan Scheibner
+                    </span>
+                </div>
+                
+                <div class="flex bg-slate-100 p-1 rounded-xl">
+                    <button onclick="filterLeg('all')" id="btn-filter-all" class="px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 bg-white text-slate-800 shadow">
+                        All Flights
+                    </button>
+                    <button onclick="filterLeg('outbound')" id="btn-filter-outbound" class="px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 text-slate-500 hover:text-slate-800">
+                        Outbound (Jun 19)
+                    </button>
+                    <button onclick="filterLeg('return')" id="btn-filter-return" class="px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 text-slate-500 hover:text-slate-800">
+                        Return (Jul 09)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Flight Path Cards List -->
+            <div class="space-y-6" id="flights-container">
+                
+                <!-- FLIGHT 1 CARD -->
+                <div class="flight-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card transition duration-200 hover:shadow-md" data-direction="outbound">
+                    <div class="bg-slate-50 px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-brand-navy text-white font-bold text-xs px-2.5 py-1 rounded-md">FLIGHT 1</div>
+                            <div class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span>Friday, June 19, 2026</span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-brand-blue font-semibold">KL 6732</span>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> On Time
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <!-- Flight Route Row -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                            <!-- Origin -->
+                            <div class="w-full md:w-1/3 text-center md:text-left">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">PSC</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Pasco, WA</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Tri-Cities Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 07:05 AM
+                                </div>
+                            </div>
+
+                            <!-- Center Connector -->
+                            <div class="flex-grow w-full md:w-auto flex flex-col items-center justify-center relative">
+                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mb-1">Duration: 2h 59m</span>
+                                <div class="w-full flex items-center justify-center relative my-1">
+                                    <div class="absolute left-0 right-0 h-[2px] bg-dashed border-t-2 border-dashed border-slate-200 z-0"></div>
+                                    <div class="bg-white px-3 z-10 text-brand-blue text-lg">
+                                        <i class="fa-solid fa-plane transition-all hover:translate-x-1"></i>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] text-slate-500 mt-1 font-medium bg-blue-50 px-2 py-0.5 rounded">Non-stop</span>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="w-full md:w-1/3 text-center md:text-right">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">MSP</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Minneapolis, MN</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">St. Paul Intl Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 12:04 PM
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operator Note & Meta Info -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-600">
+                            <div class="flex items-center gap-2">
+                                <div class="w-5 h-5 bg-blue-100 text-brand-blue rounded flex items-center justify-center font-bold text-[10px]">DL</div>
+                                <p>Operated by <strong>Delta Air Lines, Inc. (DL)</strong> on behalf of KLM Royal Dutch Airlines.</p>
+                            </div>
+                            <div class="font-medium bg-slate-100 text-slate-700 px-2.5 py-1 rounded">
+                                E-Ticket: <span class="font-mono text-slate-800 font-semibold">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LAYOVER 1 COMPONENT -->
+                <div class="flight-card rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/40 p-4 flex flex-col sm:flex-row items-center justify-between gap-4 no-print" data-direction="outbound">
+                    <div class="flex items-center gap-3 text-amber-800">
+                        <span class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center"><i class="fa-solid fa-hourglass-half"></i></span>
+                        <div>
+                            <span class="font-bold block text-sm">Layover in Minneapolis (MSP)</span>
+                            <span class="text-xs text-amber-700">Transfer planes &amp; recheck gate information upon arrival.</span>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs">
+                        <span class="text-amber-700 block">Duration</span>
+                        <span class="font-mono font-bold text-base text-amber-900">3h 01m</span>
+                    </div>
+                </div>
+
+                <!-- FLIGHT 2 CARD -->
+                <div class="flight-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card transition duration-200 hover:shadow-md" data-direction="outbound">
+                    <div class="bg-slate-50 px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-brand-navy text-white font-bold text-xs px-2.5 py-1 rounded-md">FLIGHT 2</div>
+                            <div class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span>Friday, June 19, 2026</span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-brand-blue font-semibold">KL 0656</span>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> On Time
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <!-- Flight Route Row -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                            <!-- Origin -->
+                            <div class="w-full md:w-1/3 text-center md:text-left">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">MSP</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Minneapolis, MN</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">St. Paul Intl Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 03:05 PM
+                                </div>
+                            </div>
+
+                            <!-- Center Connector -->
+                            <div class="flex-grow w-full md:w-auto flex flex-col items-center justify-center relative">
+                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mb-1">Duration: 7h 55m</span>
+                                <div class="w-full flex items-center justify-center relative my-1">
+                                    <div class="absolute left-0 right-0 h-[2px] bg-dashed border-t-2 border-dashed border-slate-200 z-0"></div>
+                                    <div class="bg-white px-3 z-10 text-teal-600 text-lg">
+                                        <i class="fa-solid fa-plane-departure"></i>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] text-teal-600 mt-1 font-bold bg-teal-50 px-2 py-0.5 rounded">Overnight Flight</span>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="w-full md:w-1/3 text-center md:text-right">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">AMS</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Amsterdam, Netherlands</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Schiphol Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-calendar-check text-emerald-600"></i> Sat, 06:00 AM <span class="text-emerald-600 text-[10px] font-bold">+1 Day</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operator Note & Meta Info -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-600">
+                            <div class="flex items-center gap-2">
+                                <div class="w-5 h-5 bg-blue-100 text-brand-blue rounded flex items-center justify-center font-bold text-xs">KL</div>
+                                <p>Main Cabin Flight operated directly by <strong>KLM Royal Dutch Airlines</strong>.</p>
+                            </div>
+                            <div class="font-medium bg-slate-100 text-slate-700 px-2.5 py-1 rounded">
+                                E-Ticket: <span class="font-mono text-slate-800 font-semibold">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LAYOVER 2 COMPONENT -->
+                <div class="flight-card rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/40 p-4 flex flex-col sm:flex-row items-center justify-between gap-4 no-print" data-direction="outbound">
+                    <div class="flex items-center gap-3 text-amber-800">
+                        <span class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center"><i class="fa-solid fa-hourglass-half"></i></span>
+                        <div>
+                            <span class="font-bold block text-sm">Layover in Amsterdam (AMS)</span>
+                            <span class="text-xs text-amber-700">Follow Schengen Area flight connection signs upon arrival.</span>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs">
+                        <span class="text-amber-700 block">Duration</span>
+                        <span class="font-mono font-bold text-base text-amber-900">2h 40m</span>
+                    </div>
+                </div>
+
+                <!-- FLIGHT 3 CARD -->
+                <div class="flight-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card transition duration-200 hover:shadow-md" data-direction="outbound">
+                    <div class="bg-slate-50 px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-brand-navy text-white font-bold text-xs px-2.5 py-1 rounded-md">FLIGHT 3</div>
+                            <div class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span>Saturday, June 20, 2026</span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-brand-blue font-semibold">KL 1363</span>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> On Time
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <!-- Flight Route Row -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                            <!-- Origin -->
+                            <div class="w-full md:w-1/3 text-center md:text-left">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">AMS</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Amsterdam, Netherlands</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Schiphol Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 08:40 AM
+                                </div>
+                            </div>
+
+                            <!-- Center Connector -->
+                            <div class="flex-grow w-full md:w-auto flex flex-col items-center justify-center relative">
+                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mb-1">Duration: 2h 00m</span>
+                                <div class="w-full flex items-center justify-center relative my-1">
+                                    <div class="absolute left-0 right-0 h-[2px] bg-dashed border-t-2 border-dashed border-slate-200 z-0"></div>
+                                    <div class="bg-white px-3 z-10 text-brand-blue text-lg">
+                                        <i class="fa-solid fa-plane"></i>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] text-slate-500 mt-1 font-medium bg-blue-50 px-2 py-0.5 rounded">Europe Intra-Border</span>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="w-full md:w-1/3 text-center md:text-right">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">BUD</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Budapest, Hungary</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Liszt Ferenc Intl Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 10:40 AM
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operator Note & Meta Info -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-600">
+                            <div class="flex items-center gap-2">
+                                <div class="w-5 h-5 bg-blue-100 text-brand-blue rounded flex items-center justify-center font-bold text-xs">KL</div>
+                                <p>Welcome to Europe! Group airport transfer will meet you at arrivals.</p>
+                            </div>
+                            <div class="font-medium bg-slate-100 text-slate-700 px-2.5 py-1 rounded">
+                                E-Ticket: <span class="font-mono text-slate-800 font-semibold">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- RETURN TRANSIT SPLIT NOTIFICATION -->
+                <div class="flight-card py-3 px-4 bg-slate-200/60 rounded-xl text-center text-xs text-slate-600 font-bold tracking-wider uppercase border-y border-dashed border-slate-300 no-print">
+                    <i class="fa-solid fa-arrows-left-right text-brand-blue mr-1"></i> End of Outbound Journey • 19 days in tour destinations • Return Flights Below
+                </div>
+
+
+                <!-- FLIGHT 4 CARD -->
+                <div class="flight-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card transition duration-200 hover:shadow-md" data-direction="return">
+                    <div class="bg-slate-50 px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-brand-navy text-white font-bold text-xs px-2.5 py-1 rounded-md">FLIGHT 4</div>
+                            <div class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span>Thursday, July 09, 2026</span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-brand-blue font-semibold">KL 6104</span>
+                            </div>
+                        </div>
+                        <span class="bg-blue-100 text-brand-blue text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            <i class="fa-solid fa-clock mr-0.5"></i> Departure in 21 Days
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <!-- Flight Route Row -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                            <!-- Origin -->
+                            <div class="w-full md:w-1/3 text-center md:text-left">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">AMS</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Amsterdam, Netherlands</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Schiphol Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 02:40 PM
+                                </div>
+                            </div>
+
+                            <!-- Center Connector -->
+                            <div class="flex-grow w-full md:w-auto flex flex-col items-center justify-center relative">
+                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mb-1">Duration: 9h 58m</span>
+                                <div class="w-full flex items-center justify-center relative my-1">
+                                    <div class="absolute left-0 right-0 h-[2px] bg-dashed border-t-2 border-dashed border-slate-200 z-0"></div>
+                                    <div class="bg-white px-3 z-10 text-brand-blue text-lg">
+                                        <i class="fa-solid fa-plane"></i>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] text-slate-500 mt-1 font-medium bg-blue-50 px-2 py-0.5 rounded">Transatlantic Flight</span>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="w-full md:w-1/3 text-center md:text-right">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">MSP</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Minneapolis, MN</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">St. Paul Intl Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 04:38 PM
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operator Note & Meta Info -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-600">
+                            <div class="flex items-center gap-2">
+                                <div class="w-5 h-5 bg-blue-100 text-brand-blue rounded flex items-center justify-center font-bold text-xs">DL</div>
+                                <p>Operated by <strong>Delta Air Lines, Inc. (DL)</strong>. Remember US customs occurs upon entry at MSP.</p>
+                            </div>
+                            <div class="font-medium bg-slate-100 text-slate-700 px-2.5 py-1 rounded">
+                                E-Ticket: <span class="font-mono text-slate-800 font-semibold">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LAYOVER 3 COMPONENT -->
+                <div class="flight-card rounded-2xl border-2 border-dashed border-amber-200 bg-amber-50/40 p-4 flex flex-col sm:flex-row items-center justify-between gap-4 no-print" data-direction="return">
+                    <div class="flex items-center gap-3 text-amber-800">
+                        <span class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center"><i class="fa-solid fa-hourglass-half"></i></span>
+                        <div>
+                            <span class="font-bold block text-sm">Layover in Minneapolis (MSP)</span>
+                            <span class="text-xs text-amber-700">Allow ample time to clear US customs and re-check bags.</span>
+                        </div>
+                    </div>
+                    <div class="text-right text-xs">
+                        <span class="text-amber-700 block">Duration</span>
+                        <span class="font-mono font-bold text-base text-amber-900">1h 47m</span>
+                    </div>
+                </div>
+
+                <!-- FLIGHT 5 CARD -->
+                <div class="flight-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden print-card transition duration-200 hover:shadow-md" data-direction="return">
+                    <div class="bg-slate-50 px-5 py-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-brand-navy text-white font-bold text-xs px-2.5 py-1 rounded-md">FLIGHT 5</div>
+                            <div class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <span>Thursday, July 09, 2026</span>
+                                <span class="text-slate-300">|</span>
+                                <span class="text-brand-blue font-semibold">KL 6689</span>
+                            </div>
+                        </div>
+                        <span class="bg-blue-100 text-brand-blue text-xs font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                            <i class="fa-solid fa-clock mr-0.5"></i> Final Return Leg
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <!-- Flight Route Row -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                            <!-- Origin -->
+                            <div class="w-full md:w-1/3 text-center md:text-left">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">MSP</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Minneapolis, MN</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">St. Paul Intl Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 06:25 PM
+                                </div>
+                            </div>
+
+                            <!-- Center Connector -->
+                            <div class="flex-grow w-full md:w-auto flex flex-col items-center justify-center relative">
+                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase mb-1">Duration: 2h 20m</span>
+                                <div class="w-full flex items-center justify-center relative my-1">
+                                    <div class="absolute left-0 right-0 h-[2px] bg-dashed border-t-2 border-dashed border-slate-200 z-0"></div>
+                                    <div class="bg-white px-3 z-10 text-brand-blue text-lg">
+                                        <i class="fa-solid fa-house-chimney-user"></i>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] text-slate-500 mt-1 font-medium bg-blue-50 px-2 py-0.5 rounded">Homebound Leg</span>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="w-full md:w-1/3 text-center md:text-right">
+                                <span class="text-3xl font-extrabold text-slate-900 tracking-tight">PSC</span>
+                                <span class="block text-sm font-bold text-slate-800 mt-0.5">Pasco, WA</span>
+                                <span class="block text-xs text-slate-500 mt-0.5">Tri-Cities Airport</span>
+                                <div class="mt-2 inline-flex items-center gap-1.5 text-slate-800 font-bold bg-slate-100 px-2.5 py-1 rounded-md text-sm">
+                                    <i class="fa-regular fa-clock text-brand-blue"></i> 07:45 PM
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Operator Note & Meta Info -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-600">
+                            <div class="flex items-center gap-2">
+                                <div class="w-5 h-5 bg-blue-100 text-brand-blue rounded flex items-center justify-center font-bold text-xs">DL</div>
+                                <p>Operated by <strong>Delta Air Lines, Inc. (DL)</strong>. Welcome Home!</p>
+                            </div>
+                            <div class="font-medium bg-slate-100 text-slate-700 px-2.5 py-1 rounded">
+                                E-Ticket: <span class="font-mono text-slate-800 font-semibold">Confirmed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Bottom Utility & Administrative Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+            
+            <!-- Traveler Selection Card -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 print-card flex flex-col justify-between">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-lg mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-users text-brand-blue"></i>
+                        <span>Travelers</span>
+                    </h3>
+                    <div class="space-y-3">
+                        <button onclick="switchTraveler('susan')" id="btn-susan" class="w-full text-left p-4 rounded-xl border-2 border-brand-blue bg-blue-50/50 transition duration-200 flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-bold text-sm shadow">
+                                    SS
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-800 group-hover:text-brand-blue">Susan Scheibner</span>
+                                    <span class="text-xs text-slate-500">Primary Contact</span>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-circle-check text-brand-blue text-lg" id="icon-susan"></i>
+                        </button>
+                        
+                        <button onclick="switchTraveler('richard')" id="btn-richard" class="w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-slate-300 transition duration-200 flex items-center justify-between group">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm">
+                                    RS
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-slate-800 group-hover:text-brand-blue">Richard Russell Scheibner</span>
+                                    <span class="text-xs text-slate-500">Travel Companion</span>
+                                </div>
+                            </div>
+                            <i class="fa-regular fa-circle text-slate-300 text-lg" id="icon-richard"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-4 italic">
+                    Toggle travelers above to customize dashboard highlights.
+                </div>
+            </div>
+
+            <!-- Core Booking Details Card -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 print-card flex flex-col justify-between">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2 pb-2 border-b border-slate-100 mb-4">
+                        <i class="fa-solid fa-circle-info text-brand-blue"></i>
+                        <span>Booking Details</span>
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="text-slate-500 block text-xs uppercase tracking-wider">Carrier Code</span>
+                            <span class="font-bold text-slate-800 flex items-center gap-1.5 mt-0.5">
+                                <i class="fa-solid fa-plane-departure text-slate-400"></i> KLM
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-xs uppercase tracking-wider">Record Locator</span>
+                            <button onclick="copyToClipboard('BE6LWK', 'Locator Copied')" class="font-mono font-extrabold text-teal-600 hover:underline flex items-center gap-1 mt-0.5 group text-left">
+                                BE6LWK <i class="fa-regular fa-copy text-xs text-slate-400 group-hover:text-teal-600"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-xs uppercase tracking-wider">Tour Status</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 mt-1">
+                                <i class="fa-solid fa-circle-check mr-1 text-[9px]"></i> Confirmed
+                            </span>
+                        </div>
+                        <div>
+                            <span class="text-slate-500 block text-xs uppercase tracking-wider">Travel Dates</span>
+                            <span class="font-semibold text-slate-800 block mt-0.5">Jun 19 - Jul 09</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF File Reference -->
+                <div class="mt-4 pt-3 border-t border-slate-100">
+                    <div class="text-[11px] text-slate-500 flex items-center gap-1.5 bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <i class="fa-solid fa-file-pdf text-red-500 text-sm"></i>
+                        <span>Verified Source File:<br><strong class="font-mono text-slate-700">flight-itinerary-698f69ae087d914104270b52-2.pdf</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support & Assistance Block -->
+            <div class="bg-gradient-to-br from-slate-900 to-brand-navy text-white rounded-2xl p-5 shadow-sm print-card flex flex-col justify-between">
+                <div>
+                    <h3 class="font-bold text-white text-lg flex items-center gap-2 mb-2">
+                        <i class="fa-solid fa-headset text-teal-400"></i>
+                        <span>Need Assistance?</span>
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        If your flight is delayed or canceled, please call our 24/7 On Tour Support team immediately.
+                    </p>
+                    <div class="space-y-3 pt-3">
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">24/7 On Tour Support</span>
+                            <a href="tel:1-617-619-1911" class="text-base font-bold text-white hover:text-teal-400 flex items-center gap-2 mt-0.5">
+                                <i class="fa-solid fa-phone text-brand-danger animate-pulse"></i>
+                                +1 617-619-1911
+                            </a>
+                        </div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">General Support</span>
+                            <a href="tel:1-800-597-0350" class="text-base font-bold text-white hover:text-teal-400 flex items-center gap-2 mt-0.5">
+                                <i class="fa-solid fa-circle-question text-teal-400"></i>
+                                1-800-597-0350
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-[10px] text-slate-400 mt-4 leading-relaxed">
+                    EF Go Ahead Tours, Two Education Circle, Cambridge, MA 02141
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Destination Information & Weather Dashboard -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 space-y-4 print-card no-print">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                <i class="fa-solid fa-cloud-sun text-teal-600"></i>
+                <span>Destination Weather Snapshot &amp; Details</span>
+            </h3>
+            <p class="text-sm text-slate-500">
+                Plan ahead! Here is the weather overview across your itinerary route:
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                
+                <!-- Destination 1 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Pasco (PSC)</span>
+                        <span class="text-base font-extrabold text-slate-800 block">72°F</span>
+                        <span class="text-xs text-slate-500">Sunny &amp; Mild</span>
+                    </div>
+                    <span class="text-3xl text-amber-500"><i class="fa-solid fa-sun animate-spin-slow"></i></span>
+                </div>
+                
+                <!-- Destination 2 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Minneapolis (MSP)</span>
+                        <span class="text-base font-extrabold text-slate-800 block">68°F</span>
+                        <span class="text-xs text-slate-500">Partly Cloudy</span>
+                    </div>
+                    <span class="text-3xl text-slate-400"><i class="fa-solid fa-cloud-sun"></i></span>
+                </div>
+
+                <!-- Destination 3 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Amsterdam (AMS)</span>
+                        <span class="text-base font-extrabold text-slate-800 block">61°F</span>
+                        <span class="text-xs text-slate-500">Passing Showers</span>
+                    </div>
+                    <span class="text-3xl text-blue-400"><i class="fa-solid fa-cloud-rain"></i></span>
+                </div>
+
+                <!-- Destination 4 -->
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Budapest (BUD)</span>
+                        <span class="text-base font-extrabold text-slate-800 block">75°F</span>
+                        <span class="text-xs text-slate-500">Warm &amp; Sunny</span>
+                    </div>
+                    <span class="text-3xl text-amber-500"><i class="fa-solid fa-sun"></i></span>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Document Footer -->
+    <footer class="bg-slate-900 text-slate-400 mt-12 py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row justify-between gap-6 items-start md:items-center">
+                <div class="space-y-2">
+                    <p class="text-white font-bold text-base">EF Go Ahead Tours Support</p>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-md">
+                        Two Education Circle, Cambridge, MA 02141<br>
+                        Authorized operator under registration codes listed with major airlines. 
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="https://www.goaheadtours.com" target="_blank" class="text-xs text-teal-400 hover:underline flex items-center gap-1">
+                        <i class="fa-solid fa-globe"></i> Visit Official Site
+                    </a>
+                    <span class="text-slate-700">|</span>
+                    <a href="tel:18005970350" class="text-xs text-slate-300 hover:text-white flex items-center gap-1">
+                        <i class="fa-solid fa-phone"></i> 1-800-597-0350
+                    </a>
+                    <span class="text-slate-700">|</span>
+                    <a href="tel:16176191911" class="text-xs text-red-400 hover:text-red-300 font-bold flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation"></i> Emergency Support
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <p>&copy; 2026 EF Go Ahead Tours. All flight itineraries shown are simulated based on booking reservations.</p>
+                <div class="flex space-x-4">
+                    <span>Page 1 of 2</span>
+                    <span class="text-slate-700">•</span>
+                    <span>Confidential Travel Document</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Page Interaction Scripts -->
+    <script>
+        // State management
+        let currentTraveler = 'susan';
+        let currentLegFilter = 'all';
+
+        // Countdown timer configuration
+        // Departure is Jun 19, 2026, at 07:05 AM Pasco local time
+        const departureDate = new Date('June 19, 2026 07:05:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = departureDate - now;
+
+            if (difference < 0) {
+                // If the departure date is in the past
+                document.getElementById('cd-days').innerText = '00';
+                document.getElementById('cd-hours').innerText = '00';
+                document.getElementById('cd-mins').innerText = '00';
+                document.getElementById('cd-secs').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('cd-secs').innerText = String(seconds).padStart(2, '0');
+        }
+
+        // Initialize and maintain countdown loop
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Copy utility using standard execution command for high browser compatibilities
+        function copyToClipboard(text, successMessage) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast(successMessage);
+        }
+
+        // Custom toast indicator
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('opacity-100');
+            }, 3000);
+        }
+
+        // Switch Active Traveler
+        // Switch Active Traveler
+        function switchTraveler(traveler) {
+            currentTraveler = traveler;
+            const btnSusan = document.getElementById('btn-susan');
+            const btnRichard = document.getElementById('btn-richard');
+            const iconSusan = document.getElementById('icon-susan');
+            const iconRichard = document.getElementById('icon-richard');
+            const travelerBadge = document.getElementById('active-traveler-badge');
+
+            if (traveler === 'susan') {
+                // Active Susan styling
+                btnSusan.className = "w-full text-left p-4 rounded-xl border-2 border-brand-blue bg-blue-50/50 transition duration-200 flex items-center justify-between group";
+                btnRichard.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-slate-300 transition duration-200 flex items-center justify-between group";
+                
+                iconSusan.className = "fa-solid fa-circle-check text-brand-blue text-lg";
+                iconRichard.className = "fa-regular fa-circle text-slate-300 text-lg";
+                travelerBadge.innerText = "Susan Scheibner";
+                showToast("Switched view to Susan Scheibner");
+            } else {
+                // Active Richard styling
+                btnSusan.className = "w-full text-left p-4 rounded-xl border-2 border-slate-200 hover:border-slate-300 transition duration-200 flex items-center justify-between group";
+                btnRichard.className = "w-full text-left p-4 rounded-xl border-2 border-brand-blue bg-blue-50/50 transition duration-200 flex items-center justify-between group";
+                
+                iconSusan.className = "fa-regular fa-circle text-slate-300 text-lg";
+                iconRichard.className = "fa-solid fa-circle-check text-brand-blue text-lg";
+                travelerBadge.innerText = "Richard Russell Scheibner";
+                showToast("Switched view to Richard Scheibner");
+            }
+        }
+
+        // Filter flights by outbound or return directions
+        function filterLeg(direction) {
+            currentLegFilter = direction;
+            const btnAll = document.getElementById('btn-filter-all');
+            const btnOutbound = document.getElementById('btn-filter-outbound');
+            const btnReturn = document.getElementById('btn-filter-return');
+            const flightCards = document.querySelectorAll('.flight-card');
+
+            // Reset tab styling
+            const inactiveClass = "px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 text-slate-500 hover:text-slate-800";
+            const activeClass = "px-4 py-1.5 rounded-lg text-xs font-bold transition duration-200 bg-white text-slate-800 shadow";
+            
+            btnAll.className = inactiveClass;
+            btnOutbound.className = inactiveClass;
+            btnReturn.className = inactiveClass;
+
+            if (direction === 'all') {
+                btnAll.className = activeClass;
+            } else if (direction === 'outbound') {
+                btnOutbound.className = activeClass;
+            } else if (direction === 'return') {
+                btnReturn.className = activeClass;
+            }
+
+            // Show/Hide relevant elements
+            flightCards.forEach(card => {
+                const cardDir = card.getAttribute('data-direction');
+                if (direction === 'all') {
+                    card.style.display = 'block';
+                } else if (direction === cardDir) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
