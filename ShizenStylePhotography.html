@@ -1,256 +1,304 @@
-import React, { useState } from 'react';
-import { Camera, Wind, Circle, Eye, Leaf, Sun, Coffee, BookOpen, Minimize2, ArrowRight } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shizen Style - Photography Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        shizen: {
+                            bg: '#F7F5F0',
+                            text: '#2C2C2C',
+                            border: '#E5DFD3',
+                            muted: '#666666',
+                            light: '#888888',
+                            darkMuted: '#444444'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Merriweather:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: theme('colors.shizen.bg');
+            color: theme('colors.shizen.text');
+            font-family: 'Inter', sans-serif;
+        }
+        ::selection {
+            background-color: theme('colors.shizen.border');
+        }
+        .tab-button.active {
+            background-color: theme('colors.shizen.bg');
+            color: theme('colors.shizen.text');
+        }
+        .tab-button.active .kanji-hint {
+            opacity: 1;
+        }
+        .tab-button:not(.active) {
+            color: theme('colors.shizen.light');
+        }
+        .tab-button:not(.active):hover {
+            background-color: rgba(247, 245, 240, 0.5);
+            color: theme('colors.shizen.text');
+        }
+        .tab-button:not(.active):hover .kanji-hint {
+            opacity: 0.5;
+        }
+        .kanji-hint {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-shizen-border">
 
-// Data for the 10 Concepts based on the Shizen Style philosophy
-const principles = [
-  {
-    id: 1,
-    romaji: "Ma",
-    kanji: "間",
-    title: "The Power of Empty Space",
-    icon: <Minimize2 className="w-6 h-6 stroke-1" />,
-    concept: "The Japanese appreciation of negative space—the meaningful pause between notes, the empty corner of a room, the silence between words. It is both spatial (Yohaku) and temporal (the captured interval of time).",
-    application: "Before pressing the shutter, ask: 'What shape is the emptiness in this frame?' Don't just look at your subject; look at the space around it. Wait for the interval—the pause before the wave breaks, the breath before a subject turns. The most powerful image is often the one where you remove something from the frame."
-  },
-  {
-    id: 2,
-    romaji: "Wabi-Sabi",
-    kanji: "侘寂",
-    title: "Embracing Imperfection",
-    icon: <Leaf className="w-6 h-6 stroke-1" />,
-    concept: "Finding beauty in things that are imperfect, incomplete, and impermanent. It is the realization that the 'flaw' often contains the deepest emotional resonance.",
-    application: "Stop chasing 'perfect conditions.' Stop waiting for the golden hour or the cloudless sky. Shoot in the fog, the rain, or low light. Allow motion blur (impermanence) and grain (imperfection) to become part of the feeling of the photograph."
-  },
-  {
-    id: 3,
-    romaji: "Danshari",
-    kanji: "断捨離",
-    title: "Cut, Dispose, Separate",
-    icon: <Camera className="w-6 h-6 stroke-1" />,
-    concept: "A decluttering philosophy—refuse, discard, detach. It applies heavily to the 'ecosystem of things' we invite into our lives.",
-    application: "Conduct a seasonal gear inventory. Look at your lenses, bags, and filters. Ask: 'Does this serve my creative life right now?' Strip your daily carry down to one camera and one prime lens. This limitation will force you to rely on your vision, not your equipment."
-  },
-  {
-    id: 4,
-    romaji: "Mottainai",
-    kanji: "もったいない",
-    title: "Zero Waste, Deep Gratitude",
-    icon: <Coffee className="w-6 h-6 stroke-1" />,
-    concept: "A deep sense of regret over waste. In our context, it means cultivating a heart of gratitude for what we already possess rather than seeking the temporary stimulation of buying new things.",
-    application: "Practice a 'Morning Gratitude Inventory.' Before shooting, appreciate the gear you already hold. Finish what you start—if you begin a personal project, see it through before jumping to a new theme. Treat every frame with respect."
-  },
-  {
-    id: 5,
-    romaji: "Kaizen",
-    kanji: "改善",
-    title: "Continuous Small Improvement",
-    icon: <Wind className="w-6 h-6 stroke-1" />,
-    concept: "The philosophy of getting 1% better every day. No dramatic overhauls—just consistent, small refinements over time.",
-    application: "Instead of stressing about building the perfect portfolio over years, focus on making one meaningful photograph today. Focus on one small compositional fix per session. Compounded over months, the change to your 'eye' will be profound."
-  },
-  {
-    id: 6,
-    romaji: "Ikigai",
-    kanji: "生き甲斐",
-    title: "Your Reason for Being",
-    icon: <Sun className="w-6 h-6 stroke-1" />,
-    concept: "What gives you purpose and meaning. Not a destination, but a daily practice of alignment.",
-    application: "Start your morning with a quiet calibration. Sit in stillness before picking up the camera and ask: 'What am I photographing today that actually matters to me?' Ensure your personal projects align with your core values, not social media trends."
-  },
-  {
-    id: 7,
-    romaji: "Shizen",
-    kanji: "自然",
-    title: "Living in Harmony with Nature",
-    icon: <Circle className="w-6 h-6 stroke-1" />,
-    concept: "Naturalness, spontaneity, and alignment with the rhythms of the natural world. Not forcing things into an unnatural shape.",
-    application: "Structure your personal projects around the available light and the current season rather than arbitrary deadlines. Walk outside before you shoot, feeling the air and the rhythm of the day. Design a 'flow-ready' environment where grabbing your camera feels effortless."
-  },
-  {
-    id: 8,
-    romaji: "Mono no Aware",
-    kanji: "物の哀れ",
-    title: "The Gentle Sadness of Things",
-    icon: <Eye className="w-6 h-6 stroke-1" />,
-    concept: "The 'tender ache' of knowing something beautiful is disappearing. It teaches us that the peak is too sure of itself; the beauty lives in the transition.",
-    application: "Stop photographing only the 'peak' (the perfect sunset, the full bloom). Deliberately photograph the in-between: the fading light, the off-season landscape, the aging building. Capture the feeling of transience. Let go of the archive-mindset and be present."
-  },
-  {
-    id: 9,
-    romaji: "Ensō",
-    kanji: "円相",
-    title: "The Circle of Completeness",
-    icon: <Circle className="w-6 h-6 stroke-1" />,
-    concept: "Representing the moment when the mind is free to let the body create. It is about releasing the need for perfection and external validation.",
-    application: "Create a daily practice with zero audience. Take one photograph a day purely for yourself. Do not edit it. Do not post it on social media. Just perform the act of seeing and capturing. Let it be enough."
-  },
-  {
-    id: 10,
-    romaji: "Hara Hachi Bu",
-    kanji: "腹八分目",
-    title: "Eat Until 80% Full",
-    icon: <BookOpen className="w-6 h-6 stroke-1" />,
-    concept: "A teaching of mindful restraint. Stopping just before saturation keeps the appetite alive and energy high.",
-    application: "Apply this to your shooting sessions and your editing workflow. Stop taking photos just before you feel completely burnt out or 'done.' Leave a little creative energy in the tank for tomorrow. This keeps the visual appetite alive."
-  }
-];
-
-export default function ShizenStyleGuide() {
-  const [activeTab, setActiveTab] = useState(0);
-
-  return (
-    <div className="min-h-screen bg-[#F7F5F0] text-[#2C2C2C] font-sans selection:bg-[#E5DFD3]">
-      {/* Navigation / Header */}
-      <nav className="p-6 md:p-12 flex justify-between items-center border-b border-[#E5DFD3]">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 border-2 border-[#2C2C2C] flex flex-col items-center justify-center font-serif text-sm tracking-widest leading-none p-1">
-            <span>自</span>
-            <span>然</span>
-          </div>
-          <div>
-            <h1 className="text-xl font-medium tracking-wide uppercase">Shizen Style</h1>
-            <p className="text-xs tracking-widest text-[#666666] uppercase mt-1">Personal Practice Guide</p>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <header className="max-w-4xl mx-auto px-6 py-20 md:py-32">
-        <h2 className="text-4xl md:text-6xl font-serif font-light leading-tight mb-8">
-          From Technical Perfection <br className="hidden md:block"/> to Emotional Resonance.
-        </h2>
-        <p className="text-lg md:text-xl text-[#555555] max-w-2xl leading-relaxed mb-12">
-          Welcome to the intersection of Japanese philosophy and contemplative photography. 
-          As an experienced photographer, you already know how to use the camera. Now, we are going to change <em>how you see</em>. 
-          These ten principles are not rules; they are lenses to help you cultivate a quiet, authentic visual practice.
-        </p>
-        <div className="flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-[#2C2C2C]">
-          <span>Scroll to explore the 10 Concepts</span>
-          <ArrowRight className="w-4 h-4" />
-        </div>
-      </header>
-
-      {/* The 10 Principles Interactive Section */}
-      <section className="bg-white border-y border-[#E5DFD3] py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-12 gap-12">
-            
-            {/* Sidebar Navigation */}
-            <div className="md:col-span-4 flex flex-col gap-2">
-              <h3 className="text-xs font-bold tracking-widest uppercase text-[#888888] mb-6">The 10 Habits</h3>
-              {principles.map((principle, index) => (
-                <button
-                  key={principle.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`text-left px-4 py-3 rounded-md transition-all duration-300 flex items-center justify-between group ${
-                    activeTab === index 
-                      ? 'bg-[#F7F5F0] text-[#2C2C2C]' 
-                      : 'text-[#888888] hover:bg-[#F7F5F0]/50 hover:text-[#2C2C2C]'
-                  }`}
-                >
-                  <span className="font-serif text-lg">{index + 1}. {principle.romaji}</span>
-                  <span className={`text-sm ${activeTab === index ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'} transition-opacity`}>
-                    {principle.kanji}
-                  </span>
-                </button>
-              ))}
+    <nav class="p-6 md:p-12 flex justify-between items-center border-b border-shizen-border">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 border-2 border-shizen-text flex flex-col items-center justify-center font-serif text-sm tracking-widest leading-none p-1">
+                <span>自</span>
+                <span>然</span>
             </div>
+            <div>
+                <h1 class="text-xl font-medium tracking-wide uppercase">Shizen Style</h1>
+                <p class="text-xs tracking-widest text-shizen-muted uppercase mt-1">Personal Practice Guide</p>
+            </div>
+        </div>
+    </nav>
 
-            {/* Content Area */}
-            <div className="md:col-span-8">
-              <div className="bg-[#F7F5F0] p-8 md:p-12 rounded-xl h-full flex flex-col justify-center transition-all duration-500 relative overflow-hidden">
-                {/* Background Kanji Watermark */}
-                <div className="absolute -right-10 -bottom-10 text-[12rem] text-white/40 font-serif leading-none select-none z-0">
-                  {principles[activeTab].kanji}
+    <header class="max-w-4xl mx-auto px-6 py-20 md:py-32">
+        <h2 class="text-4xl md:text-6xl font-serif font-light leading-tight mb-8">
+            From Technical Perfection <br class="hidden md:block"/> to Emotional Resonance.
+        </h2>
+        <p class="text-lg md:text-xl text-[#555555] max-w-2xl leading-relaxed mb-12">
+            Welcome to the intersection of Japanese philosophy and contemplative photography. 
+            As an experienced photographer, you already know how to use the camera. Now, we are going to change <em>how you see</em>. 
+            These ten principles are not rules; they are lenses to help you cultivate a quiet, authentic visual practice.
+        </p>
+        <div class="flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-shizen-text">
+            <span>Scroll to explore the 10 Concepts</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+    </header>
+
+    <section class="bg-white border-y border-shizen-border py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12">
+                
+                <!-- Sidebar Navigation -->
+                <div class="md:col-span-4 flex flex-col gap-2" id="tab-buttons">
+                    <h3 class="text-xs font-bold tracking-widest uppercase text-shizen-light mb-6">The 10 Habits</h3>
+                    <!-- Buttons injected by JS -->
                 </div>
 
-                <div className="relative z-10">
-                  <div className="flex items-center gap-4 mb-6 text-[#666666]">
-                    {principles[activeTab].icon}
-                    <span className="tracking-widest uppercase text-xs font-bold">Concept {principles[activeTab].id} of 10</span>
-                  </div>
-                  
-                  <h3 className="text-4xl md:text-5xl font-serif mb-2">
-                    {principles[activeTab].romaji} <span className="text-[#888888] font-light">({principles[activeTab].kanji})</span>
-                  </h3>
-                  <h4 className="text-xl text-[#555555] font-light italic mb-8">
-                    {principles[activeTab].title}
-                  </h4>
-                  
-                  <div className="space-y-8">
-                    <div>
-                      <h5 className="text-xs font-bold tracking-widest uppercase text-[#888888] mb-3">The Philosophy</h5>
-                      <p className="text-lg leading-relaxed text-[#444444]">
-                        {principles[activeTab].concept}
-                      </p>
+                <!-- Content Area -->
+                <div class="md:col-span-8">
+                    <div class="bg-shizen-bg p-8 md:p-12 rounded-xl h-full flex flex-col justify-center transition-all duration-500 relative overflow-hidden" id="tab-content">
+                        <!-- Content injected by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-6 py-20 md:py-32">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif mb-4">Putting It Into Practice</h2>
+            <div class="w-12 h-px bg-shizen-text mx-auto"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="text-xl font-serif mb-4 flex items-center gap-3">
+                    <span class="text-shizen-light">一期一会</span> Ichigo Ichie
+                </h3>
+                <p class="text-[#555555] leading-relaxed mb-4">
+                    <strong>"One time, one meeting."</strong> As you integrate these habits, remember the ethics of radical presence. The light, the subject, and your specific mindset in this exact moment will never occur again.
+                </p>
+                <p class="text-[#555555] leading-relaxed">
+                    When you raise your camera, take one deep breath. Treat every scene as a once-in-a-lifetime opportunity. Quit the metrics of social media, and connect with the reality of the present moment.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-serif mb-4 flex items-center gap-3">
+                    <span class="text-shizen-light">幽玄</span> Yugen
+                </h3>
+                <p class="text-[#555555] leading-relaxed mb-4">
+                    <strong>The beauty of what stays partly hidden.</strong> Don't feel the need to show the viewer everything. A photograph crammed full of information leaves the viewer with nothing to do.
+                </p>
+                <p class="text-[#555555] leading-relaxed">
+                    Embrace the mist, the shadows, and the unseen. Give up the "big postcard view" in exchange for the textures and depths that require the viewer's imagination to complete the picture. 
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-20 bg-shizen-text text-white p-10 md:p-16 rounded-xl text-center">
+            <h3 class="text-2xl font-serif mb-6">The One-Day-At-A-Time Approach</h3>
+            <p class="text-[#CCCCCC] leading-relaxed max-w-2xl mx-auto mb-8">
+                The temptation with a list like this is to try everything at once—and that's exactly what Japanese minimalism cautions against. Pick <strong>one</strong> concept that resonates with you today. Sit with it for a week. Notice where it shows up in your workflow. Real change accumulates slowly.
+            </p>
+            <button class="bg-white text-shizen-text px-8 py-4 uppercase tracking-widest text-xs font-bold hover:bg-shizen-bg transition-colors rounded-sm">
+                Begin the Journey
+            </button>
+        </div>
+    </section>
+
+    <footer class="border-t border-shizen-border py-12 text-center text-shizen-light text-sm">
+        <p class="tracking-widest uppercase mb-2">Shizen Style • 21 Days to Ikigai</p>
+        <p>Cultivating a life of natural flow and intentional creativity.</p>
+    </footer>
+
+    <script>
+        // SVG Icons
+        const icons = {
+            minimize2: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>`,
+            leaf: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+            camera: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+            cameraSmall: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+            coffee: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg>`,
+            wind: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg>`,
+            sun: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
+            circle: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><circle cx="12" cy="12" r="10"/></svg>`,
+            eye: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`,
+            bookOpen: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 stroke-1"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`
+        };
+
+        // Data
+        const principles = [
+            {
+                id: 1, romaji: "Ma", kanji: "間", title: "The Power of Empty Space", icon: icons.minimize2,
+                concept: "The Japanese appreciation of negative space—the meaningful pause between notes, the empty corner of a room, the silence between words. It is both spatial (Yohaku) and temporal (the captured interval of time).",
+                application: "Before pressing the shutter, ask: 'What shape is the emptiness in this frame?' Don't just look at your subject; look at the space around it. Wait for the interval—the pause before the wave breaks, the breath before a subject turns. The most powerful image is often the one where you remove something from the frame."
+            },
+            {
+                id: 2, romaji: "Wabi-Sabi", kanji: "侘寂", title: "Embracing Imperfection", icon: icons.leaf,
+                concept: "Finding beauty in things that are imperfect, incomplete, and impermanent. It is the realization that the 'flaw' often contains the deepest emotional resonance.",
+                application: "Stop chasing 'perfect conditions.' Stop waiting for the golden hour or the cloudless sky. Shoot in the fog, the rain, or low light. Allow motion blur (impermanence) and grain (imperfection) to become part of the feeling of the photograph."
+            },
+            {
+                id: 3, romaji: "Danshari", kanji: "断捨離", title: "Cut, Dispose, Separate", icon: icons.camera,
+                concept: "A decluttering philosophy—refuse, discard, detach. It applies heavily to the 'ecosystem of things' we invite into our lives.",
+                application: "Conduct a seasonal gear inventory. Look at your lenses, bags, and filters. Ask: 'Does this serve my creative life right now?' Strip your daily carry down to one camera and one prime lens. This limitation will force you to rely on your vision, not your equipment."
+            },
+            {
+                id: 4, romaji: "Mottainai", kanji: "もったいない", title: "Zero Waste, Deep Gratitude", icon: icons.coffee,
+                concept: "A deep sense of regret over waste. In our context, it means cultivating a heart of gratitude for what we already possess rather than seeking the temporary stimulation of buying new things.",
+                application: "Practice a 'Morning Gratitude Inventory.' Before shooting, appreciate the gear you already hold. Finish what you start—if you begin a personal project, see it through before jumping to a new theme. Treat every frame with respect."
+            },
+            {
+                id: 5, romaji: "Kaizen", kanji: "改善", title: "Continuous Small Improvement", icon: icons.wind,
+                concept: "The philosophy of getting 1% better every day. No dramatic overhauls—just consistent, small refinements over time.",
+                application: "Instead of stressing about building the perfect portfolio over years, focus on making one meaningful photograph today. Focus on one small compositional fix per session. Compounded over months, the change to your 'eye' will be profound."
+            },
+            {
+                id: 6, romaji: "Ikigai", kanji: "生き甲斐", title: "Your Reason for Being", icon: icons.sun,
+                concept: "What gives you purpose and meaning. Not a destination, but a daily practice of alignment.",
+                application: "Start your morning with a quiet calibration. Sit in stillness before picking up the camera and ask: 'What am I photographing today that actually matters to me?' Ensure your personal projects align with your core values, not social media trends."
+            },
+            {
+                id: 7, romaji: "Shizen", kanji: "自然", title: "Living in Harmony with Nature", icon: icons.circle,
+                concept: "Naturalness, spontaneity, and alignment with the rhythms of the natural world. Not forcing things into an unnatural shape.",
+                application: "Structure your personal projects around the available light and the current season rather than arbitrary deadlines. Walk outside before you shoot, feeling the air and the rhythm of the day. Design a 'flow-ready' environment where grabbing your camera feels effortless."
+            },
+            {
+                id: 8, romaji: "Mono no Aware", kanji: "物の哀れ", title: "The Gentle Sadness of Things", icon: icons.eye,
+                concept: "The 'tender ache' of knowing something beautiful is disappearing. It teaches us that the peak is too sure of itself; the beauty lives in the transition.",
+                application: "Stop photographing only the 'peak' (the perfect sunset, the full bloom). Deliberately photograph the in-between: the fading light, the off-season landscape, the aging building. Capture the feeling of transience. Let go of the archive-mindset and be present."
+            },
+            {
+                id: 9, romaji: "Ensō", kanji: "円相", title: "The Circle of Completeness", icon: icons.circle,
+                concept: "Representing the moment when the mind is free to let the body create. It is about releasing the need for perfection and external validation.",
+                application: "Create a daily practice with zero audience. Take one photograph a day purely for yourself. Do not edit it. Do not post it on social media. Just perform the act of seeing and capturing. Let it be enough."
+            },
+            {
+                id: 10, romaji: "Hara Hachi Bu", kanji: "腹八分目", title: "Eat Until 80% Full", icon: icons.bookOpen,
+                concept: "A teaching of mindful restraint. Stopping just before saturation keeps the appetite alive and energy high.",
+                application: "Apply this to your shooting sessions and your editing workflow. Stop taking photos just before you feel completely burnt out or 'done.' Leave a little creative energy in the tank for tomorrow. This keeps the visual appetite alive."
+            }
+        ];
+
+        // UI Update Logic
+        const tabButtonsContainer = document.getElementById('tab-buttons');
+        const tabContentContainer = document.getElementById('tab-content');
+        let activeTabIndex = 0;
+
+        function renderTabs() {
+            // Keep the header
+            tabButtonsContainer.innerHTML = '<h3 class="text-xs font-bold tracking-widest uppercase text-shizen-light mb-6">The 10 Habits</h3>';
+            
+            principles.forEach((principle, index) => {
+                const btn = document.createElement('button');
+                btn.className = `tab-button text-left px-4 py-3 rounded-md transition-all duration-300 flex items-center justify-between group ${activeTabIndex === index ? 'active' : ''}`;
+                btn.onclick = () => setActiveTab(index);
+                btn.innerHTML = `
+                    <span class="font-serif text-lg">${index + 1}. ${principle.romaji}</span>
+                    <span class="kanji-hint text-sm opacity-0">${principle.kanji}</span>
+                `;
+                tabButtonsContainer.appendChild(btn);
+            });
+        }
+
+        function renderContent() {
+            const principle = principles[activeTabIndex];
+            tabContentContainer.innerHTML = `
+                <!-- Background Kanji Watermark -->
+                <div class="absolute -right-10 -bottom-10 text-[12rem] text-white/40 font-serif leading-none select-none z-0">
+                    ${principle.kanji}
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-4 mb-6 text-shizen-muted">
+                        ${principle.icon}
+                        <span class="tracking-widest uppercase text-xs font-bold">Concept ${principle.id} of 10</span>
                     </div>
                     
-                    <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-[#E5DFD3]">
-                      <h5 className="text-xs font-bold tracking-widest uppercase text-[#2C2C2C] mb-3 flex items-center gap-2">
-                        <Camera className="w-4 h-4" />
-                        Practical Photography Workflow
-                      </h5>
-                      <p className="text-[#444444] leading-relaxed">
-                        {principles[activeTab].application}
-                      </p>
+                    <h3 class="text-4xl md:text-5xl font-serif mb-2">
+                        ${principle.romaji} <span class="text-shizen-light font-light">(${principle.kanji})</span>
+                    </h3>
+                    <h4 class="text-xl text-[#555555] font-light italic mb-8">
+                        ${principle.title}
+                    </h4>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h5 class="text-xs font-bold tracking-widest uppercase text-shizen-light mb-3">The Philosophy</h5>
+                            <p class="text-lg leading-relaxed text-shizen-darkMuted">
+                                ${principle.concept}
+                            </p>
+                        </div>
+                        
+                        <div class="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-shizen-border">
+                            <h5 class="text-xs font-bold tracking-widest uppercase text-shizen-text mb-3 flex items-center gap-2">
+                                ${icons.cameraSmall}
+                                Practical Photography Workflow
+                            </h5>
+                            <p class="text-shizen-darkMuted leading-relaxed">
+                                ${principle.application}
+                            </p>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
-            </div>
+            `;
+        }
 
-          </div>
-        </div>
-      </section>
+        function setActiveTab(index) {
+            activeTabIndex = index;
+            renderTabs();
+            renderContent();
+        }
 
-      {/* Integration Advice (Ichigo Ichie & Yugen) */}
-      <section className="max-w-4xl mx-auto px-6 py-20 md:py-32">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-serif mb-4">Putting It Into Practice</h2>
-          <div className="w-12 h-px bg-[#2C2C2C] mx-auto"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-xl font-serif mb-4 flex items-center gap-3">
-              <span className="text-[#888888]">一期一会</span> Ichigo Ichie
-            </h3>
-            <p className="text-[#555555] leading-relaxed mb-4">
-              <strong>"One time, one meeting."</strong> As you integrate these habits, remember the ethics of radical presence. The light, the subject, and your specific mindset in this exact moment will never occur again.
-            </p>
-            <p className="text-[#555555] leading-relaxed">
-              When you raise your camera, take one deep breath. Treat every scene as a once-in-a-lifetime opportunity. Quit the metrics of social media, and connect with the reality of the present moment.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-xl font-serif mb-4 flex items-center gap-3">
-              <span className="text-[#888888]">幽玄</span> Yugen
-            </h3>
-            <p className="text-[#555555] leading-relaxed mb-4">
-              <strong>The beauty of what stays partly hidden.</strong> Don't feel the need to show the viewer everything. A photograph crammed full of information leaves the viewer with nothing to do.
-            </p>
-            <p className="text-[#555555] leading-relaxed">
-              Embrace the mist, the shadows, and the unseen. Give up the "big postcard view" in exchange for the textures and depths that require the viewer's imagination to complete the picture. 
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-20 bg-[#2C2C2C] text-white p-10 md:p-16 rounded-xl text-center">
-          <h3 className="text-2xl font-serif mb-6">The One-Day-At-A-Time Approach</h3>
-          <p className="text-[#CCCCCC] leading-relaxed max-w-2xl mx-auto mb-8">
-            The temptation with a list like this is to try everything at once—and that's exactly what Japanese minimalism cautions against. Pick <strong>one</strong> concept that resonates with you today. Sit with it for a week. Notice where it shows up in your workflow. Real change accumulates slowly.
-          </p>
-          <button className="bg-white text-[#2C2C2C] px-8 py-4 uppercase tracking-widest text-xs font-bold hover:bg-[#F7F5F0] transition-colors rounded-sm">
-            Begin the Journey
-          </button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-[#E5DFD3] py-12 text-center text-[#888888] text-sm">
-        <p className="tracking-widest uppercase mb-2">Shizen Style • 21 Days to Ikigai</p>
-        <p>Cultivating a life of natural flow and intentional creativity.</p>
-      </footer>
-    </div>
-  );
-}
+        // Initialize
+        renderTabs();
+        renderContent();
+    </script>
+</body>
+</html>
