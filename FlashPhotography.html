@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Direct Flash Feels Cheap Until You Learn This — Video Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- Sticky Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-zinc-950/85 backdrop-blur-md border-b border-zinc-800/80">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400">
+          <!-- Flash Icon -->
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </span>
+        <span class="font-semibold text-sm sm:text-base tracking-tight text-white">Flash<span class="text-amber-400">Notes</span></span>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
+        <a href="#summary" class="hover:text-white transition-colors">Core Takeaway</a>
+        <a href="#simulator" class="hover:text-white transition-colors">Ratio Simulator</a>
+        <a href="#outline" class="hover:text-white transition-colors">Video Outline</a>
+        <a href="#cheatsheet" class="hover:text-white transition-colors">Field Checklist</a>
+      </nav>
+
+      <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ" target="_blank" rel="noopener noreferrer"
+         class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-xs font-medium text-zinc-200 transition-all">
+        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        <span>Watch Video</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden border-b border-zinc-800/80 bg-gradient-to-b from-zinc-900/70 via-zinc-950 to-zinc-950">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-300 text-xs font-medium mb-6">
+        <span>Photography Breakdown</span>
+        <span class="text-zinc-600">•</span>
+        <span>Martin Castein</span>
+        <span class="text-zinc-600">•</span>
+        <span>09:25</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.15] max-w-3xl">
+        Direct Flash Feels Cheap Until You Learn This
+      </h1>
+
+      <p class="mt-5 text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
+        How to transform a tiny, non-tilting on-camera flash from a harsh snapshot light into a subtle, natural, and cinematic portrait tool—both in bright daylight and at night.
+      </p>
+
+      <!-- Key Pillars Strip -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
+          <div class="text-xs font-semibold uppercase tracking-wider text-amber-400">Core Principle</div>
+          <div class="mt-1 font-semibold text-zinc-100">Nudge, Don't Replace</div>
+          <p class="mt-1 text-xs text-zinc-400 leading-relaxed">Blend low-power flash with ambient daylight instead of turning backgrounds pitch black.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
+          <div class="text-xs font-semibold uppercase tracking-wider text-sky-400">Directional Hack</div>
+          <div class="mt-1 font-semibold text-zinc-100">45° Hand + Window Bounce</div>
+          <p class="mt-1 text-xs text-zinc-400 leading-relaxed">Redirect a fixed mini-flash sideways using your hand and reflective shop glass.</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-zinc-900/70 border border-zinc-800">
+          <div class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Night Color Theory</div>
+          <div class="mt-1 font-semibold text-zinc-100">Ditch the Orange Gel</div>
+          <p class="mt-1 text-xs text-zinc-400 leading-relaxed">Keep clean skin tones against warm streetlamps for natural warm-vs-cool depth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 space-y-16">
+
+    <!-- Executive Summary -->
+    <section id="summary" class="scroll-mt-24">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Executive Summary</h2>
+        <button id="copySummaryBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-xs font-medium text-zinc-300 transition-colors">
+          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copyBtnText">Copy Notes</span>
+        </button>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 space-y-4 text-zinc-300 leading-relaxed text-sm sm:text-base">
+        <p>
+          Most photographers avoid direct on-camera flash because it typically produces flat, shiny skin, harsh wall shadows, and an unnaturally dark background—making the subject look "cut out and pasted" onto the scene. Photographer <strong class="text-white">Martin Castein</strong> explains that this happens when flash is used to <em class="text-amber-300">replace</em> existing light rather than subtly <em class="text-amber-300">supplement</em> it.
+        </p>
+        <p>
+          By dialing in camera settings for the ambient background first and setting a compact flash (such as the <strong class="text-white">Viltrox Z1 Pro</strong>) to very low power, the flash gently lifts skin tones, creates crisp pinpoint catchlights in the eyes, and preserves highlight headroom. Even with a fixed flash head that cannot tilt or swivel, photographers can shape directional light by holding their hand at a 45° angle to bounce light off nearby glass storefronts, or use un-gelled flash at night to create vibrant warm-cool color contrast.
+        </p>
+      </div>
+    </section>
+
+    <!-- Interactive Lighting Concept Visualizer -->
+    <section id="simulator" class="scroll-mt-24">
+      <div class="mb-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Interactive Concept: Flash Ratio & Color Contrast</h2>
+        <p class="text-sm text-zinc-400 mt-1">Toggle between common flash mistakes and Martin's subtle approach to see how light ratio and gels impact portrait depth.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 p-5 sm:p-6 rounded-2xl bg-zinc-900/70 border border-zinc-800">
+        <!-- Controls -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-5">
+          <div class="space-y-2">
+            <label class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Select Lighting Scenario</label>
+            <div class="grid grid-cols-1 gap-2" id="scenarioButtons">
+              <button data-mode="overpowered" class="scenario-btn text-left p-3.5 rounded-xl border transition-all bg-zinc-800/90 border-amber-500/60 text-white">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-sm">1. Overpowered Direct Flash</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-300">Avoid</span>
+                </div>
+                <p class="text-xs text-zinc-400 mt-1">Flash replaces ambient light. Shiny highlights, crushed black background.</p>
+              </button>
+
+              <button data-mode="subtle" class="scenario-btn text-left p-3.5 rounded-xl border transition-all bg-zinc-950/60 border-zinc-800 text-zinc-300 hover:border-zinc-700">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-sm">2. Subtle Fill Ratio (Martin's Way)</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Recommended</span>
+                </div>
+                <p class="text-xs text-zinc-400 mt-1">Balanced ambient sky + low-power nudge + pinpoint eye catchlights.</p>
+              </button>
+
+              <button data-mode="nightgel" class="scenario-btn text-left p-3.5 rounded-xl border transition-all bg-zinc-950/60 border-zinc-800 text-zinc-300 hover:border-zinc-700">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-sm">3. Night + Orange CTO Gel</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">Flat Color</span>
+                </div>
+                <p class="text-xs text-zinc-400 mt-1">Orange subject on orange street background loses visual separation.</p>
+              </button>
+
+              <button data-mode="nightclean" class="scenario-btn text-left p-3.5 rounded-xl border transition-all bg-zinc-950/60 border-zinc-800 text-zinc-300 hover:border-zinc-700">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-sm">4. Night + Un-gelled Clean Flash</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300">3D Depth</span>
+                </div>
+                <p class="text-xs text-zinc-400 mt-1">Natural skin tones pop against warm amber city lights.</p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Preview Stage -->
+        <div class="lg:col-span-7 flex flex-col">
+          <div id="previewStage" class="relative flex-1 min-h-[290px] rounded-2xl overflow-hidden border border-zinc-700/80 flex flex-col items-center justify-center p-6 transition-all duration-500 bg-zinc-950">
+            <!-- Ambient Background Layer -->
+            <div id="bgBackdrop" class="absolute inset-0 transition-all duration-500 bg-gradient-to-b from-zinc-950 via-zinc-950 to-black"></div>
+
+            <!-- City Bokeh Lights (visible in night modes) -->
+            <div id="bokehLayer" class="absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none">
+              <div class="absolute top-8 left-10 w-16 h-16 rounded-full bg-amber-500/30 blur-xl"></div>
+              <div class="absolute top-14 right-14 w-20 h-20 rounded-full bg-orange-500/35 blur-xl"></div>
+              <div class="absolute bottom-12 left-20 w-24 h-24 rounded-full bg-amber-600/25 blur-2xl"></div>
+              <div class="absolute bottom-10 right-16 w-14 h-14 rounded-full bg-yellow-500/30 blur-lg"></div>
+            </div>
+
+            <!-- Simulated Portrait Card -->
+            <div class="relative z-10 flex flex-col items-center">
+              <!-- Hard Shadow behind subject -->
+              <div id="wallShadow" class="w-28 h-28 rounded-full bg-black/90 blur-md translate-x-5 translate-y-2 transition-all duration-500"></div>
+
+              <!-- Subject Face Representation -->
+              <div id="subjectCircle" class="-mt-28 w-28 h-28 rounded-full border-2 border-white/20 flex items-center justify-center shadow-2xl transition-all duration-500 bg-amber-50">
+                <!-- Eyes with Catchlights -->
+                <div class="flex gap-5">
+                  <div class="w-3.5 h-3.5 rounded-full bg-zinc-900 relative flex items-center justify-center">
+                    <span id="catchlightL" class="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] transition-all duration-300"></span>
+                  </div>
+                  <div class="w-3.5 h-3.5 rounded-full bg-zinc-900 relative flex items-center justify-center">
+                    <span id="catchlightR" class="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] transition-all duration-300"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status Pill -->
+              <div id="stageBadge" class="mt-5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-700 text-xs font-medium text-zinc-200 text-center">
+                Two-Tier Exposure: Harsh foreground, dead background
+              </div>
+            </div>
+          </div>
+
+          <!-- Meter Readout -->
+          <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="p-2.5 rounded-xl bg-zinc-950/80 border border-zinc-800">
+              <span class="text-zinc-500 block">Ambient Background</span>
+              <span id="readoutAmbient" class="font-semibold text-zinc-200 mt-0.5 block">-3.0 EV (Crushed)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-zinc-950/80 border border-zinc-800">
+              <span class="text-zinc-500 block">Flash Power</span>
+              <span id="readoutFlash" class="font-semibold text-amber-400 mt-0.5 block">High (Blown Highlights)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-zinc-950/80 border border-zinc-800">
+              <span class="text-zinc-500 block">Visual Result</span>
+              <span id="readoutResult" class="font-semibold text-red-400 mt-0.5 block">Cut-Out / Cheap Look</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timestamped Video Outline -->
+    <section id="outline" class="scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-6">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Detailed Video Outline</h2>
+          <p class="text-sm text-zinc-400 mt-1">Click any timestamp badge to jump directly to that section on YouTube.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Chapter 1 -->
+        <article class="p-5 sm:p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700/80 transition-colors">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-base sm:text-lg font-bold text-white">1. Why Direct Flash Usually Looks "Cheap"</h3>
+            <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=0s" target="_blank" rel="noopener noreferrer"
+               class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold transition-colors">
+              00:00
+            </a>
+          </div>
+          <ul class="space-y-2.5 text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Replacing vs. Blending Light:</strong> Direct flash fails aesthetically when it becomes the <em>only</em> light illuminating the subject, creating two disconnected tiers of exposure—a flat, shiny face pasted over a pitch-black background.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Preventing Hard Wall Shadows:</strong> Always maintain physical distance between your subject and any wall behind them so the flash doesn't cast a harsh, distracting outline shadow (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=72s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">01:12</a>).</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Chapter 2 -->
+        <article class="p-5 sm:p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700/80 transition-colors">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-base sm:text-lg font-bold text-white">2. Mastering Light Ratios & Daytime Fill</h3>
+            <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=78s" target="_blank" rel="noopener noreferrer"
+               class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold transition-colors">
+              01:18
+            </a>
+          </div>
+          <ul class="space-y-2.5 text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Expose for the Background First:</strong> Lock in camera settings for the ambient environment (sky and street), then use low flash power strictly to nudge the subject-to-background brightness ratio (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=121s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">02:01</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Pinpoint Catchlights vs. Lightroom Edits:</strong> A tiny flash creates small, crisp catchlights that bring eyes to life. While Lightroom can lift shadows, it cannot generate real light directionality or eye sparkle (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=189s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">03:09</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Keep Skin Slightly Underexposed:</strong> Even with flash active, keep skin tones slightly underexposed to preserve dynamic range headroom and prevent unrecoverable shiny hot spots (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=248s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">04:08</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+              <span><strong class="text-white">Sync Speed Tip (No HSS Needed):</strong> In late-afternoon light, dropping ISO to 100 lets you shoot wide open at <code class="text-xs bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-200">f/1.4</code> within a standard <code class="text-xs bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-200">1/250s</code> sync speed (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=283s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">04:43</a>).</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Chapter 3 -->
+        <article class="p-5 sm:p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700/80 transition-colors">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-base sm:text-lg font-bold text-white">3. The "Hand-Bounce" Wedding Trick for Fixed Flashes</h3>
+            <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=303s" target="_blank" rel="noopener noreferrer"
+               class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold transition-colors">
+              05:03
+            </a>
+          </div>
+          <ul class="space-y-2.5 text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-400 shrink-0"></span>
+              <span><strong class="text-white">45° Hand Deflector:</strong> When using a mini flash that doesn't tilt or swivel, rotate the camera to portrait orientation and hold your open hand at a 45° angle in front of the bulb to bounce light sideways (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=322s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">05:22</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-sky-400 shrink-0"></span>
+              <span><strong class="text-white">Bouncing Off Shop Windows:</strong> Glass storefronts reflect a surprising amount of flash back onto your subject as soft, directional side light—picking up natural warmth from your skin and surroundings (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=372s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">06:12</a>).</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Chapter 4 -->
+        <article class="p-5 sm:p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700/80 transition-colors">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-base sm:text-lg font-bold text-white">4. Gear Spotlight: Viltrox Z1 Pro Mini Flash</h3>
+            <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=400s" target="_blank" rel="noopener noreferrer"
+               class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold transition-colors">
+              06:40
+            </a>
+          </div>
+          <ul class="space-y-2.5 text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-400 shrink-0"></span>
+              <span><strong class="text-white">Zero-Friction Portability:</strong> At just <strong class="text-white">136g (4.8 oz)</strong> and ~$60, it stays mounted and switched off on the camera all shoot long—ready to flip on for a few frames without digging into a camera bag (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=435s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">07:15</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-400 shrink-0"></span>
+              <span><strong class="text-white">Controls & Wishlist:</strong> Features a rear touchscreen (swipe left/right for TTL/Manual; up/down for HSS), physical power dial, USB-C charging, and a clip-on diffuser. Martin's only critique is wishing the minimum power dropped one stop lower (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=477s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">07:57</a>).</span>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Chapter 5 -->
+        <article class="p-5 sm:p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700/80 transition-colors">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-base sm:text-lg font-bold text-white">5. Nighttime Color Contrast (Skip the Orange Gel)</h3>
+            <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=483s" target="_blank" rel="noopener noreferrer"
+               class="px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold transition-colors">
+              08:03
+            </a>
+          </div>
+          <ul class="space-y-2.5 text-sm text-zinc-300">
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+              <span><strong class="text-white">Why CTO Gels Flatten Night Shots:</strong> Matching your flash to warm orange streetlights with an orange gel creates an orange subject on an orange background, eliminating tonal separation (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=495s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">08:15</a>).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+              <span><strong class="text-white">Warm-vs-Cool Separation:</strong> Using clean, un-gelled flash at low power keeps skin tones natural while letting ambient streetlights stay warm and amber—creating immediate 3D depth that draws the viewer's eye straight to the subject (<a href="https://www.youtube.com/watch?v=vroT5MuR5pQ&t=506s" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline font-mono text-xs">08:26</a>).</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Actionable Field Checklist -->
+    <section id="cheatsheet" class="scroll-mt-24">
+      <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">On-Location Quick Checklist</h2>
+            <p class="text-xs sm:text-sm text-zinc-400 mt-0.5">Tap items to check off your setup before pressing the shutter.</p>
+          </div>
+          <span id="checkProgress" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-zinc-800 text-amber-400 border border-zinc-700">0 / 5 Ready</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="checklistContainer">
+          <label class="checklist-item flex items-center gap-3 p-3.5 rounded-xl bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 cursor-pointer select-none transition-all">
+            <input type="checkbox" class="w-4 h-4 accent-amber-500 rounded" />
+            <span class="text-sm text-zinc-200">1. Pull subject away from walls to eliminate harsh shadows</span>
+          </label>
+          <label class="checklist-item flex items-center gap-3 p-3.5 rounded-xl bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 cursor-pointer select-none transition-all">
+            <input type="checkbox" class="w-4 h-4 accent-amber-500 rounded" />
+            <span class="text-sm text-zinc-200">2. Meter & expose for the ambient background first</span>
+          </label>
+          <label class="checklist-item flex items-center gap-3 p-3.5 rounded-xl bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 cursor-pointer select-none transition-all">
+            <input type="checkbox" class="w-4 h-4 accent-amber-500 rounded" />
+            <span class="text-sm text-zinc-200">3. Keep flash at low power (leave skin slightly underexposed)</span>
+          </label>
+          <label class="checklist-item flex items-center gap-3 p-3.5 rounded-xl bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 cursor-pointer select-none transition-all">
+            <input type="checkbox" class="w-4 h-4 accent-amber-500 rounded" />
+            <span class="text-sm text-zinc-200">4. Use 45° hand bounce + shop glass for side lighting</span>
+          </label>
+          <label class="checklist-item sm:col-span-2 flex items-center gap-3 p-3.5 rounded-xl bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 cursor-pointer select-none transition-all">
+            <input type="checkbox" class="w-4 h-4 accent-amber-500 rounded" />
+            <span class="text-sm text-zinc-200">5. At night, shoot un-gelled for clean skin vs. warm background contrast</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-medium text-white shadow-xl">
+    Summary & outline copied to clipboard!
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/80 py-8 text-center text-xs text-zinc-500">
+    <div class="max-w-5xl mx-auto px-4">
+      <p>Summarized from <a href="https://www.youtube.com/watch?v=vroT5MuR5pQ" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-amber-400 underline">"Direct Flash Feels Cheap Until You Learn This"</a> by Martin Castein.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scenario Simulator Data & Logic
+    const scenarios = {
+      overpowered: {
+        bgClass: 'bg-gradient-to-b from-zinc-950 via-zinc-950 to-black',
+        bokehOpacity: '0',
+        shadowStyle: 'translate-x-5 translate-y-2 opacity-90 bg-black',
+        faceBg: '#ffffff',
+        faceBorder: 'rgba(255,255,255,0.8)',
+        faceGlow: '0 0 35px rgba(255,255,255,0.65)',
+        catchlightScale: 'scale-125',
+        badge: 'Two-Tier Exposure: Harsh foreground, dead background',
+        ambient: '-3.0 EV (Crushed)',
+        flash: 'High (Blown Highlights)',
+        result: 'Cut-Out / Cheap Look',
+        resultClass: 'text-red-400'
+      },
+      subtle: {
+        bgClass: 'bg-gradient-to-b from-sky-900/70 via-amber-900/30 to-zinc-900',
+        bokehOpacity: '0',
+        shadowStyle: 'translate-x-0 translate-y-0 opacity-0',
+        faceBg: '#f5d0b5',
+        faceBorder: 'rgba(255,255,255,0.35)',
+        faceGlow: '0 10px 25px rgba(0,0,0,0.4)',
+        catchlightScale: 'scale-100',
+        badge: 'Balanced Ratio: Ambient sky preserved + gentle skin lift',
+        ambient: '0.0 EV (Balanced)',
+        flash: 'Low Fill (-0.3 EV Skin)',
+        result: 'Natural & Editorial',
+        resultClass: 'text-emerald-400'
+      },
+      nightgel: {
+        bgClass: 'bg-gradient-to-b from-amber-950 via-orange-950/90 to-zinc-950',
+        bokehOpacity: '1',
+        shadowStyle: 'translate-x-2 translate-y-1 opacity-30 bg-black',
+        faceBg: '#d97706',
+        faceBorder: 'rgba(251,191,36,0.4)',
+        faceGlow: '0 8px 20px rgba(217,119,6,0.25)',
+        catchlightScale: 'scale-90',
+        badge: 'Monochromatic Flatness: Orange subject blends into orange backdrop',
+        ambient: 'Warm Amber (-1.0 EV)',
+        flash: 'Low + Orange CTO Gel',
+        result: 'Flat / Low Color Separation',
+        resultClass: 'text-amber-400'
+      },
+      nightclean: {
+        bgClass: 'bg-gradient-to-b from-amber-950 via-orange-950/90 to-zinc-950',
+        bokehOpacity: '1',
+        shadowStyle: 'translate-x-2 translate-y-1 opacity-25 bg-black',
+        faceBg: '#f3cfb6',
+        faceBorder: 'rgba(255,255,255,0.4)',
+        faceGlow: '0 10px 25px rgba(0,0,0,0.5)',
+        catchlightScale: 'scale-100',
+        badge: 'Color Contrast Pop: Clean neutral skin vs. warm city glow',
+        ambient: 'Warm Amber (-1.0 EV)',
+        flash: 'Low Power (Un-gelled)',
+        result: '3D Depth & Separation',
+        resultClass: 'text-sky-400'
+      }
+    };
+
+    const buttons = document.querySelectorAll('.scenario-btn');
+    const bgBackdrop = document.getElementById('bgBackdrop');
+    const bokehLayer = document.getElementById('bokehLayer');
+    const wallShadow = document.getElementById('wallShadow');
+    const subjectCircle = document.getElementById('subjectCircle');
+    const catchlightL = document.getElementById('catchlightL');
+    const catchlightR = document.getElementById('catchlightR');
+    const stageBadge = document.getElementById('stageBadge');
+    const readoutAmbient = document.getElementById('readoutAmbient');
+    const readoutFlash = document.getElementById('readoutFlash');
+    const readoutResult = document.getElementById('readoutResult');
+
+    function applyScenario(key) {
+      const data = scenarios[key];
+      if (!data) return;
+
+      // Update button styles
+      buttons.forEach(btn => {
+        if (btn.dataset.mode === key) {
+          btn.classList.remove('bg-zinc-950/60', 'border-zinc-800', 'text-zinc-300');
+          btn.classList.add('bg-zinc-800/90', 'border-amber-500/60', 'text-white');
+        } else {
+          btn.classList.remove('bg-zinc-800/90', 'border-amber-500/60', 'text-white');
+          btn.classList.add('bg-zinc-950/60', 'border-zinc-800', 'text-zinc-300');
+        }
+      });
+
+      // Update stage visuals
+      bgBackdrop.className = `absolute inset-0 transition-all duration-500 ${data.bgClass}`;
+      bokehLayer.style.opacity = data.bokehOpacity;
+      wallShadow.className = `w-28 h-28 rounded-full blur-md transition-all duration-500 ${data.shadowStyle}`;
+      subjectCircle.style.backgroundColor = data.faceBg;
+      subjectCircle.style.borderColor = data.faceBorder;
+      subjectCircle.style.boxShadow = data.faceGlow;
+
+      catchlightL.className = `w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] transition-all duration-300 ${data.catchlightScale}`;
+      catchlightR.className = `w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_#fff] transition-all duration-300 ${data.catchlightScale}`;
+
+      stageBadge.textContent = data.badge;
+      readoutAmbient.textContent = data.ambient;
+      readoutFlash.textContent = data.flash;
+      readoutResult.textContent = data.result;
+      readoutResult.className = `font-semibold mt-0.5 block ${data.resultClass}`;
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => applyScenario(btn.dataset.mode));
+    });
+
+    // Interactive Checklist Counter
+    const checkboxes = document.querySelectorAll('#checklistContainer input[type="checkbox"]');
+    const checkProgress = document.getElementById('checkProgress');
+
+    function updateChecklist() {
+      const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+      checkProgress.textContent = `${checkedCount} / ${checkboxes.length} Ready`;
+
+      checkboxes.forEach(cb => {
+        const label = cb.closest('.checklist-item');
+        const span = label.querySelector('span');
+        if (cb.checked) {
+          label.classList.add('border-amber-500/40', 'bg-amber-500/5');
+          span.classList.add('line-through', 'text-zinc-500');
+        } else {
+          label.classList.remove('border-amber-500/40', 'bg-amber-500/5');
+          span.classList.remove('line-through', 'text-zinc-500');
+        }
+      });
+    }
+
+    checkboxes.forEach(cb => cb.addEventListener('change', updateChecklist));
+
+    // Copy Summary Notes using execCommand fallback for iframe safety
+    const copyBtn = document.getElementById('copySummaryBtn');
+    const toast = document.getElementById('toast');
+
+    copyBtn.addEventListener('click', () => {
+      const notesText = `DIRECT FLASH FEELS CHEAP UNTIL YOU LEARN THIS — Martin Castein
+Video: https://www.youtube.com/watch?v=vroT5MuR5pQ
+
+CORE TAKEAWAY:
+- Don't let flash replace ambient light; use low-power flash to gently nudge the subject-to-background ratio.
+- Expose for the background first, keep skin slightly underexposed to preserve highlight headroom, and leave space behind your subject to prevent wall shadows.
+
+KEY TECHNIQUES:
+1. [00:00] Avoid Two-Tier Exposure: High flash crushes backgrounds to black and creates harsh wall shadows.
+2. [01:18] Daytime Fill Ratio: Meter for the sky/street, drop ISO to 100 to stay within 1/250s sync speed at f/1.4, and add subtle flash for crisp eye catchlights.
+3. [05:03] 45° Hand-Bounce Trick: With a fixed mini-flash, shoot in portrait orientation and angle your hand at 45° to bounce light off nearby shop windows.
+4. [06:40] Viltrox Z1 Pro Workflow: Keep a 136g mini flash mounted and switched off until needed.
+5. [08:03] Nighttime Color Contrast: Skip orange CTO gels; clean un-gelled flash creates natural skin tones that pop against warm streetlights.`;
+
+      const textArea = document.createElement('textarea');
+      textArea.value = notesText;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2600);
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    });
+  </script>
+</body>
+</html>
