@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fujifilm X-H2S Outdoor Sports Cheat Sheet</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Font: Inter & JetBrains Mono for camera readouts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        fuji: {
+                            black: '#111214',
+                            dark: '#181A1E',
+                            card: '#202329',
+                            border: '#2E333D',
+                            green: '#00A859',
+                            accent: '#E1251B',
+                            amber: '#F59E0B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-fuji-black text-slate-200 font-sans antialiased selection:bg-fuji-green selection:text-white">
+
+    <!-- Top Navigation / Header -->
+    <header class="sticky top-0 z-50 bg-fuji-dark/95 backdrop-blur-md border-b border-fuji-border">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <!-- Fujifilm X-H2S Badge Icon -->
+                <div class="w-10 h-10 rounded-lg bg-fuji-card border border-fuji-border flex flex-col items-center justify-center shrink-0">
+                    <span class="text-[10px] font-bold tracking-widest text-slate-400 leading-none">X-H2</span>
+                    <span class="text-sm font-mono font-bold text-fuji-accent leading-tight">S</span>
+                </div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight">Outdoor Sports Field Guide</h1>
+                    <p class="text-xs text-slate-400">American Football • Soccer • Rugby • Field Hockey</p>
+                </div>
+            </div>
+            
+            <!-- Quick Action / Copy Button -->
+            <div class="flex items-center gap-2">
+                <button id="copyBtn" onclick="copyQuickSetup()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-fuji-card hover:bg-slate-800 border border-fuji-border text-xs font-medium text-slate-200 transition-colors cursor-pointer">
+                    <svg class="w-4 h-4 text-fuji-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
+                    </svg>
+                    <span>Copy Quick Setup</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+        <!-- Section 1: 5-Second Field Setup (Interactive Checklist) -->
+        <section class="bg-fuji-dark rounded-2xl border border-fuji-border p-5 sm:p-6 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                <div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-fuji-green/15 text-fuji-green border border-fuji-green/30 mb-1.5">PRE-GAME CHECKLIST</span>
+                    <h2 class="text-xl font-bold text-white">1. Fast Configuration (5-Second Field Setup)</h2>
+                </div>
+                <button onclick="resetChecklist()" class="self-start sm:self-auto text-xs text-slate-400 hover:text-white underline underline-offset-4 cursor-pointer py-1">
+                    Reset Checks
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Step 1 -->
+                <label class="checklist-item flex items-start gap-3.5 p-4 rounded-xl bg-fuji-card border border-fuji-border hover:border-slate-600 transition-all cursor-pointer select-none">
+                    <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-600 text-fuji-green focus:ring-fuji-green bg-fuji-black cursor-pointer">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-white">AF-C</span>
+                            <h3 class="font-semibold text-white text-sm">Focus Switch (Front / Fn)</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">Set to <strong>AF-C</strong> (Continuous AF) for nonstop subject tracking across the pitch.</p>
+                    </div>
+                </label>
+
+                <!-- Step 2 -->
+                <label class="checklist-item flex items-start gap-3.5 p-4 rounded-xl bg-fuji-card border border-fuji-border hover:border-slate-600 transition-all cursor-pointer select-none">
+                    <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-600 text-fuji-green focus:ring-fuji-green bg-fuji-black cursor-pointer">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-white">CH</span>
+                            <h3 class="font-semibold text-white text-sm">Drive Mode</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">Set Drive setting to <strong>CH</strong> (Continuous High) for rapid burst sequences.</p>
+                    </div>
+                </label>
+
+                <!-- Step 3 -->
+                <label class="checklist-item flex items-start gap-3.5 p-4 rounded-xl bg-fuji-card border border-fuji-border hover:border-slate-600 transition-all cursor-pointer select-none md:col-span-2">
+                    <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-600 text-fuji-green focus:ring-fuji-green bg-fuji-black cursor-pointer">
+                    <div class="space-y-2 w-full">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-fuji-green/20 text-fuji-green border border-fuji-green/30">FACE ON / EYE AUTO</span>
+                            <h3 class="font-semibold text-white text-sm">Human Tracking Setup</h3>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">Set <strong>FACE/EYE DETECTION SETTING</strong> to <strong>FACE ON / EYE AUTO</strong>.</p>
+                        <div class="p-3 rounded-lg bg-amber-950/30 border border-amber-500/30 text-xs text-amber-200/90 leading-relaxed">
+                            <strong>Menu Verification Note:</strong> There is <em>no</em> "Human" or "Sports" option under <code class="font-mono text-amber-300 bg-black/40 px-1 rounded">SUBJECT DETECTION SETTING</code> (which is strictly for Animals, Birds, Automobiles, Bikes, Airplanes, and Trains). Enabling Subject Detection automatically turns Face/Eye Detection <strong>OFF</strong>—keep Subject Detection <strong>OFF</strong> for human field sports.
+                        </div>
+                    </div>
+                </label>
+
+                <!-- Step 4 -->
+                <label class="checklist-item flex items-start gap-3.5 p-4 rounded-xl bg-fuji-card border border-fuji-border hover:border-slate-600 transition-all cursor-pointer select-none md:col-span-2">
+                    <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-600 text-fuji-green focus:ring-fuji-green bg-fuji-black cursor-pointer">
+                    <div class="space-y-1">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="font-mono text-xs font-bold px-2 py-0.5 rounded bg-slate-800 text-white">15–20 FPS</span>
+                            <h3 class="font-semibold text-white text-sm">Shutter Mode & Burst Rate</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">Use <strong>Mechanical Shutter (up to 15 fps)</strong> or <strong>Electronic Shutter (capped at 15–20 fps)</strong> for maximum AF tracking hit-rate and buffer efficiency.</p>
+                    </div>
+                </label>
+            </div>
+        </section>
+
+        <!-- Section 2: Recommended Exposure & Shutter Settings -->
+        <section class="bg-fuji-dark rounded-2xl border border-fuji-border p-5 sm:p-6 shadow-xl">
+            <div class="mb-5">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-sky-500/15 text-sky-400 border border-sky-500/30 mb-1.5">EXPOSURE TRIANGLE</span>
+                <h2 class="text-xl font-bold text-white">2. Recommended Exposure & Shutter Settings</h2>
+            </div>
+
+            <!-- Responsive Table Wrapper -->
+            <div class="overflow-x-auto rounded-xl border border-fuji-border">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-fuji-card border-b border-fuji-border text-xs uppercase tracking-wider text-slate-400">
+                            <th class="py-3.5 px-4 font-semibold">Lighting Condition</th>
+                            <th class="py-3.5 px-4 font-semibold">Shutter Speed</th>
+                            <th class="py-3.5 px-4 font-semibold">Aperture</th>
+                            <th class="py-3.5 px-4 font-semibold">ISO</th>
+                            <th class="py-3.5 px-4 font-semibold">Field Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-fuji-border text-sm">
+                        <tr class="hover:bg-fuji-card/60 transition-colors">
+                            <td class="py-4 px-4 font-medium text-white whitespace-nowrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                                    <span>Bright Sunlight / Daytime</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 font-mono text-fuji-green font-bold whitespace-nowrap">1/2000s – 1/4000s</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">f/2.8 – f/4</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">ISO 160 – 400</td>
+                            <td class="py-4 px-4 text-xs text-slate-400 min-w-[200px]">Fully freezes high-velocity ball motion, tackles, and peak sprints.</td>
+                        </tr>
+                        <tr class="hover:bg-fuji-card/60 transition-colors">
+                            <td class="py-4 px-4 font-medium text-white whitespace-nowrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                                    <span>Overcast / Late Afternoon</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 font-mono text-fuji-green font-bold whitespace-nowrap">1/1000s – 1/1600s</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">Wide Open (f/2.8–f/4)</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">Auto ISO (Max 3200)</td>
+                            <td class="py-4 px-4 text-xs text-slate-400 min-w-[200px]">Prevents shutter speed from dipping below critical action-freezing threshold.</td>
+                        </tr>
+                        <tr class="hover:bg-fuji-card/60 transition-colors">
+                            <td class="py-4 px-4 font-medium text-white whitespace-nowrap">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+                                    <span>Night Games / Stadium Lights</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4 font-mono text-fuji-green font-bold whitespace-nowrap">1/1000s</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">Wide Open (f/2.8)</td>
+                            <td class="py-4 px-4 font-mono text-slate-300 whitespace-nowrap">Auto ISO (Max 6400–12800)</td>
+                            <td class="py-4 px-4 text-xs text-slate-400 min-w-[200px]">Balances clean noise floor while stopping limb and ball motion blur.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pro Tip Callout -->
+            <div class="mt-4 p-4 rounded-xl bg-fuji-card border-l-4 border-fuji-green flex items-start gap-3">
+                <svg class="w-5 h-5 text-fuji-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <div class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <strong class="text-white">Pro Tip – Auto ISO Bank 1:</strong> Program <span class="font-mono text-fuji-green">Auto ISO 1</span> with a <strong>Minimum Shutter Speed</strong> of <span class="font-mono text-white">1/1000s</span> or <span class="font-mono text-white">1/1250s</span>. Shooting in Manual mode with Auto ISO guarantees your shutter speed stays locked when clouds roll over or players move between sun and stadium shadows.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: AF-C & Focus Settings Deep Dive -->
+        <section class="bg-fuji-dark rounded-2xl border border-fuji-border p-5 sm:p-6 shadow-xl space-y-6">
+            <div>
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-fuji-accent/15 text-fuji-accent border border-fuji-accent/30 mb-1.5">AUTOFOCUS ENGINE</span>
+                <h2 class="text-xl font-bold text-white">3. AF-C & Focus Settings Deep Dive</h2>
+            </div>
+
+            <!-- Focus Area Mode & Priority Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-fuji-card border border-fuji-border space-y-2">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-fuji-green"></span>
+                        Focus Area Mode
+                    </h3>
+                    <ul class="space-y-2.5 text-xs text-slate-300 leading-relaxed">
+                        <li>
+                            <strong class="text-white font-mono">ZONE AF (3×3 or 5×5):</strong> <em>Best for 90% of field play.</em> Gives the AF system a defined cluster of Phase-Detect points to track a ball carrier through traffic without jumping to background players.
+                        </li>
+                        <li>
+                            <strong class="text-white font-mono">WIDE / TRACKING AF:</strong> Best for isolated breakaways, aerial headers, or goalkeepers against clean backgrounds.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-4 rounded-xl bg-fuji-card border border-fuji-border space-y-2">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-fuji-green"></span>
+                        Release / Focus Priority
+                    </h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Set <code class="font-mono text-white bg-black/40 px-1.5 py-0.5 rounded">AF-C PRIORITY SELECTION</code> to <strong>FOCUS</strong> (or <strong>EQUAL</strong>) rather than RELEASE.
+                    </p>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        This forces the X-H2S to confirm phase lock before firing the shutter, dramatically increasing your keeper yield of tack-sharp frames during bursts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- AF-C Custom Settings Presets -->
+            <div>
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-base font-bold text-white">AF-C Custom Settings Presets</h3>
+                    <span class="text-xs font-mono text-slate-400">AF/MF MENU &gt; AF-C CUSTOM SETTINGS</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <!-- SET 5 -->
+                    <div class="p-4 rounded-xl bg-fuji-card border-2 border-fuji-green relative flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="font-mono font-bold text-base text-white">SET 5</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-fuji-green text-fuji-black">Default Choice</span>
+                            </div>
+                            <h4 class="text-xs font-semibold text-fuji-green mb-3">Erratic &amp; Accel/Decel Subjects</h4>
+                            
+                            <!-- Parameter Meters -->
+                            <div class="space-y-2 mb-4 bg-fuji-black/50 p-3 rounded-lg border border-fuji-border/60 font-mono text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Tracking Sens:</span>
+                                    <span class="text-white font-bold">3 / 4</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Speed Tracking:</span>
+                                    <span class="text-white font-bold">2 / 2</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Zone Switching:</span>
+                                    <span class="text-fuji-green font-bold">AUTO</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Best for Football &amp; Soccer:</strong> Tuned for jukes, hard cuts, sudden sprints, and rapid directional changes.
+                        </p>
+                    </div>
+
+                    <!-- SET 2 -->
+                    <div class="p-4 rounded-xl bg-fuji-card border border-fuji-border flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="font-mono font-bold text-base text-white">SET 2</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-slate-800 text-slate-300">Crowded Field</span>
+                            </div>
+                            <h4 class="text-xs font-semibold text-slate-300 mb-3">Ignore Obstacles &amp; Continue</h4>
+                            
+                            <div class="space-y-2 mb-4 bg-fuji-black/50 p-3 rounded-lg border border-fuji-border/60 font-mono text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Tracking Sens:</span>
+                                    <span class="text-white font-bold">3 / 4</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Speed Tracking:</span>
+                                    <span class="text-white font-bold">0 / 2</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Zone Switching:</span>
+                                    <span class="text-sky-400 font-bold">CENTER</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong>Use in Traffic:</strong> Prevents focus from jumping onto referees, defenders, or linemen crossing in front of your target.
+                        </p>
+                    </div>
+
+                    <!-- SET 4 -->
+                    <div class="p-4 rounded-xl bg-fuji-card border border-fuji-border flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="font-mono font-bold text-base text-white">SET 4</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-medium uppercase bg-slate-800 text-slate-300">Fast Acquire</span>
+                            </div>
+                            <h4 class="text-xs font-semibold text-slate-300 mb-3">Suddenly Appearing Subjects</h4>
+                            
+                            <div class="space-y-2 mb-4 bg-fuji-black/50 p-3 rounded-lg border border-fuji-border/60 font-mono text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Tracking Sens:</span>
+                                    <span class="text-white font-bold">0 / 4</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Speed Tracking:</span>
+                                    <span class="text-white font-bold">1 / 2</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Zone Switching:</span>
+                                    <span class="text-amber-400 font-bold">FRONT</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            <strong>Loose Balls &amp; Catches:</strong> Immediately grabs the closest player entering the frame (e.g., receiver snatching a pass).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4 & 5: Two-Column Bottom Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Section 4: Frame Rates & Burst -->
+            <section class="bg-fuji-dark rounded-2xl border border-fuji-border p-5 sm:p-6 shadow-xl space-y-4">
+                <div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-purple-500/15 text-purple-400 border border-purple-500/30 mb-1.5">DRIVE &amp; BUFFER</span>
+                    <h2 class="text-xl font-bold text-white">4. Frame Rates &amp; Burst Tips</h2>
+                </div>
+                <ul class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">Sweet-Spot Frame Rate (15–20 fps):</strong>
+                        While the X-H2S shoots up to 40 fps, capping Electronic Shutter at <strong>20 fps</strong> (or <strong>15 fps</strong> Mechanical) gives the AF processor extra cycles per frame—boosting tracking accuracy on players sprinting straight toward you.
+                    </li>
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">Pre-Shot ES Mode:</strong>
+                        Enable for predictable snap moments (football hike, penalty kick, free kick). Half-pressing buffers frames <em>before</em> you fully press the shutter.
+                    </li>
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">Storage Media:</strong>
+                        Use a <strong>CFexpress Type B</strong> card in Slot 1 for massive burst depth (~180–280 uncompressed RAW frames before clearing).
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Section 5: Lenses & Field Handling -->
+            <section class="bg-fuji-dark rounded-2xl border border-fuji-border p-5 sm:p-6 shadow-xl space-y-4">
+                <div>
+                    <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 mb-1.5">OPTICS &amp; ERGONOMICS</span>
+                    <h2 class="text-xl font-bold text-white">5. Lens &amp; Handling Setup</h2>
+                </div>
+                <ul class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">Recommended Linear Motor (LM) Glass:</strong>
+                        <ul class="list-disc list-inside text-slate-400 mt-1 space-y-1 font-mono text-xs">
+                            <li>XF 50-140mm f/2.8 R LM OIS WR (Night / Sideline)</li>
+                            <li>XF 100-400mm f/4.5-5.6 R LM OIS WR (Daylight)</li>
+                            <li>XF 150-600mm f/5.6-8 R LM OIS WR (Far Endzone)</li>
+                        </ul>
+                    </li>
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">Sports Finder Mode (1.25x Crop):</strong>
+                        Assign to an <span class="font-mono text-white">Fn</span> button for instant extra focal reach (~16.6MP) while seeing players enter the frame outside the bright crop box. <em>(Available with Mechanical Shutter).</em>
+                    </li>
+                    <li class="p-3 rounded-xl bg-fuji-card border border-fuji-border">
+                        <strong class="text-white block mb-1">EVF / LCD Boost Mode:</strong>
+                        Set <span class="font-mono text-white">POWER MANAGEMENT &gt; BOOST</span> to <strong>100P / 120P</strong> for fluid, blackout-free tracking through the viewfinder.
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto px-4 sm:px-6 py-6 border-t border-fuji-border/60 text-center text-xs text-slate-500">
+        Fujifilm X-H2S Outdoor Action Quick-Reference Sheet • Save to mobile home screen for sideline access
+    </footer>
+
+    <!-- Toast Notification for Copy Action -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-fuji-green text-fuji-black font-semibold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <span>Quick setup copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Interactive checklist styling toggle
+        document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const card = this.closest('.checklist-item');
+                if (this.checked) {
+                    card.classList.add('border-fuji-green/60', 'bg-fuji-green/5');
+                } else {
+                    card.classList.remove('border-fuji-green/60', 'bg-fuji-green/5');
+                }
+            });
+        });
+
+        // Reset all checkboxes in the 5-Second Setup
+        function resetChecklist() {
+            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.checklist-item').classList.remove('border-fuji-green/60', 'bg-fuji-green/5');
+            });
+        }
+
+        // Copy plain-text quick setup summary using document.execCommand('copy')
+        function copyQuickSetup() {
+            const summaryText = [
+                "FUJIFILM X-H2S OUTDOOR SPORTS QUICK SETUP",
+                "-----------------------------------------",
+                "• Focus Mode: AF-C | Drive: CH (15-20 fps)",
+                "• Tracking: FACE ON / EYE AUTO (Subject Detection: OFF)",
+                "• Focus Area: Zone AF (3x3 or 5x5)",
+                "• AF-C Custom: Set 5 (Erratic) or Set 2 (Ignore Obstacles)",
+                "• Priority: AF-C Priority = FOCUS",
+                "• Shutter Speed: 1/2000s+ (Sun) | 1/1000s min (Overcast/Night)"
+            ].join("\n");
+
+            const textArea = document.createElement("textarea");
+            textArea.value = summaryText;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
