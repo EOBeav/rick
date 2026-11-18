@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fujifilm X-H2S: Autofocus Architecture & Field Guide</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter & JetBrains Mono Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        fuji: {
+                            black: '#0f1012',
+                            card: '#181a1e',
+                            border: '#2a2d34',
+                            green: '#10b981', // AF Focus Lock Green
+                            amber: '#f59e0b', // Eye Detect Yellow/Amber
+                            red: '#ef4444',   // Rec / Fujifilm Accent
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom subtle animations and viewfinder grid effects */
+        .viewfinder-bg {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .af-box-pulse {
+            animation: afPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes afPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+        }
+
+        /* Custom scrollbar for sleek dark UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1012;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2d34;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f444e;
+        }
+    </style>
+</head>
+<body class="bg-fuji-black text-gray-200 font-sans antialiased selection:bg-fuji-green selection:text-black">
+
+    <!-- Top Navigation / Camera Status Bar -->
+    <header class="sticky top-0 z-50 bg-fuji-black/90 backdrop-blur-md border-b border-fuji-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded bg-fuji-card border border-fuji-border flex items-center justify-center font-mono font-bold text-white text-sm tracking-tighter">
+                    X-H2<span class="text-fuji-red">S</span>
+                </div>
+                <div>
+                    <h1 class="text-sm sm:text-base font-semibold text-white tracking-tight">Autofocus System Architecture</h1>
+                    <p class="text-[11px] font-mono text-gray-400 hidden sm:block">X-TRANS CMOS 5 HS // X-PROCESSOR 5 HYBRID AF</p>
+                </div>
+            </div>
+
+            <!-- Mode Switcher Pill -->
+            <div class="flex bg-fuji-card p-1 rounded-lg border border-fuji-border" role="tablist">
+                <button id="tab-stills" onclick="switchMode('stills')" class="px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all bg-fuji-green text-black font-semibold shadow-sm" role="tab" aria-selected="true">
+                    STILLS AF
+                </button>
+                <button id="tab-video" onclick="switchMode('video')" class="px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-all" role="tab" aria-selected="false">
+                    MOVIE AF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero / Core Hardware Overview -->
+        <section class="bg-fuji-card rounded-2xl border border-fuji-border p-6 sm:p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                <svg width="160" height="160" viewBox="0 0 100 100" fill="none" stroke="currentColor" class="text-fuji-green">
+                    <rect x="10" y="10" width="80" height="80" stroke-width="1"/>
+                    <rect x="35" y="35" width="30" height="30" stroke-width="2"/>
+                    <line x1="50" y1="0" x2="50" y2="25" stroke-width="1"/>
+                    <line x1="50" y1="75" x2="50" y2="100" stroke-width="1"/>
+                    <line x1="0" y1="50" x2="25" y2="50" stroke-width="1"/>
+                    <line x1="75" y1="50" x2="100" y2="50" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-fuji-green/10 border border-fuji-green/30 text-fuji-green text-xs font-mono mb-4">
+                    <span class="w-2 h-2 rounded-full bg-fuji-green animate-ping"></span>
+                    <span>INTELLIGENT HYBRID AF (PHASE + CONTRAST)</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-3">
+                    Stacked Sensor Speed & Deep-Learning Prediction
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                    Powered by the 26.1MP Stacked X-Trans CMOS 5 HS sensor and X-Processor 5, the X-H2S executes AF calculations up to <strong class="text-white">3x faster</strong> than previous generations. Unlike older X-Series bodies with a physical front S/C/M lever, the X-H2S utilizes a dedicated front <span class="font-mono text-xs bg-black px-1.5 py-0.5 rounded border border-fuji-border text-white">Focus Mode Button</span> (customizable) paired with command dials and the AF Joystick.
+                </p>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: STILLS PHOTOGRAPHY AF           -->
+        <!-- ========================================== -->
+        <div id="section-stills" class="space-y-12 transition-opacity duration-300">
+            
+            <!-- 1.1 Drive / Focus Modes (AF-S, AF-C, MF) -->
+            <div>
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <span class="text-xs font-mono text-fuji-green uppercase tracking-wider">Step 01 // Drive Behavior</span>
+                        <h3 class="text-xl font-bold text-white mt-1">Focus Modes (AF-S, AF-C, MF)</h3>
+                    </div>
+                    <span class="hidden sm:inline-block text-xs font-mono text-gray-400 bg-fuji-card px-3 py-1.5 rounded-lg border border-fuji-border">
+                        Menu: AF/MF SETTING &gt; FOCUS MODE
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- AF-S Card -->
+                    <div class="bg-fuji-card rounded-xl border border-fuji-border p-6 flex flex-col justify-between hover:border-gray-600 transition-colors">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-mono text-lg font-bold text-white bg-black px-3 py-1 rounded border border-fuji-border">AF-S</span>
+                                <span class="text-xs font-mono text-fuji-green">SINGLE AUTOFOCUS</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+                                Half-pressing the shutter locks focus once. The AF box turns <span class="text-fuji-green font-medium">green</span> upon lock. If you or the subject move afterward, the camera will not refocus until you re-press.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-fuji-border/60 text-xs text-gray-400">
+                            <strong class="text-gray-200 block mb-1">Best For:</strong>
+                            Landscapes, static portraits, architecture, macro, and low-contrast stationary scenes.
+                        </div>
+                    </div>
+
+                    <!-- AF-C Card -->
+                    <div class="bg-fuji-card rounded-xl border border-fuji-green/40 p-6 flex flex-col justify-between relative">
+                        <div class="absolute top-0 right-0 bg-fuji-green text-black text-[10px] font-mono font-bold px-2 py-0.5 rounded-bl-lg rounded-tr-xl">
+                            ACTION CORE
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-mono text-lg font-bold text-fuji-green bg-black px-3 py-1 rounded border border-fuji-green/40">AF-C</span>
+                                <span class="text-xs font-mono text-gray-300">CONTINUOUS AF</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+                                Continuously recalculates focus distance and predicts subject trajectory while holding half-shutter or <span class="font-mono text-xs text-white">AF-ON</span>, even during 15–40 fps bursts.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-fuji-border/60 text-xs text-gray-400">
+                            <strong class="text-gray-200 block mb-1">Best For:</strong>
+                            Sports, wildlife, birds in flight, vehicles, and active subjects moving toward/away from the lens.
+                        </div>
+                    </div>
+
+                    <!-- MF Card -->
+                    <div class="bg-fuji-card rounded-xl border border-fuji-border p-6 flex flex-col justify-between hover:border-gray-600 transition-colors">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-mono text-lg font-bold text-white bg-black px-3 py-1 rounded border border-fuji-border">MF</span>
+                                <span class="text-xs font-mono text-gray-400">MANUAL FOCUS</span>
+                            </div>
+                            <p class="text-sm text-gray-300 mb-4 leading-relaxed">
+                                Direct lens ring focus enhanced by <span class="text-white">Focus Peak Highlight</span>, <span class="text-white">Digital Split Image</span>, and <span class="text-white">Focus Check</span> auto-zoom. Press <span class="font-mono text-xs text-white">AF-ON</span> for Instant AF override.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-fuji-border/60 text-xs text-gray-400">
+                            <strong class="text-gray-200 block mb-1">Best For:</strong>
+                            Astrophotography, shooting through fences/glass, and critical product/studio focus.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2 Interactive EVF Simulator: Stills AF Area Modes -->
+            <div class="bg-fuji-card rounded-2xl border border-fuji-border p-6 sm:p-8">
+                <div class="mb-6">
+                    <span class="text-xs font-mono text-fuji-green uppercase tracking-wider">Step 02 // Interactive EVF Simulator</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Stills AF Area Modes (AF MODE)</h3>
+                    <p class="text-sm text-gray-400 mt-1">Select a mode below to inspect how the X-H2S allocates its 425-point / 117-point Phase Detection grid inside the viewfinder.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Controls (Left) -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <button onclick="setStillsArea('single')" id="btn-area-single" class="area-btn w-full text-left p-4 rounded-xl border border-fuji-green bg-black/60 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono font-bold text-white text-sm">1. SINGLE POINT</span>
+                                <span class="text-xs font-mono text-fuji-green">6 BOX SIZES</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1.5">Pinpoint precision across 100% of the frame. Ideal for stationary subjects or targets moving linearly toward/away from you.</p>
+                        </button>
+
+                        <button onclick="setStillsArea('zone')" id="btn-area-zone" class="area-btn w-full text-left p-4 rounded-xl border border-fuji-border bg-black/20 hover:bg-black/40 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono font-bold text-white text-sm">2. ZONE AF</span>
+                                <span class="text-xs font-mono text-gray-400">3x3 / 5x5 / 7x7</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1.5">Uses a cluster of AF points to track erratic action within a defined boundary. Pair with AF-C Custom Settings (Front/Center/Auto).</p>
+                        </button>
+
+                        <button onclick="setStillsArea('tracking')" id="btn-area-tracking" class="area-btn w-full text-left p-4 rounded-xl border border-fuji-border bg-black/20 hover:bg-black/40 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono font-bold text-white text-sm">3. WIDE / TRACKING</span>
+                                <span class="text-xs font-mono text-gray-400">AF-S WIDE // AF-C TRACK</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1.5">Operates as <strong class="text-gray-200">WIDE</strong> in AF-S (auto-selecting high-contrast subjects) and <strong class="text-gray-200">TRACKING</strong> in AF-C (locking onto the target under your box and following it across the entire frame).</p>
+                        </button>
+
+                        <button onclick="setStillsArea('all')" id="btn-area-all" class="area-btn w-full text-left p-4 rounded-xl border border-fuji-border bg-black/20 hover:bg-black/40 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-mono font-bold text-white text-sm">4. ALL MODE</span>
+                                <span class="text-xs font-mono text-gray-400">REAR DIAL CYCLE</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-1.5">Unified workflow: tap the AF joystick and roll the Rear Command Dial to seamlessly cycle from smallest Single Point &rarr; Zones &rarr; Wide/Tracking.</p>
+                        </button>
+                    </div>
+
+                    <!-- EVF Display Canvas (Right) -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-black rounded-xl border-2 border-gray-800 p-4 shadow-2xl">
+                            <!-- EVF Top HUD -->
+                            <div class="flex justify-between items-center text-[11px] font-mono text-gray-400 pb-2 mb-2 border-b border-gray-800">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-fuji-green font-bold">AF-C</span>
+                                    <span id="evf-mode-label" class="text-white bg-gray-800 px-1.5 py-0.5 rounded">SINGLE POINT</span>
+                                    <span class="text-fuji-amber">FACE/EYE ON</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <span>CH 20fps</span>
+                                    <span>1/2000</span>
+                                    <span>F2.8</span>
+                                </div>
+                            </div>
+
+                            <!-- Viewfinder Frame -->
+                            <div id="evf-screen" class="relative w-full aspect-[3/2] bg-gray-950 viewfinder-bg rounded overflow-hidden flex items-center justify-center border border-gray-900">
+                                <!-- Subtle Rule of Thirds Grid -->
+                                <div class="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none opacity-20">
+                                    <div class="border-r border-b border-gray-600"></div>
+                                    <div class="border-r border-b border-gray-600"></div>
+                                    <div class="border-b border-gray-600"></div>
+                                    <div class="border-r border-b border-gray-600"></div>
+                                    <div class="border-r border-b border-gray-600"></div>
+                                    <div class="border-b border-gray-600"></div>
+                                    <div class="border-r border-gray-600"></div>
+                                    <div class="border-r border-gray-600"></div>
+                                    <div></div>
+                                </div>
+
+                                <!-- Dynamic Reticle Overlay -->
+                                <div id="evf-reticle-container" class="relative z-10 flex items-center justify-center transition-all duration-300">
+                                    <!-- Default Single Point -->
+                                    <div class="w-12 h-12 border-2 border-fuji-green af-box-pulse flex items-center justify-center">
+                                        <div class="w-1 h-1 bg-fuji-green"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom EVF Status Bar -->
+                                <div class="absolute bottom-2 left-3 right-3 flex justify-between items-center text-[10px] font-mono text-gray-400 bg-black/70 px-2 py-1 rounded">
+                                    <span id="evf-hint">TIP: Rotate Rear Command Dial to resize single point (6 steps).</span>
+                                    <span class="text-fuji-green">● LOCKED</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.3 Subject Detection & Face/Eye AF -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Deep Learning Subject Detection -->
+                <div class="bg-fuji-card rounded-xl border border-fuji-border p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-mono text-fuji-green">AI DEEP LEARNING</span>
+                        <span class="text-xs font-mono text-gray-500">AF/MF &gt; SUBJECT DETECTION</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-white mb-2">Subject Detection Categories</h4>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Available in <strong class="text-white">AF-C</strong> (and AF-S). Place your focus box near the subject; the X-H2S automatically identifies and locks onto the head, cockpit, or front grill.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono text-xs">
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Animal</span>
+                        </div>
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Bird</span>
+                        </div>
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Automobile</span>
+                        </div>
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Bike / Moto</span>
+                        </div>
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Airplane</span>
+                        </div>
+                        <div class="bg-black/60 border border-fuji-border px-3 py-2 rounded text-gray-200 flex items-center space-x-2">
+                            <span class="text-fuji-green">●</span><span>Train</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3 italic">
+                        Note: Turning Subject Detection ON automatically overrides Face/Eye Detection until toggled off. Assign a Fn button to toggle Subject Detection rapidly.
+                    </p>
+                </div>
+
+                <!-- Face/Eye & Back-Button Focus -->
+                <div class="bg-fuji-card rounded-xl border border-fuji-border p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono text-fuji-amber">HUMAN &amp; ERGONOMICS</span>
+                            <span class="text-xs font-mono text-gray-500">PRO WORKFLOW</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white mb-2">Human Eye-AF &amp; Back-Button Focus</h4>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-start space-x-2.5">
+                                <span class="text-fuji-amber font-mono font-bold mt-0.5">01</span>
+                                <span><strong class="text-white">Human Eye Detection:</strong> Managed separately under <span class="font-mono text-xs text-gray-300">FACE/EYE DETECTION SETTING</span>. The X-H2S prioritizes eyes closest to your active AF box (highlighted in yellow/green).</span>
+                            </li>
+                            <li class="flex items-start space-x-2.5">
+                                <span class="text-fuji-green font-mono font-bold mt-0.5">02</span>
+                                <span><strong class="text-white">Dedicated Back-Button Focus:</strong> Set <span class="font-mono text-xs text-gray-300">BUTTON/DIAL &gt; SHUTTER AF</span> to <span class="text-white">OFF</span> for AF-C/AF-S, then use the dedicated rear <span class="font-mono text-xs bg-black px-1.5 py-0.5 rounded border border-gray-700">AF-ON</span> button to drive focus independently of shutter release.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: VIDEO / MOVIE AUTOFOCUS         -->
+        <!-- ========================================== -->
+        <div id="section-video" class="hidden space-y-12 transition-opacity duration-300">
+            
+            <!-- Video AF Architecture Banner -->
+            <div class="bg-fuji-card rounded-2xl border border-fuji-border p-6 sm:p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-fuji-border pb-6 mb-6">
+                    <div>
+                        <span class="text-xs font-mono text-fuji-red uppercase tracking-wider">Movie Mode // AF/MF Setting</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mt-1">How X-H2S Video Autofocus Operates</h3>
+                    </div>
+                    <div class="inline-flex items-center space-x-2 bg-black px-3 py-2 rounded-lg border border-fuji-border font-mono text-xs">
+                        <span class="w-2.5 h-2.5 rounded-full bg-fuji-red"></span>
+                        <span>6.2K / 4K 120P CONTINUOUS AF</span>
+                    </div>
+                </div>
+
+                <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6">
+                    When the Mode Dial is turned to the <strong class="text-white">Movie Icon</strong>, the X-H2S switches to a streamlined cinema-oriented AF menu. Unlike stills photography—which offers Zone and generic Wide/Tracking—video autofocus relies on two core area modes combined with <strong class="text-white">Face/Eye</strong> or <strong class="text-white">Subject Detection</strong>, plus customizable focus transition speeds.
+                </p>
+
+                <!-- Movie Focus Modes (AF-C vs MF) & Area Modes (MULTI vs AREA) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Movie AF Area: MULTI -->
+                    <div class="bg-black/50 rounded-xl border border-fuji-border p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono font-bold text-white text-base">MOVIE AF MODE: MULTI</span>
+                            <span class="text-xs font-mono text-fuji-green bg-fuji-green/10 px-2 py-0.5 rounded border border-fuji-green/30">AUTOMATIC</span>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            The camera automatically evaluates the entire frame and selects the most prominent subject (prioritizing detected Faces/Eyes or Subject Detection targets).
+                        </p>
+                        <div class="text-xs font-mono text-gray-300 bg-fuji-card p-3 rounded border border-fuji-border">
+                            <span class="text-fuji-green">USE CASE:</span> Run-and-gun vlogging, gimbal tracking shots, or solo interviews where the subject moves freely across the frame.
+                        </div>
+                    </div>
+
+                    <!-- Movie AF Area: AREA -->
+                    <div class="bg-black/50 rounded-xl border border-fuji-border p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-mono font-bold text-white text-base">MOVIE AF MODE: AREA</span>
+                            <span class="text-xs font-mono text-fuji-amber bg-fuji-amber/10 px-2 py-0.5 rounded border border-fuji-amber/30">TARGETED BOX</span>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                            Focuses strictly on whatever enters your positioned focus box. <strong class="text-white">Note:</strong> In Movie mode, the AF box size is fixed, and there is no generic "tap-to-track" object lock unless using Face/Eye or Subject Detection.
+                        </p>
+                        <div class="text-xs font-mono text-gray-300 bg-fuji-card p-3 rounded border border-fuji-border">
+                            <span class="text-fuji-amber">USE CASE:</span> Controlled product demonstrations, tripod talking-heads, and intentional touchscreen rack-focus pulls.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Movie AF-C Speed & Sensitivity Simulator -->
+            <div class="bg-fuji-card rounded-2xl border border-fuji-border p-6 sm:p-8">
+                <div class="mb-6">
+                    <span class="text-xs font-mono text-fuji-red uppercase tracking-wider">Cinema Tuning // AF-C Custom Setting (Movie)</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Controlling Rack Focus Speed &amp; Stickiness</h3>
+                    <p class="text-sm text-gray-400 mt-1">
+                        In Movie mode, <span class="font-mono text-xs text-white">AF/MF SETTING &gt; AF-C CUSTOM SETTING</span> replaces the 5 stills presets with two direct cinema sliders. Test how they interact below:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Sliders (Left) -->
+                    <div class="lg:col-span-6 space-y-6 bg-black/40 p-6 rounded-xl border border-fuji-border">
+                        <!-- Tracking Sensitivity Slider -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="vid-sensitivity" class="font-mono text-sm font-bold text-white">1. TRACKING SENSITIVITY</label>
+                                <span id="val-sensitivity" class="font-mono text-xs bg-fuji-card px-2 py-1 rounded border border-fuji-border text-fuji-green">2 (Balanced)</span>
+                            </div>
+                            <input type="range" id="vid-sensitivity" min="0" max="4" value="2" oninput="updateVideoSim()" class="w-full accent-fuji-green cursor-pointer">
+                            <div class="flex justify-between text-[11px] font-mono text-gray-500 mt-1">
+                                <span>0: Locked On (Sticky)</span>
+                                <span>4: Responsive (Instant)</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Controls how long the camera waits before switching focus when an obstacle passes in front of your subject or when you pan to a new target.
+                            </p>
+                        </div>
+
+                        <!-- AF Speed Slider -->
+                        <div class="pt-4 border-t border-fuji-border">
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="vid-speed" class="font-mono text-sm font-bold text-white">2. AF SPEED (TRANSITION)</label>
+                                <span id="val-speed" class="font-mono text-xs bg-fuji-card px-2 py-1 rounded border border-fuji-border text-fuji-amber">0 (Standard)</span>
+                            </div>
+                            <input type="range" id="vid-speed" min="-5" max="5" value="0" oninput="updateVideoSim()" class="w-full accent-fuji-amber cursor-pointer">
+                            <div class="flex justify-between text-[11px] font-mono text-gray-500 mt-1">
+                                <span>-5: Slow Cinema Pull</span>
+                                <span>+5: Snappy Documentary</span>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2">
+                                Determines how rapidly the lens motor drives from focal plane A to focal plane B during a focus transition.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Live Rack Focus Demo (Right) -->
+                    <div class="lg:col-span-6">
+                        <div class="bg-black rounded-xl border border-gray-800 p-5">
+                            <div class="flex items-center justify-between text-xs font-mono text-gray-400 mb-4">
+                                <span>SIMULATED FOCUS PULL PREVIEW</span>
+                                <button onclick="triggerRackFocus()" class="px-3 py-1 bg-fuji-red hover:bg-red-600 text-white font-semibold rounded transition-colors cursor-pointer">
+                                    TEST FOCUS PULL
+                                </button>
+                            </div>
+
+                            <!-- Visual Plane Stage -->
+                            <div class="relative h-48 bg-gray-950 rounded-lg border border-gray-900 overflow-hidden flex items-center justify-around px-6">
+                                <!-- Subject A (Foreground) -->
+                                <div id="plane-fg" class="text-center transition-all duration-700 transform scale-105 filter blur-none">
+                                    <div class="w-16 h-16 mx-auto rounded-full bg-fuji-green/20 border-2 border-fuji-green flex items-center justify-center font-mono text-xs font-bold text-fuji-green">
+                                        SUBJ A
+                                    </div>
+                                    <span class="block text-[11px] font-mono text-gray-300 mt-2">Foreground (1.5m)</span>
+                                </div>
+
+                                <!-- Distance Indicator -->
+                                <div class="text-gray-600 font-mono text-xs flex flex-col items-center">
+                                    <span>&larr; RACK &rarr;</span>
+                                    <span id="sim-duration-readout" class="text-[10px] text-fuji-amber mt-1">0.7s pull</span>
+                                </div>
+
+                                <!-- Subject B (Background) -->
+                                <div id="plane-bg" class="text-center transition-all duration-700 transform scale-90 filter blur-[3px] opacity-60">
+                                    <div class="w-16 h-16 mx-auto rounded-lg bg-gray-800 border-2 border-gray-600 flex items-center justify-center font-mono text-xs font-bold text-gray-400">
+                                        SUBJ B
+                                    </div>
+                                    <span class="block text-[11px] font-mono text-gray-400 mt-2">Background (6.0m)</span>
+                                </div>
+                            </div>
+
+                            <div id="sim-recipe-advice" class="mt-4 text-xs text-gray-300 bg-fuji-card p-3 rounded border border-fuji-border">
+                                <strong class="text-white">Current Profile:</strong> Balanced general video. Smooth enough to avoid jarring jumps while keeping up with normal walking pace.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Essential Video AF Controls Checklist -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-fuji-card rounded-xl border border-fuji-border p-5">
+                    <span class="text-xs font-mono text-fuji-green block mb-1">DURING RECORDING</span>
+                    <h4 class="font-bold text-white text-base mb-2">Refocusing Live</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        While recording is active, you can force an AF recalculation or shift focus points at any time by half-pressing the shutter button, pressing <span class="font-mono text-white">AF-ON</span>, or tapping the rear LCD touchscreen.
+                    </p>
+                </div>
+
+                <div class="bg-fuji-card rounded-xl border border-fuji-border p-5">
+                    <span class="text-xs font-mono text-fuji-amber block mb-1">MANUAL ASSIST</span>
+                    <h4 class="font-bold text-white text-base mb-2">MF Focus Meter &amp; Check Lock</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        In Movie Manual Focus, the X-H2S adds a visual <strong class="text-white">Focus Meter</strong> scale alongside Focus Peaking. Enable <span class="font-mono text-white">FOCUS CHECK LOCK</span> if you want punched-in magnification to stay active after hitting Record.
+                    </p>
+                </div>
+
+                <div class="bg-fuji-card rounded-xl border border-fuji-border p-5">
+                    <span class="text-xs font-mono text-fuji-red block mb-1">OPTICS PAIRING</span>
+                    <h4 class="font-bold text-white text-base mb-2">Linear Motor (LM) Lenses</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Video AF speed and silence depend heavily on lens actuators. Fujinon <strong class="text-white">LM (Linear Motor)</strong> lenses (e.g., XF18-120mm F4 PZ, XF16-55mm, XF33mm F1.4) deliver silent, step-free cinema focus pulls.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SECTION 3: QUICK COMPARISON MATRIX         -->
+        <!-- ========================================== -->
+        <section class="bg-fuji-card rounded-2xl border border-fuji-border overflow-hidden">
+            <div class="p-6 border-b border-fuji-border">
+                <h3 class="text-lg font-bold text-white">Stills vs. Video AF Architecture Summary</h3>
+                <p class="text-xs text-gray-400 mt-1">Quick reference comparing how identical menu terms behave differently depending on your Mode Dial position.</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-black/60 text-xs font-mono text-gray-400 border-b border-fuji-border">
+                            <th class="py-3.5 px-6">FEATURE / SETTING</th>
+                            <th class="py-3.5 px-6 text-fuji-green">STILLS PHOTOGRAPHY</th>
+                            <th class="py-3.5 px-6 text-fuji-red">MOVIE RECORDING</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-fuji-border text-gray-300 text-xs sm:text-sm">
+                        <tr class="hover:bg-black/20">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-white">Focus Modes</td>
+                            <td class="py-3.5 px-6">AF-S, AF-C, MF (via front Fn button or menu)</td>
+                            <td class="py-3.5 px-6">Continuous AF (AF-C), Single AF (AF-S), Manual Focus (MF)</td>
+                        </tr>
+                        <tr class="hover:bg-black/20">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-white">AF Area Options</td>
+                            <td class="py-3.5 px-6">Single Point (6 sizes), Zone (3x3, 5x5, 7x7), Wide/Tracking, All</td>
+                            <td class="py-3.5 px-6">MULTI (Full-screen auto) or AREA (Fixed-size single box)</td>
+                        </tr>
+                        <tr class="hover:bg-black/20">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-white">Subject Tracking</td>
+                            <td class="py-3.5 px-6">Generic Wide/Tracking locks onto any object + AI Subject Detection</td>
+                            <td class="py-3.5 px-6">Tracks Face/Eye or AI Subject Categories (No generic object lock)</td>
+                        </tr>
+                        <tr class="hover:bg-black/20">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-white">AF-C Customization</td>
+                            <td class="py-3.5 px-6">5 Action Presets + Set 6 Custom (Tracking, Speed, Zone Switching)</td>
+                            <td class="py-3.5 px-6">Direct 2-Axis Tuning: Tracking Sensitivity (0 to 4) &amp; AF Speed (-5 to +5)</td>
+                        </tr>
+                        <tr class="hover:bg-black/20">
+                            <td class="py-3.5 px-6 font-mono font-semibold text-white">Touchscreen Modes</td>
+                            <td class="py-3.5 px-6">Touch Shooting, AF, Area, or Off</td>
+                            <td class="py-3.5 px-6">Tap to shift AF Area or pull focus smoothly during recording</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-fuji-border py-6 mt-12 text-center text-xs font-mono text-gray-500">
+        FUJIFILM X-H2S TECHNICAL FIELD GUIDE // X-TRANS CMOS 5 HS &amp; X-PROCESSOR 5
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        // 1. Switch between Stills AF and Video AF tabs
+        function switchMode(mode) {
+            const stillsSection = document.getElementById('section-stills');
+            const videoSection = document.getElementById('section-video');
+            const tabStills = document.getElementById('tab-stills');
+            const tabVideo = document.getElementById('tab-video');
+
+            if (mode === 'stills') {
+                stillsSection.classList.remove('hidden');
+                videoSection.classList.add('hidden');
+
+                tabStills.className = 'px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all bg-fuji-green text-black font-semibold shadow-sm';
+                tabStills.setAttribute('aria-selected', 'true');
+
+                tabVideo.className = 'px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-all';
+                tabVideo.setAttribute('aria-selected', 'false');
+            } else {
+                stillsSection.classList.add('hidden');
+                videoSection.classList.remove('hidden');
+
+                tabVideo.className = 'px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all bg-fuji-red text-white font-semibold shadow-sm';
+                tabVideo.setAttribute('aria-selected', 'true');
+
+                tabStills.className = 'px-3 sm:px-4 py-1.5 rounded-md text-xs sm:text-sm font-medium text-gray-400 hover:text-white transition-all';
+                tabStills.setAttribute('aria-selected', 'false');
+            }
+        }
+
+        // 2. Interactive Stills EVF Area Mode Visualizer
+        function setStillsArea(type) {
+            // Reset button borders
+            document.querySelectorAll('.area-btn').forEach(btn => {
+                btn.classList.remove('border-fuji-green', 'bg-black/60');
+                btn.classList.add('border-fuji-border', 'bg-black/20');
+            });
+
+            // Highlight selected button
+            const activeBtn = document.getElementById(`btn-area-${type}`);
+            activeBtn.classList.remove('border-fuji-border', 'bg-black/20');
+            activeBtn.classList.add('border-fuji-green', 'bg-black/60');
+
+            const label = document.getElementById('evf-mode-label');
+            const reticleContainer = document.getElementById('evf-reticle-container');
+            const hint = document.getElementById('evf-hint');
+
+            if (type === 'single') {
+                label.textContent = 'SINGLE POINT';
+                hint.textContent = 'TIP: Rotate Rear Command Dial to resize single point (6 steps).';
+                reticleContainer.innerHTML = `
+                    <div class="w-12 h-12 border-2 border-fuji-green af-box-pulse flex items-center justify-center">
+                        <div class="w-1 h-1 bg-fuji-green"></div>
+                    </div>
+                `;
+            } else if (type === 'zone') {
+                label.textContent = 'ZONE AF (5x5)';
+                hint.textContent = 'TIP: Active green sub-boxes dynamically hand off subject inside zone.';
+                let cells = '';
+                for (let i = 0; i < 25; i++) {
+                    const isActive = [6, 7, 11, 12, 13].includes(i);
+                    cells += `<div class="border ${isActive ? 'border-fuji-green bg-fuji-green/20' : 'border-gray-600/50'}"></div>`;
+                }
+                reticleContainer.innerHTML = `
+                    <div class="w-36 h-36 border-2 border-white/80 p-1 grid grid-cols-5 grid-rows-5 gap-0.5">
+                        ${cells}
+                    </div>
+                `;
+            } else if (type === 'tracking') {
+                label.textContent = 'WIDE / TRACKING';
+                hint.textContent = 'TIP: Place box over target; half-shutter locks & tracks across 100% of frame.';
+                reticleContainer.innerHTML = `
+                    <div class="relative w-64 h-40 border border-dashed border-gray-500 flex items-center justify-center">
+                        <div class="w-14 h-14 border-2 border-fuji-green af-box-pulse translate-x-6 -translate-y-2 flex items-center justify-center">
+                            <div class="w-10 h-10 border border-fuji-amber"></div>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'all') {
+                label.textContent = 'ALL (DIAL CYCLE)';
+                hint.textContent = 'TIP: Press Joystick in, then roll Rear Dial to morph Single -> Zone -> Tracking.';
+                reticleContainer.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 border border-gray-500 flex items-center justify-center text-[9px] font-mono text-gray-400">1PT</div>
+                        <span class="text-gray-500 font-mono">&rarr;</span>
+                        <div class="w-16 h-16 border-2 border-fuji-green af-box-pulse flex items-center justify-center text-[10px] font-mono text-fuji-green">ZONE</div>
+                        <span class="text-gray-500 font-mono">&rarr;</span>
+                        <div class="w-24 h-16 border border-dashed border-gray-500 flex items-center justify-center text-[9px] font-mono text-gray-400">WIDE</div>
+                    </div>
+                `;
+            }
+        }
+
+        // 3. Video AF-C Custom Settings Simulator
+        let focusedForeground = true;
+
+        function updateVideoSim() {
+            const sens = parseInt(document.getElementById('vid-sensitivity').value, 10);
+            const speed = parseInt(document.getElementById('vid-speed').value, 10);
+
+            const sensLabels = [
+                '0 (Locked On)',
+                '1 (Sticky)',
+                '2 (Balanced)',
+                '3 (Reactive)',
+                '4 (Instant)'
+            ];
+            document.getElementById('val-sensitivity').textContent = sensLabels[sens];
+
+            const speedSign = speed > 0 ? `+${speed}` : `${speed}`;
+            let speedDesc = 'Standard';
+            if (speed <= -3) speedDesc = 'Cinematic Slow';
+            else if (speed < 0) speedDesc = 'Gentle Pull';
+            else if (speed >= 3) speedDesc = 'Fast Snap';
+            else if (speed > 0) speedDesc = 'Brisk';
+
+            document.getElementById('val-speed').textContent = `${speedSign} (${speedDesc})`;
+
+            // Map speed (-5 to +5) to CSS transition duration (1.8s down to 0.2s)
+            const durationSec = (1.0 - (speed * 0.16)).toFixed(2);
+            document.getElementById('sim-duration-readout').textContent = `${durationSec}s pull`;
+
+            const fg = document.getElementById('plane-fg');
+            const bg = document.getElementById('plane-bg');
+            fg.style.transitionDuration = `${durationSec}s`;
+            bg.style.transitionDuration = `${durationSec}s`;
+
+            // Update dynamic advice text
+            const adviceBox = document.getElementById('sim-recipe-advice');
+            if (sens <= 1 && speed <= -2) {
+                adviceBox.innerHTML = `<strong class="text-fuji-green">Narrative / Interview Setup:</strong> High stickiness ignores people walking past the frame, while slow AF Speed creates organic, cinema-style focus pulls.`;
+            } else if (sens >= 3 && speed >= 2) {
+                adviceBox.innerHTML = `<strong class="text-fuji-amber">Action / Documentary Setup:</strong> Immediately grabs new subjects entering the frame and snaps focus rapidly to keep pace with fast movement.`;
+            } else {
+                adviceBox.innerHTML = `<strong class="text-white">Balanced Hybrid Profile:</strong> Smooth focus transitions without hunting, suitable for general handheld shooting and b-roll.`;
+            }
+        }
+
+        function triggerRackFocus() {
+            const fg = document.getElementById('plane-fg');
+            const bg = document.getElementById('plane-bg');
+            const fgBox = fg.querySelector('div');
+            const bgBox = bg.querySelector('div');
+
+            focusedForeground = !focusedForeground;
+
+            if (focusedForeground) {
+                fg.className = 'text-center transition-all transform scale-105 filter blur-none opacity-100';
+                fgBox.className = 'w-16 h-16 mx-auto rounded-full bg-fuji-green/20 border-2 border-fuji-green flex items-center justify-center font-mono text-xs font-bold text-fuji-green';
+
+                bg.className = 'text-center transition-all transform scale-90 filter blur-[3px] opacity-60';
+                bgBox.className = 'w-16 h-16 mx-auto rounded-lg bg-gray-800 border-2 border-gray-600 flex items-center justify-center font-mono text-xs font-bold text-gray-400';
+            } else {
+                fg.className = 'text-center transition-all transform scale-90 filter blur-[3px] opacity-60';
+                fgBox.className = 'w-16 h-16 mx-auto rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center font-mono text-xs font-bold text-gray-400';
+
+                bg.className = 'text-center transition-all transform scale-105 filter blur-none opacity-100';
+                bgBox.className = 'w-16 h-16 mx-auto rounded-lg bg-fuji-green/20 border-2 border-fuji-green flex items-center justify-center font-mono text-xs font-bold text-fuji-green';
+            }
+            // Re-apply current slider speed duration
+            updateVideoSim();
+        }
+    </script>
+</body>
+</html>
