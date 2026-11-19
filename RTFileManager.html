@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering RawTherapee | Inside the File Browser</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        rt: {
+                            bg: '#18181b',        // Zinc 900 - Dark UI Base
+                            panel: '#222226',     // Custom dark slate for panels
+                            border: '#323238',    // Subtle UI borders
+                            hover: '#2c2c32',     // Panel hover state
+                            accent: '#f59e0b',    // Amber 500 - RawTherapee Highlight
+                            accentHover: '#d97706',
+                            text: '#e4e4e7',      // Zinc 200
+                            muted: '#a1a1aa',     // Zinc 400
+                            green: '#22c55e',     // PP3 checkmark green
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-rt-bg text-rt-text font-sans antialiased selection:bg-rt-accent selection:text-black">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-rt-bg/90 backdrop-blur-md border-b border-rt-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                    <i data-lucide="aperture" class="w-5 h-5 text-zinc-950 stroke-[2.5]"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-white">Mastering RawTherapee</span>
+                    <span class="hidden sm:inline-block ml-2 text-xs font-mono px-2 py-0.5 rounded bg-rt-panel border border-rt-border text-rt-accent">UI & Workflow Series</span>
+                </div>
+            </div>
+            <nav class="flex items-center space-x-6 text-sm font-medium text-rt-muted">
+                <a href="#interactive-map" class="hover:text-white transition-colors">Interactive Map</a>
+                <a href="#core-concepts" class="hover:text-white transition-colors hidden md:inline">Key Concepts</a>
+                <a href="#context-menu" class="hover:text-white transition-colors hidden md:inline">Batch & Sync</a>
+                <a href="#shortcuts" class="hover:text-white transition-colors">Shortcuts</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden border-b border-rt-border bg-gradient-to-b from-rt-panel/50 to-rt-bg py-12 sm:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-rt-accent text-xs font-medium mb-4">
+                    <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                    <span>Episode Reference Guide: The File Browser</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
+                    Navigating the RawTherapee <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">File Manager</span>
+                </h1>
+                <p class="text-base sm:text-lg text-rt-muted leading-relaxed mb-6">
+                    Coming from Lightroom or Capture One? Forget catalogs and database imports. RawTherapee operates directly on your hard drive's folder structure—giving you instant access, non-destructive sidecars, and powerful batch tools.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#interactive-map" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-rt-accent hover:bg-rt-accentHover text-zinc-950 font-semibold text-sm transition-all shadow-lg shadow-amber-500/10">
+                        <i data-lucide="mouse-pointer-click" class="w-4 h-4 mr-2"></i>
+                        Explore Interactive UI
+                    </a>
+                    <a href="#core-concepts" class="inline-flex items-center px-4 py-2.5 rounded-lg bg-rt-panel hover:bg-rt-hover border border-rt-border text-white font-medium text-sm transition-all">
+                        <i data-lucide="cpu" class="w-4 h-4 mr-2 text-rt-accent"></i>
+                        How Thumbnails Work
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- SECTION 1: Interactive UI Explorer -->
+        <section id="interactive-map" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="w-7 h-7 rounded bg-rt-accent/20 text-rt-accent flex items-center justify-center text-sm font-mono">01</span>
+                        Interactive File Browser Anatomy
+                    </h2>
+                    <p class="text-rt-muted text-sm mt-1">Click any numbered zone in the simulated RawTherapee workspace to inspect its functions.</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono text-rt-muted bg-rt-panel px-3 py-1.5 rounded-lg border border-rt-border">
+                    <span class="w-2 h-2 rounded-full bg-rt-accent animate-pulse"></span>
+                    <span>Single Editor Tab Mode (Vertical Tabs)</span>
+                </div>
+            </div>
+
+            <!-- Interactive Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- Left 8 Cols: Simulated RawTherapee File Browser UI -->
+                <div class="lg:col-span-8 bg-[#121214] border border-rt-border rounded-xl overflow-hidden shadow-2xl select-none">
+                    <!-- Window Titlebar -->
+                    <div class="bg-[#1e1e22] px-3 py-2 border-b border-rt-border flex items-center justify-between text-xs text-rt-muted">
+                        <div class="flex items-center space-x-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-500/80"></span>
+                            <span class="ml-2 font-mono text-[11px] text-zinc-400">RawTherapee 5.11+ — File Browser</span>
+                        </div>
+                        <span class="font-mono text-[10px] text-zinc-500">/home/photographer/RAW/2026-11-Oregon</span>
+                    </div>
+
+                    <!-- Simulated RT Workspace Grid -->
+                    <div class="grid grid-cols-12 min-h-[460px] text-xs">
+                        
+                        <!-- ZONE 1: Far Left Main Vertical Tabs -->
+                        <div onclick="selectZone(1)" id="ui-zone-1" class="zone-box col-span-1 bg-[#18181b] border-r border-rt-border flex flex-col justify-between items-center py-3 cursor-pointer transition-all hover:bg-amber-500/10 relative group">
+                            <div class="flex flex-col items-center space-y-5">
+                                <div class="p-1.5 rounded bg-rt-accent text-black font-bold" title="File Browser">
+                                    <i data-lucide="folder" class="w-4 h-4"></i>
+                                </div>
+                                <div class="p-1.5 rounded text-zinc-400" title="Queue">
+                                    <i data-lucide="settings" class="w-4 h-4"></i>
+                                </div>
+                                <div class="p-1.5 rounded text-zinc-400" title="Editor">
+                                    <i data-lucide="sliders" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center space-y-3">
+                                <div class="p-1.5 rounded text-zinc-400" title="Preferences">
+                                    <i data-lucide="wrench" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <!-- Badge 1 -->
+                            <span class="zone-badge absolute -right-2.5 top-2 z-20 w-6 h-6 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-xs shadow-md ring-2 ring-black">1</span>
+                        </div>
+
+                        <!-- ZONE 2: Left Navigation Panel (Places & Folder Tree) -->
+                        <div onclick="selectZone(2)" id="ui-zone-2" class="zone-box col-span-3 bg-[#1c1c20] border-r border-rt-border flex flex-col cursor-pointer transition-all hover:bg-amber-500/10 relative">
+                            <span class="zone-badge absolute -right-2.5 top-1/3 z-20 w-6 h-6 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-xs shadow-md ring-2 ring-black">2</span>
+                            
+                            <!-- Places -->
+                            <div class="p-2.5 border-b border-rt-border">
+                                <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold mb-1.5">Places</div>
+                                <ul class="space-y-1 text-[11px] text-zinc-300">
+                                    <li class="flex items-center gap-1.5 px-1.5 py-0.5 rounded bg-white/5"><i data-lucide="home" class="w-3 h-3 text-amber-400"></i> Home</li>
+                                    <li class="flex items-center gap-1.5 px-1.5 py-0.5"><i data-lucide="image" class="w-3 h-3 text-zinc-400"></i> Pictures</li>
+                                    <li class="flex items-center gap-1.5 px-1.5 py-0.5"><i data-lucide="hard-drive" class="w-3 h-3 text-zinc-400"></i> SD_CARD_64G</li>
+                                </ul>
+                            </div>
+
+                            <!-- Folder Tree -->
+                            <div class="p-2.5 flex-1 overflow-hidden">
+                                <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold mb-1.5 flex justify-between">
+                                    <span>Folders</span>
+                                    <span class="text-[9px] text-amber-400/80">+ Subfolders</span>
+                                </div>
+                                <ul class="space-y-1 text-[11px] font-mono text-zinc-400">
+                                    <li class="flex items-center gap-1"><i data-lucide="chevron-down" class="w-3 h-3"></i> RAW_Archive</li>
+                                    <li class="pl-3 flex items-center gap-1"><i data-lucide="folder" class="w-3 h-3"></i> 2026-09-Coast</li>
+                                    <li class="pl-3 flex items-center gap-1 text-white bg-amber-500/20 rounded px-1 py-0.5"><i data-lucide="folder-open" class="w-3 h-3 text-amber-400"></i> 2026-11-Oregon</li>
+                                    <li class="pl-3 flex items-center gap-1"><i data-lucide="folder" class="w-3 h-3"></i> 2026-11-Studio</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- CENTER AREA: Top Toolbars (Zones 4, 5, 6) + Thumbnail Grid (Zone 3 & 8) -->
+                        <div class="col-span-6 bg-[#161619] border-r border-rt-border flex flex-col">
+                            
+                            <!-- Top Action Toolbar -->
+                            <div class="bg-[#202024] border-b border-rt-border p-1.5 flex items-center justify-between gap-1">
+                                
+                                <!-- ZONE 4: Filters -->
+                                <div onclick="selectZone(4)" id="ui-zone-4" class="zone-box flex items-center gap-1 px-1.5 py-1 rounded border border-transparent hover:border-rt-accent hover:bg-amber-500/10 cursor-pointer relative transition-all" title="Filter Thumbnails">
+                                    <i data-lucide="filter" class="w-3.5 h-3.5 text-amber-400"></i>
+                                    <div class="flex text-amber-400 text-[10px]">★★★☆☆</div>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
+                                    <i data-lucide="trash-2" class="w-3 h-3 text-zinc-400"></i>
+                                    <span class="zone-badge -top-2 -left-1 w-5 h-5 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-[10px] shadow">4</span>
+                                </div>
+
+                                <!-- ZONE 5: Zoom & Info -->
+                                <div onclick="selectZone(5)" id="ui-zone-5" class="zone-box flex items-center gap-1 px-1.5 py-1 rounded border border-transparent hover:border-rt-accent hover:bg-amber-500/10 cursor-pointer relative transition-all" title="Thumbnail Size & Info">
+                                    <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-zinc-300"></i>
+                                    <i data-lucide="zoom-out" class="w-3.5 h-3.5 text-zinc-300"></i>
+                                    <i data-lucide="info" class="w-3.5 h-3.5 text-sky-400"></i>
+                                    <span class="zone-badge -top-2 left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-[10px] shadow">5</span>
+                                </div>
+
+                                <!-- ZONE 6: Quick Operations -->
+                                <div onclick="selectZone(6)" id="ui-zone-6" class="zone-box flex items-center gap-1 px-1.5 py-1 rounded border border-transparent hover:border-rt-accent hover:bg-amber-500/10 cursor-pointer relative transition-all" title="Quick Image Operations">
+                                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-zinc-300"></i>
+                                    <i data-lucide="rotate-cw" class="w-3.5 h-3.5 text-zinc-300"></i>
+                                    <i data-lucide="cog" class="w-3.5 h-3.5 text-emerald-400"></i>
+                                    <span class="zone-badge -top-2 -right-1 w-5 h-5 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-[10px] shadow">6</span>
+                                </div>
+                            </div>
+
+                            <!-- ZONE 3: Central Thumbnail Grid -->
+                            <div onclick="selectZone(3)" id="ui-zone-3" class="zone-box p-3 flex-1 grid grid-cols-2 gap-3 relative cursor-pointer hover:bg-amber-500/5 transition-all">
+                                <span class="zone-badge absolute top-2 left-2 z-20 w-6 h-6 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-xs shadow-md ring-2 ring-black">3</span>
+
+                                <!-- Thumbnail Card 1 (Edited - Green Check) -->
+                                <div class="bg-[#222226] border border-rt-accent/60 rounded-lg p-2 flex flex-col justify-between relative">
+                                    <div class="flex justify-between items-center text-[10px] text-zinc-400 mb-1">
+                                        <span class="text-amber-400">★★★★★</span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                            <i data-lucide="trash" class="w-3 h-3"></i>
+                                        </div>
+                                    </div>
+                                    <div class="h-20 rounded bg-gradient-to-tr from-slate-800 via-amber-900/40 to-orange-500/30 flex items-center justify-center relative overflow-hidden">
+                                        <i data-lucide="mountain" class="w-8 h-8 text-amber-200/50"></i>
+                                        <!-- Green Checkmark Badge -->
+                                        <span class="absolute top-1 left-1 bg-green-500 text-black rounded p-0.5 shadow" title="Has PP3 Sidecar">
+                                            <i data-lucide="check" class="w-2.5 h-2.5 stroke-[3]"></i>
+                                        </span>
+                                    </div>
+                                    <div class="mt-1.5">
+                                        <div class="font-mono text-[10px] text-white truncate">DSC_4092.NEF</div>
+                                        <div class="text-[9px] text-zinc-400">f/8 • 1/250s • ISO 100</div>
+                                    </div>
+                                </div>
+
+                                <!-- Thumbnail Card 2 (Unedited - Embedded JPEG) -->
+                                <div class="bg-[#222226] border border-rt-border rounded-lg p-2 flex flex-col justify-between relative">
+                                    <div class="flex justify-between items-center text-[10px] text-zinc-500 mb-1">
+                                        <span>☆☆☆☆☆</span>
+                                        <i data-lucide="trash" class="w-3 h-3"></i>
+                                    </div>
+                                    <div class="h-20 rounded bg-gradient-to-tr from-zinc-800 to-slate-700 flex items-center justify-center relative">
+                                        <i data-lucide="trees" class="w-8 h-8 text-zinc-500"></i>
+                                        <span class="absolute bottom-1 right-1 text-[8px] font-mono bg-black/60 px-1 rounded text-zinc-300">Embedded JPG</span>
+                                    </div>
+                                    <div class="mt-1.5">
+                                        <div class="font-mono text-[10px] text-zinc-300 truncate">DSC_4093.NEF</div>
+                                        <div class="text-[9px] text-zinc-500">f/5.6 • 1/500s • ISO 200</div>
+                                    </div>
+                                </div>
+
+                                <!-- Thumbnail Card 3 + ZONE 8: Context Menu Trigger -->
+                                <div class="bg-[#222226] border border-rt-border rounded-lg p-2 flex flex-col justify-between relative col-span-2">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-mono text-[10px] text-zinc-300">DSC_4094.NEF — Right-Click Menu</div>
+                                            <div class="text-[9px] text-zinc-500">Click the floating menu badge to inspect Context Actions</div>
+                                        </div>
+                                        <!-- ZONE 8 Button -->
+                                        <button onclick="event.stopPropagation(); selectZone(8);" id="ui-zone-8" class="zone-box flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-zinc-900 border border-rt-accent text-white text-[11px] font-medium shadow-lg hover:bg-amber-500/20 transition-all">
+                                            <span class="w-4 h-4 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-[10px]">8</span>
+                                            <span>Context Menu</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ZONE 7: Right Panel Vertical Sub-Tabs -->
+                        <div onclick="selectZone(7)" id="ui-zone-7" class="zone-box col-span-2 bg-[#1c1c20] flex flex-col justify-between p-2 cursor-pointer hover:bg-amber-500/10 relative transition-all">
+                            <span class="zone-badge absolute -left-2.5 top-4 z-20 w-6 h-6 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-xs shadow-md ring-2 ring-black">7</span>
+                            
+                            <div class="space-y-1.5">
+                                <div class="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold mb-2">Right Tabs</div>
+                                <div class="px-2 py-1.5 rounded bg-rt-accent/20 border border-rt-accent/40 text-amber-300 font-medium text-[11px] flex items-center gap-1.5">
+                                    <i data-lucide="filter" class="w-3 h-3"></i> Filter
+                                </div>
+                                <div class="px-2 py-1.5 rounded bg-white/5 text-zinc-300 text-[11px] flex items-center gap-1.5">
+                                    <i data-lucide="eye" class="w-3 h-3 text-sky-400"></i> Inspect
+                                </div>
+                                <div class="px-2 py-1.5 rounded bg-white/5 text-zinc-300 text-[11px] flex items-center gap-1.5">
+                                    <i data-lucide="layers" class="w-3 h-3 text-emerald-400"></i> Batch Edit
+                                </div>
+                                <div class="px-2 py-1.5 rounded bg-white/5 text-zinc-300 text-[11px] flex items-center gap-1.5">
+                                    <i data-lucide="zap" class="w-3 h-3 text-rose-400"></i> Fast Export
+                                </div>
+                            </div>
+
+                            <div class="p-2 rounded bg-black/30 border border-rt-border text-[10px] text-zinc-400">
+                                <span class="text-white font-semibold block mb-0.5">EXIF Filter:</span>
+                                • Camera Model<br>
+                                • Lens & Focal<br>
+                                • ISO / Shutter
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right 4 Cols: Dynamic Inspector Card -->
+                <div class="lg:col-span-4 bg-rt-panel border border-rt-border rounded-xl p-6 sticky top-24 shadow-xl">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-rt-border">
+                        <div class="flex items-center gap-3">
+                            <span id="detail-badge" class="w-8 h-8 rounded-full bg-rt-accent text-black font-bold flex items-center justify-center text-sm shadow">1</span>
+                            <div>
+                                <span class="text-[11px] font-mono uppercase tracking-wider text-rt-accent block">UI Zone Inspector</span>
+                                <h3 id="detail-title" class="text-lg font-bold text-white">Main Section Tabs</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p id="detail-desc" class="text-sm text-rt-muted leading-relaxed mb-5">
+                        Switches between RawTherapee's primary workspaces: the File Browser, the Batch Processing Queue, the Image Editor, and global Preferences.
+                    </p>
+
+                    <div class="space-y-3 mb-6">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Key Capabilities</h4>
+                        <ul id="detail-bullets" class="space-y-2 text-sm text-zinc-200">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+
+                    <div id="detail-tip-box" class="p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 flex gap-2.5">
+                        <i data-lucide="lightbulb" class="w-4 h-4 text-rt-accent shrink-0 mt-0.5"></i>
+                        <span id="detail-tip">Tip: You can hide side panels anytime using L (Left Panel) and Alt+L (Right Panel) to maximize thumbnail space.</span>
+                    </div>
+
+                    <!-- Quick Zone Selector Pills -->
+                    <div class="mt-6 pt-4 border-t border-rt-border">
+                        <span class="text-[11px] text-zinc-500 block mb-2">Jump to Zone:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="selectZone(1)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="1">1. Tabs</button>
+                            <button onclick="selectZone(2)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="2">2. Folders</button>
+                            <button onclick="selectZone(3)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="3">3. Grid</button>
+                            <button onclick="selectZone(4)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="4">4. Filters</button>
+                            <button onclick="selectZone(5)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="5">5. Zoom</button>
+                            <button onclick="selectZone(6)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="6">6. Quick Ops</button>
+                            <button onclick="selectZone(7)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="7">7. Right Tabs</button>
+                            <button onclick="selectZone(8)" class="pill-btn px-2.5 py-1 rounded text-xs font-mono bg-zinc-800 hover:bg-rt-accent hover:text-black transition-colors" data-zone="8">8. Context</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: Core Concepts (What Makes RawTherapee Different) -->
+        <section id="core-concepts" class="scroll-mt-24">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <span class="w-7 h-7 rounded bg-rt-accent/20 text-rt-accent flex items-center justify-center text-sm font-mono">02</span>
+                    Essential File Browser Concepts
+                </h2>
+                <p class="text-rt-muted text-sm mt-1">Crucial behaviors that often confuse photographers migrating from Lightroom or Capture One.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card 1: No Catalogs -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-4">
+                        <i data-lucide="folder-tree" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Direct Folder Browsing (No Import)</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        RawTherapee does not use a database or require an "Import" step. Simply use the left-hand folder tree to click any directory on your drive or memory card. Subfolders can also be displayed recursively in newer versions (5.11+).
+                    </p>
+                </div>
+
+                <!-- Card 2: Embedded JPEG vs Cooked Raw -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-rt-accent mb-4">
+                        <i data-lucide="image-plus" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Why Thumbnails Change Color</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        Unedited raw files initially show the <strong>embedded camera JPEG</strong> as their thumbnail. The moment you open a photo in the Editor or apply a profile, RawTherapee "cooks" the actual raw sensor data using your default profile—updating the thumbnail and adding a <span class="text-green-400 font-medium">green checkmark</span>.
+                    </p>
+                </div>
+
+                <!-- Card 3: PP3 Sidecar Files -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+                        <i data-lucide="file-code-2" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">100% Non-Destructive (.pp3)</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        RawTherapee never modifies your original raw file. Every adjustment, rating, and color label is written to a lightweight plain-text sidecar file (<code class="text-xs font-mono bg-black/40 px-1.5 py-0.5 rounded text-emerald-300">image.raw.pp3</code>) right next to your photo.
+                    </p>
+                </div>
+
+                <!-- Card 4: Right Panel Modes -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+                        <i data-lucide="scan-search" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">The 100% "Inspect" Tab</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        Need to cull blurry shots fast? Switch the right-hand panel from <em>Filter</em> to <strong>Inspect</strong>. Hovering your mouse over any thumbnail instantly displays a 1:1 (100%) preview of the largest embedded JPEG without waiting for full raw demosaicing.
+                    </p>
+                </div>
+
+                <!-- Card 5: Independent Trash Bin -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 mb-4">
+                        <i data-lucide="trash-2" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Safe Two-Stage Trash Bin</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        Pressing <kbd class="px-1.5 py-0.5 text-xs bg-zinc-800 border border-zinc-700 rounded">Delete</kbd> or clicking a thumbnail's trash icon does <em>not</em> erase the file from your disk. It tags it for RawTherapee's internal trash filter (<kbd class="px-1.5 py-0.5 text-xs bg-zinc-800 border border-zinc-700 rounded">Ctrl+T</kbd> to view), letting you review before permanently deleting.
+                    </p>
+                </div>
+
+                <!-- Card 6: Fast Export Warning -->
+                <div class="bg-rt-panel border border-rt-border rounded-xl p-6 hover:border-zinc-600 transition-all">
+                    <div class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 mb-4">
+                        <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Fast Export vs. Batch Queue</h3>
+                    <p class="text-sm text-rt-muted leading-relaxed">
+                        The right panel features a <strong>Fast Export</strong> tab. Beware: Fast Export bypasses quality-critical pipeline tools (like high-precision demosaicing and noise reduction) for speed. Only use it for quick contact sheets—use the <strong>Queue</strong> (<kbd class="px-1.5 py-0.5 text-xs bg-zinc-800 border border-zinc-700 rounded">Ctrl+B</kbd>) for final images!
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: Batch Operations & Right-Click Context Menu -->
+        <section id="context-menu" class="scroll-mt-24">
+            <div class="bg-rt-panel border border-rt-border rounded-2xl p-6 sm:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-mono uppercase tracking-wider text-rt-accent">Power User Workflow</span>
+                        <h2 class="text-2xl font-bold text-white">Batch Editing & Profile Sync</h2>
+                        <p class="text-sm text-rt-muted leading-relaxed">
+                            Select multiple images in the File Browser using <kbd class="px-1.5 py-0.5 text-xs bg-zinc-800 border border-zinc-700 rounded">Shift+Click</kbd> (range) or <kbd class="px-1.5 py-0.5 text-xs bg-zinc-800 border border-zinc-700 rounded">Ctrl+Click</kbd> (individual). RawTherapee gives you two distinct ways to batch-edit from the File Browser:
+                        </p>
+                        <div class="space-y-3 pt-2">
+                            <div class="p-3.5 rounded-lg bg-black/30 border border-rt-border">
+                                <h4 class="text-sm font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="clipboard-copy" class="w-4 h-4 text-rt-accent"></i>
+                                    1. Copy & Paste Partial Profiles
+                                </h4>
+                                <p class="text-xs text-rt-muted mt-1">
+                                    Copy settings from a hero image (<kbd class="text-[11px] bg-zinc-800 px-1 rounded">Ctrl+C</kbd>), then right-click target photos and choose <strong>Processing Profile Operations &gt; Paste - partial</strong> (<kbd class="text-[11px] bg-zinc-800 px-1 rounded">Shift+Ctrl+V</kbd>) to select exact modules (e.g., White Balance & Exposure only).
+                                </p>
+                            </div>
+                            <div class="p-3.5 rounded-lg bg-black/30 border border-rt-border">
+                                <h4 class="text-sm font-semibold text-white flex items-center gap-2">
+                                    <i data-lucide="sliders-horizontal" class="w-4 h-4 text-emerald-400"></i>
+                                    2. Live Batch Edit Tab (Sync)
+                                </h4>
+                                <p class="text-xs text-rt-muted mt-1">
+                                    Open the <strong>Batch Edit</strong> tab on the right panel while multiple thumbnails are selected. Any slider you move (like enabling Lens Correction or Resizing) updates all selected photos simultaneously.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulated Context Menu Reference -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-[#18181b] border border-rt-border rounded-xl p-5 shadow-inner">
+                            <div class="text-xs font-mono text-zinc-400 mb-3 flex items-center justify-between">
+                                <span>Right-Click Thumbnail Menu Reference</span>
+                                <span class="text-rt-accent">File Browser / Filmstrip</span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                <div class="p-3 rounded-lg bg-rt-panel border border-rt-border">
+                                    <div class="font-semibold text-white mb-1 flex items-center justify-between">
+                                        <span>Put to Queue</span>
+                                        <kbd class="font-mono text-[10px] bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300">Ctrl+B</kbd>
+                                    </div>
+                                    <p class="text-zinc-400 text-[11px]">Sends selected images straight to the Batch Queue for full-quality background rendering.</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-rt-panel border border-rt-border">
+                                    <div class="font-semibold text-white mb-1">Rank &amp; Color Label</div>
+                                    <p class="text-zinc-400 text-[11px]">Assign 0–5 stars or color tags. Syncs with XMP metadata (RT 5.11+) and PP3 sidecars.</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-rt-panel border border-rt-border">
+                                    <div class="font-semibold text-white mb-1">File Operations</div>
+                                    <p class="text-zinc-400 text-[11px]">Copy/Move files to folders, Rename (<kbd class="font-mono text-[10px] bg-zinc-800 px-1 rounded">F2</kbd>), Move to Trash, or Delete permanently.</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-rt-panel border border-rt-border">
+                                    <div class="font-semibold text-white mb-1">Dark-Frame &amp; Flat-Field</div>
+                                    <p class="text-zinc-400 text-[11px]">Assign calibration frames or auto-match sensor dust/vignette flat-fields across a batch.</p>
+                                </div>
+                                <div class="p-3 rounded-lg bg-rt-panel border border-rt-border sm:col-span-2">
+                                    <div class="font-semibold text-white mb-1">Cache Management</div>
+                                    <p class="text-zinc-400 text-[11px]">Clear cached thumbnails or sidecars for specific files if a thumbnail looks corrupted or needs regeneration.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Essential File Browser Keyboard Shortcuts -->
+        <section id="shortcuts" class="scroll-mt-24">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <span class="w-7 h-7 rounded bg-rt-accent/20 text-rt-accent flex items-center justify-center text-sm font-mono">03</span>
+                    File Browser Cheat Sheet
+                </h2>
+                <p class="text-rt-muted text-sm mt-1">Speed up your culling and navigation workflow with these built-in shortcuts.</p>
+            </div>
+
+            <div class="overflow-x-auto bg-rt-panel border border-rt-border rounded-xl">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="border-b border-rt-border bg-black/20 text-xs uppercase tracking-wider text-zinc-400">
+                            <th class="py-3.5 px-4 font-semibold">Shortcut</th>
+                            <th class="py-3.5 px-4 font-semibold">Action</th>
+                            <th class="py-3.5 px-4 font-semibold hidden sm:table-cell">Workflow Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-rt-border text-zinc-200">
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">Double-Click / Enter</td>
+                            <td class="py-3 px-4 font-medium">Open in Editor</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Loads the raw file into the Image Editor and generates a PP3 profile.</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">L / Alt + L</td>
+                            <td class="py-3 px-4 font-medium">Toggle Left / Right Panels</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Collapses the Folder Tree (L) or Filter/Inspect pane (Alt+L).</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">Ctrl + B</td>
+                            <td class="py-3 px-4 font-medium">Put Selection to Queue</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Queues all selected thumbnails for full-resolution batch export.</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">Ctrl + C / Shift + Ctrl + V</td>
+                            <td class="py-3 px-4 font-medium">Copy / Partial Paste Profile</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Copies processing parameters and lets you choose which tools to paste.</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">Delete / Ctrl + T</td>
+                            <td class="py-3 px-4 font-medium">Move to Trash / View Trash</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Marks files as deleted inside RT without erasing them from your drive.</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">F2</td>
+                            <td class="py-3 px-4 font-medium">Rename File(s)</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Prompts rename dialog for each selected thumbnail.</td>
+                        </tr>
+                        <tr class="hover:bg-white/[0.02]">
+                            <td class="py-3 px-4 font-mono text-xs text-rt-accent">Ctrl + F5</td>
+                            <td class="py-3 px-4 font-medium">Reveal in OS File Explorer</td>
+                            <td class="py-3 px-4 text-xs text-rt-muted hidden sm:table-cell">Opens Finder/Explorer directly to the selected raw file's folder.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-rt-border bg-rt-panel/40 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-rt-muted">
+            <div class="flex items-center space-x-2">
+                <i data-lucide="aperture" class="w-4 h-4 text-rt-accent"></i>
+                <span class="font-semibold text-zinc-200">Mastering RawTherapee</span>
+                <span>• Companion Guide for Photographers</span>
+            </div>
+            <div>
+                Based on RawPedia Documentation &amp; RawTherapee 5.x Architecture
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive UI Logic -->
+    <script>
+        // Zone Data Repository based on RawTherapee Documentation
+        const zoneData = {
+            1: {
+                title: "Main Section Tabs",
+                desc: "The vertical navigation rail on the far left switches between RawTherapee's core functional workspaces.",
+                bullets: [
+                    "File Browser: Browse folders, cull, rate, and batch-process photos.",
+                    "Queue: Monitor and run background batch exports without slowing down editing.",
+                    "Editor: The main raw development workspace (opens active photo).",
+                    "Preferences (Bottom): Configure default PP3 profiles, cache limits, and themes."
+                ],
+                tip: "Tip: Use 'Single Editor Tab Mode' (default) to keep RAM usage low and unlock the horizontal Filmstrip inside the Editor."
+            },
+            2: {
+                title: "Places & Folder Tree Browser",
+                desc: "Navigate directly to any folder on your computer or external media without needing to import photos into a catalog.",
+                bullets: [
+                    "Places Panel (Top): Quick shortcuts to Home, Pictures, USB/SD card readers, and custom bookmarked folders.",
+                    "Directory Tree (Bottom): Standard hierarchical tree view of your drives.",
+                    "Recursive Subfolders (RT 5.11+): Toggle viewing images inside nested subfolders simultaneously."
+                ],
+                tip: "Tip: Avoid folders with thousands of raw files in one directory, as each loaded thumbnail consumes a small amount of RAM."
+            },
+            3: {
+                title: "Thumbnail Grid Area",
+                desc: "Displays visual previews, ratings, color labels, and EXIF shooting metadata for every supported image in the active folder.",
+                bullets: [
+                    "Unedited Thumbnails: Show the camera's embedded JPEG preview.",
+                    "Edited Thumbnails: Display a green checkmark icon once a .pp3 sidecar is assigned and show the rendered raw look.",
+                    "Quick Card Controls: Rate (1–5 stars), assign color tags, or click the top-right trash icon."
+                ],
+                tip: "Tip: First-time folder scans extract embedded JPEGs and save them to RawTherapee's cache, making future visits nearly instantaneous."
+            },
+            4: {
+                title: "Metadata & State Filters",
+                desc: "Instantly declutter large shoots by filtering which thumbnails are visible in the central grid.",
+                bullets: [
+                    "Star Rating & Color Label Filters: Show only 3+ star picks or specific color tags.",
+                    "Edit & Save Status: Filter by edited/unedited status or images already exported.",
+                    "Trash Visibility Toggle: Hide or reveal files currently marked in RawTherapee's internal trash bin."
+                ],
+                tip: "Tip: If your screen is narrow and hides toolbar icons, hover over the toolbar and scroll your mouse wheel up/down to pan sideways!"
+            },
+            5: {
+                title: "Thumbnail Zoom & EXIF Overlay",
+                desc: "Adjust the visual scale of your contact sheet and toggle shooting metadata overlays.",
+                bullets: [
+                    "Zoom In / Out (+/-): Dynamically resize thumbnail cards up to the max height set in Preferences.",
+                    "Info Toggle (i): Show or hide camera settings (Aperture, Shutter Speed, ISO, Focal Length) beneath each thumbnail."
+                ],
+                tip: "Tip: You can increase the maximum allowed thumbnail size in Preferences > File Browser > Cache Options."
+            },
+            6: {
+                title: "Quick Image Operations",
+                desc: "Perform rapid non-destructive orientation changes and batch queue actions on selected thumbnails.",
+                bullets: [
+                    "Rotate Left / Right (90°): Losslessly rotate orientation flags across multiple selected photos.",
+                    "Put to Queue (Gears Icon): Immediately send selected photos to the Batch Queue using default Queue settings."
+                ],
+                tip: "Tip: Holding Shift while scrolling over dropdowns in RawTherapee prevents accidental value changes."
+            },
+            7: {
+                title: "Right Panel Sub-Tabs",
+                desc: "Four specialized tools docked on the right side of the File Browser for filtering, culling, and batch processing.",
+                bullets: [
+                    "Filter: Granular EXIF filtering by Camera model, Lens, File extension (e.g., .NEF, .CR3), ISO, Shutter, and Aperture.",
+                    "Inspect: Hovering over any thumbnail displays a crisp 100% (1:1) preview of the embedded JPEG for rapid focus checking.",
+                    "Batch Edit: Adjust any tool slider to sync changes across all currently selected thumbnails.",
+                    "Fast Export: Ultra-fast low-quality export (bypasses high-precision tools—use Queue for final delivery)."
+                ],
+                tip: "Tip: Use the 'Inspect' tab when culling wildlife or portrait bursts—it extracts the full-res embedded JPEG in a fraction of a second."
+            },
+            8: {
+                title: "Right-Click Context Menu",
+                desc: "The command center for sidecar profile management, file organization, and calibration frames.",
+                bullets: [
+                    "Processing Profile Operations: Copy, Paste, Paste Partial, Apply bundled/custom PP3s, or Reset to Default.",
+                    "File Operations: Rename (F2), Copy/Move to folder, Move to Trash, or Delete permanently.",
+                    "Dark-Frame & Flat-Field: Auto-select or assign sensor calibration frames to selected raw files."
+                ],
+                tip: "Tip: 'Paste - Partial' (Shift+Ctrl+V) is essential when you want to sync exposure or white balance without overwriting custom crops."
+            }
+        };
+
+        function selectZone(zoneId) {
+            const data = zoneData[zoneId];
+            if (!data) return;
+
+            // Update Inspector Content
+            document.getElementById('detail-badge').textContent = zoneId;
+            document.getElementById('detail-title').textContent = data.title;
+            document.getElementById('detail-desc').textContent = data.desc;
+            document.getElementById('detail-tip').textContent = data.tip;
+
+            const bulletsList = document.getElementById('detail-bullets');
+            bulletsList.innerHTML = data.bullets.map(item => {
+                const parts = item.split(':');
+                if (parts.length > 1) {
+                    return `<li class="flex items-start gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-rt-accent shrink-0 mt-0.5"></i>
+                        <span><strong class="text-white">${parts[0]}:</strong>${parts.slice(1).join(':')}</span>
+                    </li>`;
+                }
+                return `<li class="flex items-start gap-2">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-rt-accent shrink-0 mt-0.5"></i>
+                    <span>${item}</span>
+                </li>`;
+            }).join('');
+
+            // Highlight active UI zone
+            document.querySelectorAll('.zone-box').forEach(el => {
+                el.classList.remove('ring-2', 'ring-rt-accent', 'bg-amber-500/15');
+            });
+            const activeEl = document.getElementById(`ui-zone-${zoneId}`);
+            if (activeEl) {
+                activeEl.classList.add('ring-2', 'ring-rt-accent', 'bg-amber-500/15');
+            }
+
+            // Highlight active pill button
+            document.querySelectorAll('.pill-btn').forEach(btn => {
+                if (parseInt(btn.dataset.zone) === zoneId) {
+                    btn.classList.remove('bg-zinc-800', 'text-zinc-200');
+                    btn.classList.add('bg-rt-accent', 'text-black', 'font-bold');
+                } else {
+                    btn.classList.add('bg-zinc-800', 'text-zinc-200');
+                    btn.classList.remove('bg-rt-accent', 'text-black', 'font-bold');
+                }
+            });
+
+            // Re-render Lucide icons inside dynamically injected HTML
+            lucide.createIcons();
+        }
+
+        // Initialize icons and default selected zone on load
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            selectZone(1);
+        });
+    </script>
+</body>
+</html>
