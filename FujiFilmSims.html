@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUJIFILM X-H2S | Complete Film Simulation Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        fuji: {
+                            black: '#0f1012',
+                            card: '#181a1e',
+                            border: '#2a2e35',
+                            red: '#e11d48',
+                            accent: '#38bdf8',
+                            silver: '#d1d5db'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1012;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2e35;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+
+        /* Film Grain Overlay Effect */
+        .film-grain {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 0);
+            background-size: 4px 4px;
+            mix-blend-mode: overlay;
+        }
+    </style>
+</head>
+<body class="bg-fuji-black text-gray-200 font-sans antialiased selection:bg-fuji-red selection:text-white">
+
+    <!-- Top Camera Header Bar -->
+    <header class="sticky top-0 z-40 bg-fuji-black/90 backdrop-blur-md border-b border-fuji-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-black font-bold px-2 py-0.5 text-xs tracking-widest rounded-sm">FUJIFILM</div>
+                <span class="font-mono font-semibold text-white tracking-wider text-sm sm:text-base">X-H2S</span>
+                <span class="hidden sm:inline-block text-gray-600">|</span>
+                <span class="hidden sm:inline-block text-xs font-mono text-gray-400 uppercase tracking-widest">X-Trans CMOS 5 HS • 19 Film Simulations</span>
+            </div>
+            
+            <div class="flex items-center space-x-2 text-xs font-mono">
+                <span class="px-2.5 py-1 rounded bg-fuji-card border border-fuji-border text-emerald-400 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    I.Q. MENU
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Intro Banner -->
+        <section class="bg-fuji-card border border-fuji-border rounded-xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+            <div class="max-w-3xl relative z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuji-red/10 border border-fuji-red/30 text-fuji-red text-xs font-mono mb-4">
+                    <span>85+ YEARS OF COLOR SCIENCE</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                    The Lifeblood of the X-Series: Film Simulations
+                </h1>
+                <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+                    Powered by the 5th-generation <strong class="text-gray-200">X-Processor 5</strong>, the X-H2S houses <strong class="text-gray-200">19 distinct Film Simulations</strong>—including the 5th-Gen debut of <span class="text-amber-400 font-medium">NOSTALGIC Neg.</span> Rather than shooting "flat" by default, choose your film stock in the field to bake iconic analog color palettes, contrast curves, and monochrome filters straight into your JPEGs, 10-bit HEIFs, or RAW metadata tags.
+                </p>
+            </div>
+            <!-- Subtle decorative viewfinder reticle -->
+            <div class="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none">
+                <svg width="180" height="180" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1">
+                    <circle cx="50" cy="50" r="40" />
+                    <line x1="50" y1="0" x2="50" y2="20" />
+                    <line x1="50" y1="80" x2="50" y2="100" />
+                    <line x1="0" y1="50" x2="20" y2="50" />
+                    <line x1="80" y1="50" x2="100" y2="50" />
+                    <rect x="35" y="35" width="30" height="30" />
+                </svg>
+            </div>
+        </section>
+
+        <!-- Interactive Live EVF Film Simulator -->
+        <section id="simulator-section" class="bg-fuji-card border border-fuji-border rounded-xl overflow-hidden shadow-2xl">
+            <div class="border-b border-fuji-border px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-black/30">
+                <div>
+                    <h2 class="text-lg font-semibold text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-fuji-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                        Interactive EVF Film Sim &amp; Recipe Previewer
+                    </h2>
+                    <p class="text-xs text-gray-400">Select any Film Simulation below or switch sample scenes to compare tonal response and color rendering.</p>
+                </div>
+
+                <!-- Scene Selector Buttons -->
+                <div class="flex flex-wrap gap-2" id="scene-selector">
+                    <button onclick="setScene('landscape')" data-scene="landscape" class="scene-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-white text-black transition">Alpine Sunset</button>
+                    <button onclick="setScene('portrait')" data-scene="portrait" class="scene-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-fuji-black text-gray-300 border border-fuji-border hover:border-gray-500 transition">Street Portrait</button>
+                    <button onclick="setScene('architecture')" data-scene="architecture" class="scene-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-fuji-black text-gray-300 border border-fuji-border hover:border-gray-500 transition">Urban Geometry</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <!-- Left: Simulated EVF Viewport -->
+                <div class="lg:col-span-7 relative bg-black flex flex-col justify-between min-h-[340px] sm:min-h-[420px] overflow-hidden select-none">
+                    
+                    <!-- Top EVF OSD Bar -->
+                    <div class="relative z-20 flex items-center justify-between px-4 py-2.5 bg-gradient-to-b from-black/80 to-transparent font-mono text-xs text-white/90">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-white/20 backdrop-blur-sm px-1.5 py-0.5 rounded text-[11px] font-bold" id="evf-badge">STD</span>
+                            <span id="evf-sim-name" class="tracking-wide font-semibold text-emerald-300">PROVIA / Standard</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-[11px] text-gray-300">
+                            <span>HEIF 10-BIT</span>
+                            <span>DR400</span>
+                            <span class="text-emerald-400">AF-C</span>
+                        </div>
+                    </div>
+
+                    <!-- Canvas / Image Container -->
+                    <div class="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden">
+                        <canvas id="preview-canvas" class="w-full h-full object-cover transition-all duration-300"></canvas>
+                        
+                        <!-- Optional Film Grain Overlay -->
+                        <div id="grain-overlay" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 film-grain"></div>
+
+                        <!-- Subtle EVF Crosshair -->
+                        <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-30">
+                            <div class="w-8 h-8 border border-white/60"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom EVF Exposure Telemetry -->
+                    <div class="relative z-20 flex items-center justify-between px-4 py-2.5 bg-gradient-to-t from-black/90 to-transparent font-mono text-xs text-white">
+                        <div class="flex items-center gap-4">
+                            <span>M</span>
+                            <span>S.S. <strong class="text-white">1/1000</strong></span>
+                            <span>F<strong class="text-white">2.8</strong></span>
+                            <span>ISO <strong class="text-white">160</strong></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="toggle-original-btn" onmousedown="showOriginal(true)" onmouseup="showOriginal(false)" onmouseleave="showOriginal(false)" ontouchstart="showOriginal(true)" ontouchend="showOriginal(false)" class="px-2.5 py-1 rounded bg-white/15 hover:bg-white/25 text-[11px] font-sans font-medium text-white border border-white/20 active:scale-95 transition">
+                                Hold to Compare Neutral
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Active Film Simulation Details & I.Q. Modifiers -->
+                <div class="lg:col-span-5 p-6 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-fuji-border bg-fuji-card">
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <span id="detail-category" class="text-[11px] font-mono uppercase tracking-wider text-fuji-red font-semibold">Color Reversal / Slide</span>
+                                <h3 id="detail-title" class="text-2xl font-bold text-white mt-0.5">PROVIA / Standard</h3>
+                            </div>
+                            <span id="detail-badge" class="font-mono text-xs px-2.5 py-1 rounded bg-fuji-black border border-fuji-border text-gray-300">STD</span>
+                        </div>
+
+                        <p id="detail-desc" class="text-sm text-gray-300 leading-relaxed">
+                            The default, true-to-life color profile modeled after Fujichrome PROVIA professional reversal slide film. Delivers balanced saturation, natural contrast, and faithful skin tones across virtually any lighting condition.
+                        </p>
+
+                        <!-- Tonal Characteristics Bars -->
+                        <div class="pt-2 space-y-2.5 border-t border-fuji-border/70">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-gray-400 mb-1">
+                                    <span>COLOR SATURATION</span>
+                                    <span id="stat-sat-label">Balanced (0)</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-fuji-black rounded-full overflow-hidden">
+                                    <div id="stat-sat-bar" class="h-full bg-sky-400 transition-all duration-300" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-gray-400 mb-1">
+                                    <span>TONAL CONTRAST</span>
+                                    <span id="stat-con-label">Standard (0)</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-fuji-black rounded-full overflow-hidden">
+                                    <div id="stat-con-bar" class="h-full bg-amber-400 transition-all duration-300" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-mono text-gray-400 mb-1">
+                                    <span>SHADOW DEPTH</span>
+                                    <span id="stat-shd-label">Neutral</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-fuji-black rounded-full overflow-hidden">
+                                    <div id="stat-shd-bar" class="h-full bg-emerald-400 transition-all duration-300" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Best For Tags -->
+                        <div class="pt-2">
+                            <span class="text-[11px] font-mono text-gray-400 uppercase block mb-1.5">Recommended Applications:</span>
+                            <div id="detail-tags" class="flex flex-wrap gap-1.5">
+                                <span class="px-2.5 py-0.5 rounded-md bg-fuji-black border border-fuji-border text-xs text-gray-300">All-Around</span>
+                                <span class="px-2.5 py-0.5 rounded-md bg-fuji-black border border-fuji-border text-xs text-gray-300">Action &amp; Wildlife</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- X-Processor 5 Image Quality Modifiers -->
+                    <div class="mt-6 pt-4 border-t border-fuji-border space-y-3">
+                        <div class="text-xs font-mono text-gray-400 uppercase tracking-wider">X-H2S I.Q. Menu Modifiers</div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <button id="mod-grain" onclick="toggleModifier('grain')" class="flex items-center justify-between px-3 py-2 rounded-lg bg-fuji-black border border-fuji-border text-xs text-gray-300 hover:border-gray-500 transition">
+                                <span>Grain Effect</span>
+                                <span id="mod-grain-state" class="font-mono text-[11px] text-gray-500">OFF</span>
+                            </button>
+                            <button id="mod-ccblue" onclick="toggleModifier('ccblue')" class="flex items-center justify-between px-3 py-2 rounded-lg bg-fuji-black border border-fuji-border text-xs text-gray-300 hover:border-gray-500 transition">
+                                <span>Color Chrome Blue</span>
+                                <span id="mod-ccblue-state" class="font-mono text-[11px] text-gray-500">OFF</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter & Catalog Section -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-fuji-border pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white">All 19 X-H2S Film Simulations</h2>
+                    <p class="text-xs text-gray-400 mt-0.5">Click any card to load it into the EVF previewer above and inspect its tonal profile.</p>
+                </div>
+
+                <!-- Category Filter Pills -->
+                <div class="flex flex-wrap gap-2" id="category-filters">
+                    <button onclick="filterSims('all')" data-filter="all" class="filter-btn active px-3.5 py-1.5 rounded-full text-xs font-medium bg-fuji-red text-white transition">All (19)</button>
+                    <button onclick="filterSims('color')" data-filter="color" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-fuji-card border border-fuji-border text-gray-300 hover:border-gray-500 transition">Color (10)</button>
+                    <button onclick="filterSims('acros')" data-filter="acros" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-fuji-card border border-fuji-border text-gray-300 hover:border-gray-500 transition">ACROS B&amp;W (4)</button>
+                    <button onclick="filterSims('mono')" data-filter="mono" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-medium bg-fuji-card border border-fuji-border text-gray-300 hover:border-gray-500 transition">Monochrome &amp; Sepia (5)</button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div id="sims-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- Pro Field Tips for the X-H2S -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-4">
+            <div class="bg-fuji-card border border-fuji-border rounded-xl p-5 space-y-2">
+                <div class="text-xs font-mono text-sky-400 uppercase font-semibold">Workflow Tip 01 • Custom Functions</div>
+                <h3 class="text-base font-bold text-white">Map Film Sim to an Fn Button</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    The X-H2S features 14 customizable physical buttons and 4 touchscreen swipe directions. Assign <strong class="text-gray-200">FILM SIMULATION</strong> to one of the top-plate Fn buttons next to the OLED sub-monitor so you can switch emulsions without taking your eye off the EVF.
+                </p>
+            </div>
+
+            <div class="bg-fuji-card border border-fuji-border rounded-xl p-5 space-y-2">
+                <div class="text-xs font-mono text-amber-400 uppercase font-semibold">Workflow Tip 02 • Film Sim Bracketing</div>
+                <h3 class="text-base font-bold text-white">3 Looks From 1 Shutter Press</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Unsure whether a fast-moving scene calls for punchy color or gritty black-and-white? Set the Drive mode to <strong class="text-gray-200">FILM SIMULATION BKT</strong> to simultaneously record three distinct simulations (e.g., <span class="text-gray-200">NOSTALGIC Neg.</span>, <span class="text-gray-200">CLASSIC CHROME</span>, and <span class="text-gray-200">ACROS+R</span>) from a single exposure.
+                </p>
+            </div>
+
+            <div class="bg-fuji-card border border-fuji-border rounded-xl p-5 space-y-2">
+                <div class="text-xs font-mono text-emerald-400 uppercase font-semibold">Workflow Tip 03 • 10-Bit HEIF &amp; Video</div>
+                <h3 class="text-base font-bold text-white">10-Bit Stills &amp; ETERNA Video</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Pair your favorite Film Simulations with <strong class="text-gray-200">10-bit 4:2:2 HEIF</strong> stills for smoother tonal gradations at 30% smaller file sizes than JPEG. In Movie mode, <strong class="text-gray-200">ETERNA</strong> and <strong class="text-gray-200">ETERNA BLEACH BYPASS</strong> provide cinema-ready dynamic range straight out of camera without needing Log grading.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-fuji-border mt-12 py-8 text-center text-xs text-gray-500 font-mono">
+        FUJIFILM X-H2S Reference Guide • X-Trans CMOS 5 HS &amp; X-Processor 5 Architecture
+    </footer>
+
+    <script>
+        // Complete Database of all 19 Film Simulations on the Fujifilm X-H2S
+        const filmSimulations = [
+            // 10 COLOR SIMULATIONS
+            {
+                id: 'provia',
+                badge: 'STD',
+                name: 'PROVIA / Standard',
+                category: 'color',
+                categoryLabel: 'Color Reversal Film',
+                isNew: false,
+                description: 'Modeled after Fujichrome PROVIA 100F slide film. Offers faithful color reproduction, balanced contrast, and natural skin tones. Ideal as an everyday baseline for action, wildlife, and mixed lighting.',
+                satLabel: 'Balanced (0)', satPct: 55,
+                conLabel: 'Standard (0)', conPct: 55,
+                shdLabel: 'Neutral', shdPct: 50,
+                tags: ['All-Around', 'Sports & Wildlife', 'True-to-Life'],
+                filter: { contrast: 1.04, saturate: 1.06, brightness: 1.0, sepia: 0, grayscale: 0, hueRotate: 0, rMult: 1.0, gMult: 1.0, bMult: 1.0 }
+            },
+            {
+                id: 'velvia',
+                badge: 'V',
+                name: 'Velvia / Vivid',
+                category: 'color',
+                categoryLabel: 'High-Saturation Slide Film',
+                isNew: false,
+                description: 'Based on the legendary Fujichrome Velvia 50 transparency film. Produces deep, punchy contrast and intensely saturated blues, greens, and reds. Best suited for dramatic landscapes, golden hour, and nature.',
+                satLabel: 'Very High (+4)', satPct: 92,
+                conLabel: 'High (+3)', conPct: 82,
+                shdLabel: 'Deep & Rich', shdPct: 80,
+                tags: ['Landscapes', 'Sunsets', 'Nature'],
+                filter: { contrast: 1.24, saturate: 1.48, brightness: 0.97, sepia: 0.04, grayscale: 0, hueRotate: -4, rMult: 1.07, gMult: 1.02, bMult: 1.08 }
+            },
+            {
+                id: 'astia',
+                badge: 'S',
+                name: 'ASTIA / Soft',
+                category: 'color',
+                categoryLabel: 'Portrait Slide Film',
+                isNew: false,
+                description: 'Inspired by Fujichrome ASTIA 100F. Softens skin tone transitions while maintaining vibrant blues and greens, plus a subtle hardness in the shadows to preserve crispness. Exceptional on overcast days when Velvia is too harsh.',
+                satLabel: 'Moderately High (+2)', satPct: 68,
+                conLabel: 'Soft-Medium (-1)', conPct: 48,
+                shdLabel: 'Crisp', shdPct: 60,
+                tags: ['Outdoor Portraits', 'Overcast Light', 'Fashion'],
+                filter: { contrast: 1.06, saturate: 1.22, brightness: 1.03, sepia: 0.03, grayscale: 0, hueRotate: 2, rMult: 1.05, gMult: 1.01, bMult: 1.03 }
+            },
+            {
+                id: 'classic_chrome',
+                badge: 'CC',
+                name: 'CLASSIC CHROME',
+                category: 'color',
+                categoryLabel: 'Documentary Reversal',
+                isNew: false,
+                description: 'Emulates classic 20th-century magazine documentary films like Kodachrome. Features low color saturation, deep shadows, and shifted cyan-blues that keep attention on the subject and story rather than flashy colors.',
+                satLabel: 'Low (-3)', satPct: 32,
+                conLabel: 'Medium-High (+2)', conPct: 68,
+                shdLabel: 'Hard & Deep', shdPct: 78,
+                tags: ['Street Photography', 'Photojournalism', 'Editorial'],
+                filter: { contrast: 1.16, saturate: 0.72, brightness: 0.98, sepia: 0.12, grayscale: 0, hueRotate: -6, rMult: 1.02, gMult: 1.01, bMult: 0.94 }
+            },
+            {
+                id: 'pro_neg_hi',
+                badge: 'NH',
+                name: 'PRO Neg. Hi',
+                category: 'color',
+                categoryLabel: 'Studio Color Negative',
+                isNew: false,
+                description: 'Patterned after Fujicolor PRO 160NS/NPS portrait negative film with enhanced contrast. Delivers smooth, flattering skin gradations paired with punchier shadow depth for dramatic studio or directional-light portraits.',
+                satLabel: 'Subtle (-1)', satPct: 45,
+                conLabel: 'Medium-High (+2)', conPct: 66,
+                shdLabel: 'Defined', shdPct: 68,
+                tags: ['Studio Portraits', 'Fashion', 'Street'],
+                filter: { contrast: 1.14, saturate: 0.88, brightness: 1.01, sepia: 0.06, grayscale: 0, hueRotate: 2, rMult: 1.04, gMult: 1.0, bMult: 0.97 }
+            },
+            {
+                id: 'pro_neg_std',
+                badge: 'NS',
+                name: 'PRO Neg. Std',
+                category: 'color',
+                categoryLabel: 'Soft Color Negative',
+                isNew: false,
+                description: 'The oldest Fujifilm simulation lineage (dating to 2004). Replicates NPS 160 portrait film with very soft contrast, muted hues, and ultra-smooth skin tonality—ideal for controlled studio strobe lighting.',
+                satLabel: 'Muted (-2)', satPct: 38,
+                conLabel: 'Low (-3)', conPct: 32,
+                shdLabel: 'Open & Soft', shdPct: 35,
+                tags: ['Controlled Lighting', 'Weddings', 'Natural Skin'],
+                filter: { contrast: 0.92, saturate: 0.82, brightness: 1.04, sepia: 0.05, grayscale: 0, hueRotate: 3, rMult: 1.03, gMult: 1.01, bMult: 0.98 }
+            },
+            {
+                id: 'classic_neg',
+                badge: 'NC',
+                name: 'CLASSIC Neg.',
+                category: 'color',
+                categoryLabel: 'Consumer Color Negative',
+                isNew: false,
+                description: 'Modeled after late-1990s FUJICOLOR SUPERIA consumer print film. Features high-contrast tonal curves with distinct color shifts—cooler, slightly green-tinted shadows paired with punchy, nostalgic highlights.',
+                satLabel: 'Medium-Low (-1)', satPct: 48,
+                conLabel: 'High (+3)', conPct: 80,
+                shdLabel: 'Rich & Tinted', shdPct: 76,
+                tags: ['Everyday Snapshots', 'Urban', 'Analog Nostalgia'],
+                filter: { contrast: 1.22, saturate: 0.92, brightness: 0.99, sepia: 0.14, grayscale: 0, hueRotate: -8, rMult: 1.06, gMult: 1.02, bMult: 0.91 }
+            },
+            {
+                id: 'nostalgic_neg',
+                badge: 'NN',
+                name: 'NOSTALGIC Neg.',
+                category: 'color',
+                categoryLabel: '5th-Gen Amber Print Film',
+                isNew: true,
+                description: 'Introduced in 5th-Gen cameras like the X-H2S (from GFX). Inspired by 1970s American New Color photography prints. Produces warm amber highlights, vibrant reds, and rich shadow color with softer contrast for retained shadow detail.',
+                satLabel: 'Warm Medium (+1)', satPct: 62,
+                conLabel: 'Medium (-1)', conPct: 46,
+                shdLabel: 'Detailed & Warm', shdPct: 48,
+                tags: ['5th-Gen Exclusive', '1970s Aesthetic', 'Golden Light'],
+                filter: { contrast: 1.02, saturate: 1.14, brightness: 1.02, sepia: 0.24, grayscale: 0, hueRotate: -5, rMult: 1.11, gMult: 1.02, bMult: 0.86 }
+            },
+            {
+                id: 'eterna',
+                badge: 'E',
+                name: 'ETERNA / Cinema',
+                category: 'color',
+                categoryLabel: 'Motion Picture Film',
+                isNew: false,
+                description: 'Derived from Fujifilm ETERNA 250D motion picture negative film. Offers wide dynamic range, subdued saturation, and very gentle highlight/shadow roll-off—ideal for video production or understated, cinematic stills.',
+                satLabel: 'Very Low (-4)', satPct: 26,
+                conLabel: 'Very Low (-4)', conPct: 26,
+                shdLabel: 'Flat & Open', shdPct: 28,
+                tags: ['6.2K/4K Video', 'Cinematic Stills', 'High Contrast Scenes'],
+                filter: { contrast: 0.86, saturate: 0.64, brightness: 1.03, sepia: 0.08, grayscale: 0, hueRotate: -3, rMult: 0.98, gMult: 1.01, bMult: 0.99 }
+            },
+            {
+                id: 'eterna_bleach',
+                badge: 'EB',
+                name: 'ETERNA BLEACH BYPASS',
+                category: 'color',
+                categoryLabel: 'Silver-Retention Cinema',
+                isNew: false,
+                description: 'Simulates skipping the bleach bath during analog film processing, leaving silver halides alongside color dyes. Creates an edgy, stark high-contrast image with heavily desaturated colors—"shooting monochrome in color."',
+                satLabel: 'Minimal (-4)', satPct: 18,
+                conLabel: 'Extreme (+4)', conPct: 94,
+                shdLabel: 'Crushed & Gritty', shdPct: 90,
+                tags: ['Dramatic Action', 'Moody Cinema', 'Gritty Editorial'],
+                filter: { contrast: 1.38, saturate: 0.35, brightness: 0.95, sepia: 0.15, grayscale: 0.3, hueRotate: 0, rMult: 1.02, gMult: 1.0, bMult: 0.96 }
+            },
+
+            // 4 ACROS MONOCHROME SIMULATIONS
+            {
+                id: 'acros',
+                badge: 'A',
+                name: 'ACROS',
+                category: 'acros',
+                categoryLabel: 'Fine-Grain Monochrome',
+                isNew: false,
+                description: 'Based on Fujifilm Neopan 100 ACROS. Uses advanced X-Processor 5 tonal mapping to produce ultra-fine grain, silky highlight transitions, and deep, rich blacks that outperform standard Monochrome.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'High (+2)', conPct: 72,
+                shdLabel: 'Deep Velvet', shdPct: 75,
+                tags: ['Fine Art B&W', 'Architecture', 'High ISO Grain'],
+                filter: { contrast: 1.22, saturate: 0, brightness: 1.0, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.0, gMult: 1.0, bMult: 1.0 }
+            },
+            {
+                id: 'acros_ye',
+                badge: 'AYe',
+                name: 'ACROS + Ye Filter',
+                category: 'acros',
+                categoryLabel: 'ACROS + Yellow Contrast Filter',
+                isNew: false,
+                description: 'Pairs ACROS tonal curves with a virtual Yellow optical filter. Slightly darkens blue skies to separate white clouds and subtly brightens warm skin tones without looking overly dramatic.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'High (+2.5)', conPct: 76,
+                shdLabel: 'Rich', shdPct: 76,
+                tags: ['Outdoor B&W', 'Cloud Separation', 'Street'],
+                filter: { contrast: 1.26, saturate: 0, brightness: 1.01, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.12, gMult: 1.06, bMult: 0.82 }
+            },
+            {
+                id: 'acros_r',
+                badge: 'AR',
+                name: 'ACROS + R Filter',
+                category: 'acros',
+                categoryLabel: 'ACROS + Red Contrast Filter',
+                isNew: false,
+                description: 'Pairs ACROS with a bold Red contrast filter. Dramatically darkens blue skies and green foliage while rendering reds and oranges bright—delivering striking, high-drama black-and-white landscapes.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'Very High (+4)', conPct: 88,
+                shdLabel: 'Stark & Deep', shdPct: 85,
+                tags: ['Dramatic Landscapes', 'Dark Skies', 'Architectural'],
+                filter: { contrast: 1.36, saturate: 0, brightness: 0.99, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.32, gMult: 0.92, bMult: 0.72 }
+            },
+            {
+                id: 'acros_g',
+                badge: 'AG',
+                name: 'ACROS + G Filter',
+                category: 'acros',
+                categoryLabel: 'ACROS + Green Portrait Filter',
+                isNew: false,
+                description: 'Pairs ACROS with a Green contrast filter. Deepens reds and browns (giving rich, sculpted skin tones and darker lips) while brightening green foliage. A classic choice for expressive B&W portraiture.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'High (+2)', conPct: 72,
+                shdLabel: 'Sculpted', shdPct: 74,
+                tags: ['B&W Portraits', 'Foliage', 'Character Studies'],
+                filter: { contrast: 1.24, saturate: 0, brightness: 1.0, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 0.85, gMult: 1.24, bMult: 0.92 }
+            },
+
+            // 5 STANDARD MONOCHROME & SEPIA SIMULATIONS
+            {
+                id: 'monochrome',
+                badge: 'B',
+                name: 'MONOCHROME',
+                category: 'mono',
+                categoryLabel: 'Classic Black & White',
+                isNew: false,
+                description: 'Fujifilm’s foundational digital black-and-white profile. Offers clean, neutral grayscale conversion with slightly gentler shadow contrast than ACROS.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'Standard (+1)', conPct: 60,
+                shdLabel: 'Clean', shdPct: 60,
+                tags: ['Classic B&W', 'Clean Tonality', 'Documentary'],
+                filter: { contrast: 1.12, saturate: 0, brightness: 1.01, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.0, gMult: 1.0, bMult: 1.0 }
+            },
+            {
+                id: 'mono_ye',
+                badge: 'BYe',
+                name: 'MONOCHROME + Ye Filter',
+                category: 'mono',
+                categoryLabel: 'Monochrome + Yellow Filter',
+                isNew: false,
+                description: 'Adds a traditional Yellow filter to standard Monochrome for natural sky contrast enhancement and crisp outdoor tonal separation.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'Medium-High (+1.5)', conPct: 65,
+                shdLabel: 'Balanced', shdPct: 63,
+                tags: ['Daylight B&W', 'Travel', 'Skies'],
+                filter: { contrast: 1.16, saturate: 0, brightness: 1.02, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.10, gMult: 1.05, bMult: 0.85 }
+            },
+            {
+                id: 'mono_r',
+                badge: 'BR',
+                name: 'MONOCHROME + R Filter',
+                category: 'mono',
+                categoryLabel: 'Monochrome + Red Filter',
+                isNew: false,
+                description: 'Adds a strong Red filter to standard Monochrome, plunging blue skies into near-black while making clouds and warm sunlit subjects pop.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'High (+3)', conPct: 78,
+                shdLabel: 'Deep', shdPct: 76,
+                tags: ['High Contrast B&W', 'Stormy Skies', 'Graphic'],
+                filter: { contrast: 1.25, saturate: 0, brightness: 1.0, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 1.28, gMult: 0.94, bMult: 0.75 }
+            },
+            {
+                id: 'mono_g',
+                badge: 'BG',
+                name: 'MONOCHROME + G Filter',
+                category: 'mono',
+                categoryLabel: 'Monochrome + Green Filter',
+                isNew: false,
+                description: 'Adds a Green filter to standard Monochrome, darkening red skin tones for added facial texture and separating lush green vegetation.',
+                satLabel: 'Monochrome', satPct: 0,
+                conLabel: 'Standard (+1)', conPct: 62,
+                shdLabel: 'Medium', shdPct: 62,
+                tags: ['Portraits', 'Nature B&W', 'Textured Skin'],
+                filter: { contrast: 1.14, saturate: 0, brightness: 1.01, sepia: 0, grayscale: 1, hueRotate: 0, rMult: 0.88, gMult: 1.20, bMult: 0.94 }
+            },
+            {
+                id: 'sepia',
+                badge: 'SEPIA',
+                name: 'SEPIA',
+                category: 'mono',
+                categoryLabel: 'Warm Archival Monochrome',
+                isNew: false,
+                description: 'Replicates traditional silver-sulfide darkroom sepia toning. Imparts a warm, antique brownish-amber cast with gentle contrast for timeless, archival imagery.',
+                satLabel: 'Warm Monochrome', satPct: 25,
+                conLabel: 'Soft-Medium (-1)', conPct: 48,
+                shdLabel: 'Warm Brown', shdPct: 52,
+                tags: ['Vintage', 'Heritage', 'Archival Prints'],
+                filter: { contrast: 1.06, saturate: 0.85, brightness: 1.0, sepia: 0.82, grayscale: 0.2, hueRotate: 0, rMult: 1.08, gMult: 1.0, bMult: 0.85 }
+            }
+        ];
+
+        // App State
+        let activeSimId = 'provia';
+        let currentScene = 'landscape';
+        let currentFilterCategory = 'all';
+        let modifiers = { grain: false, ccblue: false };
+        let isComparingOriginal = false;
+
+        // Offscreen buffer for high-speed procedural photo rendering
+        const sourceCanvas = document.createElement('canvas');
+        sourceCanvas.width = 960;
+        sourceCanvas.height = 540;
+        const sourceCtx = sourceCanvas.getContext('2d');
+
+        // Draw rich procedural photographic scenes so there are zero broken external image links
+        function renderBaseScene(sceneType) {
+            const w = sourceCanvas.width;
+            const h = sourceCanvas.height;
+            sourceCtx.clearRect(0, 0, w, h);
+
+            if (sceneType === 'landscape') {
+                // 1. Rich Sky Gradient (Deep blue zenith to warm golden/magenta horizon)
+                const skyGrad = sourceCtx.createLinearGradient(0, 0, 0, h * 0.65);
+                skyGrad.addColorStop(0, '#163868');
+                skyGrad.addColorStop(0.45, '#3b6ea5');
+                skyGrad.addColorStop(0.75, '#d98a6c');
+                skyGrad.addColorStop(1, '#f4c07a');
+                sourceCtx.fillStyle = skyGrad;
+                sourceCtx.fillRect(0, 0, w, h * 0.65);
+
+                // Sun glow
+                const sunGrad = sourceCtx.createRadialGradient(w * 0.72, h * 0.48, 10, w * 0.72, h * 0.48, 220);
+                sunGrad.addColorStop(0, 'rgba(255, 248, 220, 0.95)');
+                sunGrad.addColorStop(0.3, 'rgba(255, 200, 130, 0.45)');
+                sunGrad.addColorStop(1, 'rgba(255, 160, 100, 0)');
+                sourceCtx.fillStyle = sunGrad;
+                sourceCtx.fillRect(0, 0, w, h * 0.65);
+
+                // Distant Snow-Capped Alpine Peaks
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(0, h * 0.56);
+                sourceCtx.lineTo(w * 0.18, h * 0.34);
+                sourceCtx.lineTo(w * 0.34, h * 0.48);
+                sourceCtx.lineTo(w * 0.54, h * 0.26);
+                sourceCtx.lineTo(w * 0.72, h * 0.44);
+                sourceCtx.lineTo(w * 0.88, h * 0.31);
+                sourceCtx.lineTo(w, h * 0.46);
+                sourceCtx.lineTo(w, h * 0.62);
+                sourceCtx.lineTo(0, h * 0.62);
+                sourceCtx.closePath();
+                const mtnGrad = sourceCtx.createLinearGradient(0, h * 0.25, 0, h * 0.62);
+                mtnGrad.addColorStop(0, '#f3e5dc');
+                mtnGrad.addColorStop(0.45, '#8c7a8c');
+                mtnGrad.addColorStop(1, '#363b4e');
+                sourceCtx.fillStyle = mtnGrad;
+                sourceCtx.fill();
+
+                // Sunlit mountain ridge facet
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(w * 0.54, h * 0.26);
+                sourceCtx.lineTo(w * 0.72, h * 0.44);
+                sourceCtx.lineTo(w * 0.58, h * 0.56);
+                sourceCtx.closePath();
+                sourceCtx.fillStyle = 'rgba(255, 195, 150, 0.65)';
+                sourceCtx.fill();
+
+                // Alpine Lake Reflection
+                const lakeGrad = sourceCtx.createLinearGradient(0, h * 0.58, 0, h);
+                lakeGrad.addColorStop(0, '#5a6e8c');
+                lakeGrad.addColorStop(0.4, '#2b4764');
+                lakeGrad.addColorStop(1, '#162638');
+                sourceCtx.fillStyle = lakeGrad;
+                sourceCtx.fillRect(0, h * 0.58, w, h * 0.42);
+
+                // Warm reflection shimmer in lake
+                const refGrad = sourceCtx.createRadialGradient(w * 0.72, h * 0.68, 5, w * 0.72, h * 0.72, 180);
+                refGrad.addColorStop(0, 'rgba(248, 190, 120, 0.55)');
+                refGrad.addColorStop(1, 'rgba(248, 190, 120, 0)');
+                sourceCtx.fillStyle = refGrad;
+                sourceCtx.fillRect(0, h * 0.58, w, h * 0.42);
+
+                // Foreground Pine Forest & Meadow Bank
+                sourceCtx.fillStyle = '#1e3528';
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(0, h * 0.74);
+                sourceCtx.quadraticCurveTo(w * 0.35, h * 0.78, w * 0.55, h * 0.88);
+                sourceCtx.lineTo(w, h * 0.85);
+                sourceCtx.lineTo(w, h);
+                sourceCtx.lineTo(0, h);
+                sourceCtx.closePath();
+                sourceCtx.fill();
+
+                // Stylized Conifer Trees on Left Bank
+                for (let i = 0; i < 9; i++) {
+                    const tx = 30 + i * 42;
+                    const ty = h * 0.75 + (i % 3) * 14;
+                    const th = 65 + (i % 4) * 18;
+                    sourceCtx.fillStyle = i % 2 === 0 ? '#162b20' : '#264734';
+                    sourceCtx.beginPath();
+                    sourceCtx.moveTo(tx, ty - th);
+                    sourceCtx.lineTo(tx - 16, ty);
+                    sourceCtx.lineTo(tx + 16, ty);
+                    sourceCtx.closePath();
+                    sourceCtx.fill();
+                }
+
+            } else if (sceneType === 'portrait') {
+                // Warm Bokeh Urban Street Portrait Scene (tests skin tones, reds, and shadow detail)
+                const bgGrad = sourceCtx.createLinearGradient(0, 0, w, h);
+                bgGrad.addColorStop(0, '#2a3644');
+                bgGrad.addColorStop(0.5, '#4c3c36');
+                bgGrad.addColorStop(1, '#1d2229');
+                sourceCtx.fillStyle = bgGrad;
+                sourceCtx.fillRect(0, 0, w, h);
+
+                // Soft city bokeh circles
+                const bokehColors = ['rgba(255,180,90,0.28)', 'rgba(90,170,230,0.22)', 'rgba(235,95,95,0.25)', 'rgba(255,230,170,0.3)'];
+                for (let i = 0; i < 24; i++) {
+                    const bx = (i * 97) % w;
+                    const by = (i * 61) % (h * 0.85);
+                    const br = 18 + (i % 5) * 12;
+                    sourceCtx.fillStyle = bokehColors[i % bokehColors.length];
+                    sourceCtx.beginPath();
+                    sourceCtx.arc(bx, by, br, 0, Math.PI * 2);
+                    sourceCtx.fill();
+                }
+
+                // Portrait Subject Silhouette & Skin Tone Study
+                const cx = w * 0.5;
+                const cy = h * 0.46;
+
+                // Jacket / Shoulders (Deep crimson/terracotta & denim tones)
+                sourceCtx.fillStyle = '#8e2d2d';
+                sourceCtx.beginPath();
+                sourceCtx.ellipse(cx, h * 0.92, 185, 130, 0, Math.PI, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Scarf / Collar accent (Teal blue)
+                sourceCtx.fillStyle = '#255c78';
+                sourceCtx.beginPath();
+                sourceCtx.ellipse(cx, h * 0.72, 85, 32, 0, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Neck
+                sourceCtx.fillStyle = '#d99e7c';
+                sourceCtx.fillRect(cx - 28, cy + 55, 56, 65);
+
+                // Face (Natural warm skin gradient with key light & shadow side)
+                const faceGrad = sourceCtx.createLinearGradient(cx - 75, cy - 60, cx + 75, cy + 60);
+                faceGrad.addColorStop(0, '#f3c1a4'); // Key light side
+                faceGrad.addColorStop(0.55, '#e2a382'); // Midtone skin
+                faceGrad.addColorStop(1, '#b87658'); // Shadow side
+                sourceCtx.fillStyle = faceGrad;
+                sourceCtx.beginPath();
+                sourceCtx.ellipse(cx, cy, 68, 86, 0, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Subtle cheek warmth
+                const cheekGrad = sourceCtx.createRadialGradient(cx - 28, cy + 12, 2, cx - 28, cy + 12, 26);
+                cheekGrad.addColorStop(0, 'rgba(218, 105, 95, 0.35)');
+                cheekGrad.addColorStop(1, 'rgba(218, 105, 95, 0)');
+                sourceCtx.fillStyle = cheekGrad;
+                sourceCtx.beginPath();
+                sourceCtx.arc(cx - 28, cy + 12, 26, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Hair
+                sourceCtx.fillStyle = '#231b18';
+                sourceCtx.beginPath();
+                sourceCtx.arc(cx, cy - 16, 74, Math.PI * 0.95, Math.PI * 2.05);
+                sourceCtx.fill();
+
+                // Subtle facial features (minimalist editorial illustration)
+                sourceCtx.fillStyle = '#3a2822';
+                sourceCtx.beginPath();
+                sourceCtx.ellipse(cx - 24, cy - 6, 8, 4.5, 0, 0, Math.PI * 2);
+                sourceCtx.ellipse(cx + 24, cy - 6, 8, 4.5, 0, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Lips
+                sourceCtx.fillStyle = '#b95c54';
+                sourceCtx.beginPath();
+                sourceCtx.ellipse(cx, cy + 36, 18, 6, 0, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+            } else if (sceneType === 'architecture') {
+                // High-Contrast Architectural Geometry & Blue Sky (tests ACROS filters, Classic Chrome & Color Chrome Blue)
+                const skyGrad = sourceCtx.createLinearGradient(0, 0, 0, h);
+                skyGrad.addColorStop(0, '#0f3b7a');
+                skyGrad.addColorStop(0.65, '#3b82d6');
+                skyGrad.addColorStop(1, '#93c5fd');
+                sourceCtx.fillStyle = skyGrad;
+                sourceCtx.fillRect(0, 0, w, h);
+
+                // Crisp white cumulus clouds
+                sourceCtx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+                sourceCtx.beginPath();
+                sourceCtx.arc(w * 0.72, h * 0.24, 42, 0, Math.PI * 2);
+                sourceCtx.arc(w * 0.77, h * 0.22, 54, 0, Math.PI * 2);
+                sourceCtx.arc(w * 0.83, h * 0.25, 38, 0, Math.PI * 2);
+                sourceCtx.fill();
+
+                // Modernist Concrete & Glass Building (Sunlit facade vs Shadow facade)
+                // Sunlit Left Wall
+                sourceCtx.fillStyle = '#e5e0d8';
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(w * 0.14, h);
+                sourceCtx.lineTo(w * 0.14, h * 0.18);
+                sourceCtx.lineTo(w * 0.48, h * 0.10);
+                sourceCtx.lineTo(w * 0.48, h);
+                sourceCtx.closePath();
+                sourceCtx.fill();
+
+                // Deep Shadow Right Wall
+                sourceCtx.fillStyle = '#2d3748';
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(w * 0.48, h);
+                sourceCtx.lineTo(w * 0.48, h * 0.10);
+                sourceCtx.lineTo(w * 0.76, h * 0.24);
+                sourceCtx.lineTo(w * 0.76, h);
+                sourceCtx.closePath();
+                sourceCtx.fill();
+
+                // Geometric Window Grid on Sunlit Wall
+                sourceCtx.fillStyle = '#1e3a5f';
+                for (let row = 0; row < 5; row++) {
+                    for (let col = 0; col < 3; col++) {
+                        const wx = w * 0.18 + col * 86;
+                        const wy = h * 0.24 + row * 72 - col * 14;
+                        sourceCtx.fillRect(wx, wy, 54, 42);
+                    }
+                }
+
+                // Bold Red/Orange Architectural Accent Canopy
+                sourceCtx.fillStyle = '#d93829';
+                sourceCtx.beginPath();
+                sourceCtx.moveTo(w * 0.10, h * 0.76);
+                sourceCtx.lineTo(w * 0.48, h * 0.72);
+                sourceCtx.lineTo(w * 0.62, h * 0.78);
+                sourceCtx.lineTo(w * 0.10, h * 0.82);
+                sourceCtx.closePath();
+                sourceCtx.fill();
+            }
+        }
+
+        // Apply Film Simulation & I.Q. Modifiers to Visible Canvas
+        function updatePreviewCanvas() {
+            const canvas = document.getElementById('preview-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = sourceCanvas.width;
+            canvas.height = sourceCanvas.height;
+
+            const sim = filmSimulations.find(s => s.id === activeSimId) || filmSimulations[0];
+
+            if (isComparingOriginal) {
+                ctx.filter = 'none';
+                ctx.drawImage(sourceCanvas, 0, 0);
+                return;
+            }
+
+            // Build CSS filter chain approximating Fuji's color science
+            let contrast = sim.filter.contrast;
+            let saturate = sim.filter.saturate;
+            let brightness = sim.filter.brightness;
+            let sepia = sim.filter.sepia;
+            let grayscale = sim.filter.grayscale;
+            let hueRotate = sim.filter.hueRotate;
+
+            // Color Chrome FX Blue modifier deepens blues and adds slight shadow contrast
+            if (modifiers.ccblue && sim.category === 'color') {
+                saturate *= 1.12;
+                contrast *= 1.06;
+                brightness *= 0.97;
+            }
+
+            ctx.filter = `contrast(${contrast}) saturate(${saturate}) brightness(${brightness}) sepia(${sepia}) grayscale(${grayscale}) hue-rotate(${hueRotate}deg)`;
+            ctx.drawImage(sourceCanvas, 0, 0);
+            ctx.filter = 'none';
+
+            // Pixel-level channel weighting for B&W Color Filters (Ye, R, G) and Color Chrome FX Blue
+            if (sim.filter.rMult !== 1.0 || sim.filter.gMult !== 1.0 || sim.filter.bMult !== 1.0 || (modifiers.ccblue && sim.category === 'color')) {
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imgData.data;
+                const { rMult, gMult, bMult } = sim.filter;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    let r = data[i];
+                    let g = data[i + 1];
+                    let b = data[i + 2];
+
+                    if (grayscale === 1) {
+                        // Simulate optical color filters on B&W film
+                        const weighted = (r * 0.299 * rMult + g * 0.587 * gMult + b * 0.114 * bMult);
+                        const clamped = Math.min(255, Math.max(0, weighted));
+                        data[i] = data[i + 1] = data[i + 2] = clamped;
+                    } else {
+                        r = Math.min(255, r * rMult);
+                        g = Math.min(255, g * gMult);
+                        b = Math.min(255, b * bMult);
+
+                        // Color Chrome FX Blue selectively deepens blue-dominant pixels
+                        if (modifiers.ccblue && b > r && b > g) {
+                            const blueDominance = (b - Math.max(r, g)) / 255;
+                            b = Math.min(255, b * (1 + blueDominance * 0.18));
+                            r = Math.max(0, r * (1 - blueDominance * 0.15));
+                            g = Math.max(0, g * (1 - blueDominance * 0.08));
+                        }
+
+                        data[i] = r;
+                        data[i + 1] = g;
+                        data[i + 2] = b;
+                    }
+                }
+                ctx.putImageData(imgData, 0, 0);
+            }
+        }
+
+        // Select a Film Simulation and update UI
+        function selectSimulation(id) {
+            activeSimId = id;
+            const sim = filmSimulations.find(s => s.id === id);
+            if (!sim) return;
+
+            // Update EVF HUD
+            document.getElementById('evf-badge').textContent = sim.badge;
+            document.getElementById('evf-sim-name').textContent = sim.name;
+
+            // Update Inspector Panel
+            document.getElementById('detail-category').textContent = sim.categoryLabel;
+            document.getElementById('detail-title').textContent = sim.name;
+            document.getElementById('detail-badge').textContent = sim.badge;
+            document.getElementById('detail-desc').textContent = sim.description;
+
+            document.getElementById('stat-sat-label').textContent = sim.satLabel;
+            document.getElementById('stat-sat-bar').style.width = `${sim.satPct}%`;
+
+            document.getElementById('stat-con-label').textContent = sim.conLabel;
+            document.getElementById('stat-con-bar').style.width = `${sim.conPct}%`;
+
+            document.getElementById('stat-shd-label').textContent = sim.shdLabel;
+            document.getElementById('stat-shd-bar').style.width = `${sim.shdPct}%`;
+
+            const tagsContainer = document.getElementById('detail-tags');
+            tagsContainer.innerHTML = sim.tags.map(tag => 
+                `<span class="px-2.5 py-0.5 rounded-md bg-fuji-black border border-fuji-border text-xs text-gray-300">${tag}</span>`
+            ).join('');
+
+            // Highlight active card in grid
+            document.querySelectorAll('.sim-card').forEach(card => {
+                if (card.dataset.id === id) {
+                    card.classList.add('ring-2', 'ring-fuji-red', 'border-fuji-red');
+                    card.classList.remove('border-fuji-border');
+                } else {
+                    card.classList.remove('ring-2', 'ring-fuji-red', 'border-fuji-red');
+                    card.classList.add('border-fuji-border');
+                }
+            });
+
+            updatePreviewCanvas();
+        }
+
+        // Render Cards Grid
+        function renderGrid() {
+            const grid = document.getElementById('sims-grid');
+            const filtered = currentFilterCategory === 'all' 
+                ? filmSimulations 
+                : filmSimulations.filter(s => s.category === currentFilterCategory);
+
+            grid.innerHTML = filtered.map(sim => {
+                const isSelected = sim.id === activeSimId;
+                const badgeColor = sim.category === 'color' 
+                    ? 'text-sky-400 border-sky-500/30 bg-sky-500/10' 
+                    : sim.category === 'acros' 
+                        ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' 
+                        : 'text-amber-400 border-amber-500/30 bg-amber-500/10';
+
+                return `
+                <div onclick="selectSimulation('${sim.id}'); document.getElementById('simulator-section').scrollIntoView({behavior: 'smooth', block: 'nearest'});" 
+                     data-id="${sim.id}"
+                     class="sim-card cursor-pointer bg-fuji-card border ${isSelected ? 'ring-2 ring-fuji-red border-fuji-red' : 'border-fuji-border hover:border-gray-500'} rounded-xl p-5 transition-all duration-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="font-mono text-xs font-bold px-2.5 py-1 rounded border ${badgeColor}">
+                                ${sim.badge}
+                            </span>
+                            <div class="flex items-center gap-1.5">
+                                ${sim.isNew ? '<span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">NEW 5TH GEN</span>' : ''}
+                                <span class="text-[11px] font-mono text-gray-500">${sim.categoryLabel}</span>
+                            </div>
+                        </div>
+                        <h3 class="text-lg font-bold text-white group-hover:text-fuji-red transition-colors mb-2">${sim.name}</h3>
+                        <p class="text-xs text-gray-400 leading-relaxed mb-4">${sim.description}</p>
+                    </div>
+
+                    <div class="pt-3 border-t border-fuji-border/60 flex items-center justify-between text-[11px] font-mono text-gray-400">
+                        <span>Contrast: <strong class="text-gray-200">${sim.conLabel.split(' ')[0]}</strong></span>
+                        <span class="text-fuji-red group-hover:translate-x-0.5 transition-transform">Preview in EVF →</span>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Category Filter Handler
+        function filterSims(category) {
+            currentFilterCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('bg-fuji-red', 'text-white');
+                    btn.classList.remove('bg-fuji-card', 'text-gray-300', 'border', 'border-fuji-border');
+                } else {
+                    btn.classList.remove('bg-fuji-red', 'text-white');
+                    btn.classList.add('bg-fuji-card', 'text-gray-300', 'border', 'border-fuji-border');
+                }
+            });
+            renderGrid();
+        }
+
+        // Scene Switcher Handler
+        function setScene(sceneType) {
+            currentScene = sceneType;
+            document.querySelectorAll('.scene-btn').forEach(btn => {
+                if (btn.dataset.scene === sceneType) {
+                    btn.classList.add('bg-white', 'text-black');
+                    btn.classList.remove('bg-fuji-black', 'text-gray-300', 'border', 'border-fuji-border');
+                } else {
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.classList.add('bg-fuji-black', 'text-gray-300', 'border', 'border-fuji-border');
+                }
+            });
+            renderBaseScene(sceneType);
+            updatePreviewCanvas();
+        }
+
+        // Toggle X-Processor 5 I.Q. Modifiers
+        function toggleModifier(mod) {
+            modifiers[mod] = !modifiers[mod];
+            const stateEl = document.getElementById(`mod-${mod}-state`);
+            const btnEl = document.getElementById(`mod-${mod}`);
+
+            if (modifiers[mod]) {
+                stateEl.textContent = 'STRONG';
+                stateEl.classList.remove('text-gray-500');
+                stateEl.classList.add('text-emerald-400');
+                btnEl.classList.add('border-emerald-500/50');
+            } else {
+                stateEl.textContent = 'OFF';
+                stateEl.classList.add('text-gray-500');
+                stateEl.classList.remove('text-emerald-400');
+                btnEl.classList.remove('border-emerald-500/50');
+            }
+
+            if (mod === 'grain') {
+                document.getElementById('grain-overlay').style.opacity = modifiers.grain ? '0.65' : '0';
+            }
+            updatePreviewCanvas();
+        }
+
+        // Hold-to-Compare Neutral Handler
+        function showOriginal(state) {
+            isComparingOriginal = state;
+            const badge = document.getElementById('evf-sim-name');
+            if (state) {
+                badge.textContent = 'NEUTRAL BASELINE (OFF)';
+                badge.classList.replace('text-emerald-300', 'text-amber-300');
+            } else {
+                const sim = filmSimulations.find(s => s.id === activeSimId);
+                badge.textContent = sim ? sim.name : 'PROVIA / Standard';
+                badge.classList.replace('text-amber-300', 'text-emerald-300');
+            }
+            updatePreviewCanvas();
+        }
+
+        // Initialize on Load
+        window.onload = function() {
+            renderBaseScene(currentScene);
+            renderGrid();
+            selectSimulation('provia');
+        };
+    </script>
+</body>
+</html>
