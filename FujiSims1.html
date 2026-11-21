@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fujifilm Film Simulations: Reala Ace vs. Nostalgic Neg vs. Provia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        fuji: {
+                            black: '#111111',
+                            charcoal: '#1A1A1A',
+                            silver: '#D4D4D8',
+                            accent: '#E11D48', // Fujifilm red accent
+                            emerald: '#10B981', // Fujifilm green accent
+                            amber: '#D97706' // Nostalgic warm tone
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for interactive comparison slider & range inputs */
+        .comparison-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            touch-action: pan-y;
+        }
+        .comparison-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: #ffffff;
+            z-index: 20;
+            cursor: ew-resize;
+            box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 9999px;
+            background: #111111;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.15s ease;
+        }
+        .slider-handle:hover .slider-button,
+        .slider-handle:active .slider-button {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Film Simulation CSS Filter Emulations */
+        .sim-provia {
+            filter: contrast(1.04) saturate(1.06) brightness(1.0);
+        }
+        .sim-reala-ace {
+            /* Slightly softer saturation than Provia, punchy blacks, natural highlights, crisp tones */
+            filter: contrast(1.12) saturate(0.96) brightness(0.99) hue-rotate(-2deg);
+        }
+        .sim-nostalgic-neg {
+            /* Warm amber highlights, softer lifted shadows, yellow-shifted greens, 1970s print feel */
+            filter: contrast(0.95) saturate(1.12) sepia(0.24) brightness(1.03) hue-rotate(-6deg);
+        }
+
+        /* Custom subtle film grain overlay */
+        .film-grain {
+            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 0);
+            background-size: 3px 3px;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+
+    <!-- Top Navigation Bar (Camera Dial Inspired) -->
+    <header class="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-700 flex items-center justify-center font-mono text-xs font-bold text-emerald-400 shadow-inner">
+                    FS
+                </div>
+                <div>
+                    <span class="font-semibold tracking-tight text-sm sm:text-base text-white">FUJIFILM LAB</span>
+                    <span class="hidden sm:inline-block text-xs text-zinc-500 ml-2 font-mono">// COLOR SCIENCE BREAKDOWN</span>
+                </div>
+            </div>
+            <nav class="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm font-medium">
+                <a href="#visualizer" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/60 transition">Simulator</a>
+                <a href="#breakdown" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/60 transition">Comparison</a>
+                <a href="#chooser" class="px-3 py-1.5 rounded-lg bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 transition">Which to Use?</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-16 sm:pt-20 sm:pb-24 px-4 sm:px-6 border-b border-zinc-900 overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-zinc-950 -z-10"></div>
+        <div class="max-w-5xl mx-auto">
+            <!-- Video Reference Pill -->
+            <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs text-zinc-400 mb-6">
+                <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                <span>Companion Guide to <strong class="text-zinc-200">John Peltier's</strong> Comparison Video</span>
+                <a href="https://youtu.be/vnl6UWsyD6o" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 font-mono ml-1 inline-flex items-center">
+                    Watch on YouTube
+                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12] mb-6">
+                Reala Ace <span class="text-zinc-500 font-light">vs.</span> Nostalgic Neg
+                <span class="block text-xl sm:text-3xl lg:text-4xl font-normal text-zinc-400 mt-2">
+                    How Fujifilm’s Newest Simulations Compare to Provia
+                </span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-zinc-400 max-w-3xl leading-relaxed mb-8">
+                Both <span class="text-zinc-200 font-medium">Reala Ace</span> and <span class="text-amber-300/90 font-medium">Nostalgic Neg</span> bring distinct color science and tonal curves to 5th-generation Fujifilm X and GFX cameras. Using <span class="text-emerald-400 font-medium">Provia (Standard)</span> as our neutral baseline, explore how each simulation handles contrast, shadow roll-off, greens, and skin tones.
+            </p>
+
+            <!-- Quick Overview Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">STD / BASELINE</span>
+                        <span class="text-xs text-zinc-500 font-mono">SLIDE FILM</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Provia</h3>
+                    <p class="text-xs text-zinc-400 mt-1 leading-relaxed">Faithful, balanced color reproduction and standard contrast. The universal benchmark for evaluating every other simulation.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-900/60 border border-emerald-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">REALA ACE</span>
+                        <span class="text-xs text-zinc-500 font-mono">COLOR NEGATIVE</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">True-to-Life & Crisp</h3>
+                    <p class="text-xs text-zinc-400 mt-1 leading-relaxed">Slightly softer saturation than Provia paired with harder tonal contrast—deeper blacks, crisp highlights, and natural skin tones.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-zinc-900/60 border border-amber-500/30">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">NOSTALGIC NEG</span>
+                        <span class="text-xs text-zinc-500 font-mono">1970s PRINT</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white">Warm & Emotional</h3>
+                    <p class="text-xs text-zinc-400 mt-1 leading-relaxed">Amber-infused highlights, open/forgiving shadows, and yellow-shifted greens inspired by New American Color photography.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Split-Screen Film Simulation Visualizer -->
+    <section id="visualizer" class="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="font-mono text-xs uppercase tracking-wider text-emerald-400">Interactive Lab</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Side-by-Side Tonal & Color Comparison</h2>
+                <p class="text-sm text-zinc-400 mt-1">Drag the slider across the frame and switch scenes to see how each simulation shifts greens, shadows, and warmth.</p>
+            </div>
+
+            <!-- Scene Selector -->
+            <div class="flex flex-wrap gap-2" id="scene-selector">
+                <button data-scene="landscape" class="scene-btn px-3 py-2 rounded-lg text-xs font-medium bg-zinc-800 text-white border border-zinc-600 transition">
+                    🌲 Foliage & Sky
+                </button>
+                <button data-scene="portrait" class="scene-btn px-3 py-2 rounded-lg text-xs font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white transition">
+                     portraits & Warm Light
+                </button>
+                <button data-scene="street" class="scene-btn px-3 py-2 rounded-lg text-xs font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white transition">
+                    🏙️ Urban Contrast
+                </button>
+            </div>
+        </div>
+
+        <!-- Simulation Selector Controls (Left vs Right) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 bg-zinc-900/70 p-4 rounded-xl border border-zinc-800">
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-mono text-zinc-400 uppercase">Left Side:</span>
+                <div class="flex gap-1.5" id="left-sim-buttons">
+                    <button data-side="left" data-sim="provia" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-800 text-zinc-300 border border-zinc-700">PROVIA</button>
+                    <button data-side="left" data-sim="reala-ace" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-emerald-600 text-white border border-emerald-400 shadow">REALA ACE</button>
+                    <button data-side="left" data-sim="nostalgic-neg" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-800 text-zinc-300 border border-zinc-700">NOSTALGIC NEG</button>
+                </div>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-mono text-zinc-400 uppercase">Right Side:</span>
+                <div class="flex gap-1.5" id="right-sim-buttons">
+                    <button data-side="right" data-sim="provia" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-800 text-zinc-300 border border-zinc-700">PROVIA</button>
+                    <button data-side="right" data-sim="reala-ace" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-800 text-zinc-300 border border-zinc-700">REALA ACE</button>
+                    <button data-side="right" data-sim="nostalgic-neg" class="sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-amber-600 text-white border border-amber-400 shadow">NOSTALGIC NEG</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Viewport -->
+        <div class="comparison-container rounded-2xl border border-zinc-800 shadow-2xl bg-zinc-900 aspect-[16/10] sm:aspect-[16/9] max-h-[540px] w-full" id="comparison-box">
+            
+            <!-- RIGHT (Base) Layer -->
+            <div id="right-layer" class="w-full h-full sim-nostalgic-neg transition-all duration-300">
+                <img id="right-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85" 
+                     onerror="this.src='https://placehold.co/1400x800/1f2937/9ca3af?text=Fujifilm+Scene+Preview'"
+                     alt="Fujifilm Simulation Right Comparison" class="w-full h-full object-cover">
+            </div>
+
+            <!-- LEFT (Clipped Overlay) Layer -->
+            <div id="left-overlay" class="comparison-overlay">
+                <div id="left-layer" class="w-full h-full sim-reala-ace transition-all duration-300" style="width: 100vw; max-width: 1152px;">
+                    <img id="left-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85" 
+                         onerror="this.src='https://placehold.co/1400x800/1f2937/9ca3af?text=Fujifilm+Scene+Preview'"
+                         alt="Fujifilm Simulation Left Comparison" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Labels inside Viewport -->
+            <div class="absolute top-4 left-4 z-30 pointer-events-none">
+                <span id="left-badge" class="px-3 py-1.5 rounded-lg bg-zinc-950/80 backdrop-blur-md border border-emerald-500/40 text-emerald-300 font-mono text-xs font-semibold shadow-lg">
+                    REALA ACE
+                </span>
+            </div>
+            <div class="absolute top-4 right-4 z-30 pointer-events-none">
+                <span id="right-badge" class="px-3 py-1.5 rounded-lg bg-zinc-950/80 backdrop-blur-md border border-amber-500/40 text-amber-300 font-mono text-xs font-semibold shadow-lg">
+                    NOSTALGIC NEG
+                </span>
+            </div>
+
+            <!-- Draggable Divider Handle -->
+            <div class="slider-handle" id="slider-handle">
+                <div class="slider-button" aria-label="Drag to compare film simulations">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l-3 3 3 3m8-6l3 3-3 3"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Observation Note -->
+        <div class="mt-4 p-4 rounded-xl bg-zinc-900/90 border border-zinc-800 flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-zinc-800 text-emerald-400 shrink-0 mt-0.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+                <h4 class="text-xs font-mono uppercase tracking-wider text-zinc-400">What to Look For in This Scene</h4>
+                <p id="scene-insight" class="text-sm text-zinc-200 mt-1 leading-relaxed">
+                    Notice how <strong>Reala Ace</strong> renders the foliage greens cleanly with crisp shadow depth, whereas <strong>Nostalgic Neg</strong> shifts greens toward warm yellow and lifts the deepest shadows for a softer, vintage print aesthetic.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technical & Aesthetic Breakdown -->
+    <section id="breakdown" class="py-14 sm:py-20 px-4 sm:px-6 bg-zinc-900/40 border-y border-zinc-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="max-w-2xl mb-12">
+                <span class="font-mono text-xs uppercase tracking-wider text-emerald-400">Key Takeaways from the Video</span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Four Pillars of Difference</h2>
+                <p class="text-sm text-zinc-400 mt-2">While Reala Ace looks closer to Provia at a glance, and Nostalgic Neg leans heavily into stylized warmth, their tonal curves behave very differently in real-world shooting.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pillar 1: Contrast & Shadows -->
+                <div class="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/90 hover:border-zinc-700 transition">
+                    <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 font-mono font-bold mb-4">01</div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Contrast & Shadow Roll-Off</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        <strong class="text-zinc-200">Reala Ace</strong> actually packs <em>more</em> punchy contrast than Provia—deepening blacks and giving images crisp micro-contrast without over-saturating colors. Conversely, <strong class="text-amber-300">Nostalgic Neg</strong> features softer shadow contrast and gentle highlight roll-off, preserving detail in harsh midday sun.
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-zinc-900 text-xs font-mono">
+                        <div><span class="text-zinc-500 block">PROVIA</span><span class="text-zinc-300">Standard</span></div>
+                        <div><span class="text-emerald-500 block">REALA ACE</span><span class="text-zinc-200">Punchy / Deep</span></div>
+                        <div><span class="text-amber-500 block">NOSTALGIC</span><span class="text-zinc-200">Soft Shadows</span></div>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Saturation vs Color Shift -->
+                <div class="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/90 hover:border-zinc-700 transition">
+                    <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 font-mono font-bold mb-4">02</div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Saturation vs. Color Bias</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        <strong class="text-zinc-200">Reala Ace</strong> dials back saturation slightly compared to Provia, preventing neon reds or overcooked blues while remaining faithful to reality. <strong class="text-amber-300">Nostalgic Neg</strong> introduces deliberate color shifts—adding amber warmth to highlights and pulling greens toward yellow-ochre.
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-zinc-900 text-xs font-mono">
+                        <div><span class="text-zinc-500 block">PROVIA</span><span class="text-zinc-300">Neutral / Vivid</span></div>
+                        <div><span class="text-emerald-500 block">REALA ACE</span><span class="text-zinc-200">Subtle / True</span></div>
+                        <div><span class="text-amber-500 block">NOSTALGIC</span><span class="text-zinc-200">Amber / Warm</span></div>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Greens & Landscapes -->
+                <div class="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/90 hover:border-zinc-700 transition">
+                    <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 font-mono font-bold mb-4">03</div>
+                    <h3 class="text-lg font-semibold text-white mb-2">How They Render Greens & Skies</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        In nature scenes, <strong class="text-zinc-200">Provia</strong> gives vibrant, slightly cool greens and rich blue skies. <strong class="text-zinc-200">Reala Ace</strong> tames excessive green vibrancy for a more organic, documentary feel. <strong class="text-amber-300">Nostalgic Neg</strong> warms foliage dramatically—turning cool forest tones into golden, late-afternoon hues.
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-zinc-900 text-xs font-mono">
+                        <div><span class="text-zinc-500 block">PROVIA</span><span class="text-zinc-300">Rich & Cool</span></div>
+                        <div><span class="text-emerald-500 block">REALA ACE</span><span class="text-zinc-200">Natural / Muted</span></div>
+                        <div><span class="text-amber-500 block">NOSTALGIC</span><span class="text-zinc-200">Golden / Yellow</span></div>
+                    </div>
+                </div>
+
+                <!-- Pillar 4: Skin Tones & Portraits -->
+                <div class="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/90 hover:border-zinc-700 transition">
+                    <div class="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 font-mono font-bold mb-4">04</div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Skin Tones & Storytelling</h3>
+                    <p class="text-sm text-zinc-400 leading-relaxed mb-4">
+                        Because <strong class="text-zinc-200">Reala Ace</strong> is modeled after Fujifilm's beloved Superia Reala negative film, it excels at clean, accurate skin tones across mixed lighting. <strong class="text-amber-300">Nostalgic Neg</strong> gives skin a flattering, sun-kissed glow—ideal when mood and emotion matter more than color accuracy.
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 pt-3 border-t border-zinc-900 text-xs font-mono">
+                        <div><span class="text-zinc-500 block">PROVIA</span><span class="text-zinc-300">Clean / Classic</span></div>
+                        <div><span class="text-emerald-500 block">REALA ACE</span><span class="text-zinc-200">Accurate / Pro</span></div>
+                        <div><span class="text-amber-500 block">NOSTALGIC</span><span class="text-zinc-200">Sun-Kissed</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Structured Comparison Table -->
+            <div class="mt-10 overflow-x-auto rounded-2xl border border-zinc-800 bg-zinc-950">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-zinc-800 bg-zinc-900/80 text-xs font-mono uppercase text-zinc-400">
+                            <th class="py-4 px-5">Attribute</th>
+                            <th class="py-4 px-5 text-zinc-200">Provia (Baseline)</th>
+                            <th class="py-4 px-5 text-emerald-400">Reala Ace</th>
+                            <th class="py-4 px-5 text-amber-400">Nostalgic Neg</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-zinc-800/80 text-sm">
+                        <tr>
+                            <td class="py-3.5 px-5 font-medium text-zinc-300">Film Heritage</td>
+                            <td class="py-3.5 px-5 text-zinc-400">Fujichrome Provia (Slide)</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Superia Reala (Color Neg)</td>
+                            <td class="py-3.5 px-5 text-zinc-300">1970s American Color Print</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3.5 px-5 font-medium text-zinc-300">Overall Contrast</td>
+                            <td class="py-3.5 px-5 text-zinc-400">Medium (Standard)</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Medium-High (Crisp Blacks)</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Low-Medium (Soft Shadows)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3.5 px-5 font-medium text-zinc-300">Saturation</td>
+                            <td class="py-3.5 px-5 text-zinc-400">Standard / Balanced</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Slightly Lower than Provia</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Moderate with Warm Bias</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3.5 px-5 font-medium text-zinc-300">White Balance / Tint</td>
+                            <td class="py-3.5 px-5 text-zinc-400">Neutral</td>
+                            <td class="py-3.5 px-5 text-zinc-300">True-to-Life Neutral</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Amber Highlights / Warm</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3.5 px-5 font-medium text-zinc-300">Best Genres</td>
+                            <td class="py-3.5 px-5 text-zinc-400">All-Purpose, Commercial</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Documentary, Travel, Portraits</td>
+                            <td class="py-3.5 px-5 text-zinc-300">Lifestyle, Golden Hour, Retro</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Scenario Recommender ("Which Simulation Should You Dial In?") -->
+    <section id="chooser" class="py-14 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+            <span class="font-mono text-xs uppercase tracking-wider text-emerald-400">Interactive Decision Tool</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">Which Simulation Fits Your Next Shoot?</h2>
+            <p class="text-sm text-zinc-400 mt-2">Select your shooting scenario below to see the recommended Fujifilm simulation and suggested recipe tweaks.</p>
+        </div>
+
+        <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8" id="scenario-buttons">
+                <button data-choice="everyday" class="choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-emerald-500/50 transition">
+                    <div class="font-semibold text-white text-sm">📸 Everyday Travel & Documentary</div>
+                    <div class="text-xs text-zinc-400 mt-1">You want realistic colors that don't feel overly processed, with strong tonal depth.</div>
+                </button>
+                <button data-choice="harsh-sun" class="choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition">
+                    <div class="font-semibold text-white text-sm">☀️ Harsh Midday Sun & Street</div>
+                    <div class="text-xs text-zinc-400 mt-1">High-contrast lighting where you want softer shadows and warm nostalgic character.</div>
+                </button>
+                <button data-choice="portraits" class="choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition">
+                    <div class="font-semibold text-white text-sm">👤 Natural Light Portraits</div>
+                    <div class="text-xs text-zinc-400 mt-1">Clean, flattering skin tones without artificial color casts or heavy red saturation.</div>
+                </button>
+                <button data-choice="commercial" class="choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition">
+                    <div class="font-semibold text-white text-sm">🏔️ Vibrant Landscapes & Product</div>
+                    <div class="text-xs text-zinc-400 mt-1">Punchy blues, true greens, and classic slide-film color fidelity.</div>
+                </button>
+            </div>
+
+            <!-- Recommendation Output Card -->
+            <div id="recommendation-card" class="p-6 rounded-xl bg-zinc-950 border border-zinc-800">
+                <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-zinc-800/80">
+                    <div>
+                        <span class="text-xs font-mono text-zinc-500 uppercase">Recommended Film Simulation</span>
+                        <h3 id="rec-title" class="text-2xl font-bold text-emerald-400 mt-0.5">REALA ACE</h3>
+                    </div>
+                    <span id="rec-tag" class="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+                        THE MODERN ALL-ROUNDER
+                    </span>
+                </div>
+                <p id="rec-desc" class="text-sm text-zinc-300 leading-relaxed mt-4">
+                    Reala Ace replaces Provia as an everyday default for many Fujifilm shooters. It tames oversaturated reds and greens while adding pleasing contrast so JPEGs look finished straight out of camera.
+                </p>
+                <div class="mt-5 pt-4 border-t border-zinc-900">
+                    <span class="text-xs font-mono text-zinc-500 uppercase block mb-2">Suggested In-Camera Recipe Settings:</span>
+                    <div id="rec-settings" class="flex flex-wrap gap-2 text-xs font-mono">
+                        <span class="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800">Highlight: -1</span>
+                        <span class="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800">Shadow: -1</span>
+                        <span class="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800">Color: +1</span>
+                        <span class="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800">WB: Auto (R:0, B:0)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 py-10 px-4 sm:px-6 text-center text-xs text-zinc-500">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>Interactive Visual Guide inspired by <a href="https://youtu.be/vnl6UWsyD6o" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-emerald-400 underline">John Peltier Photography</a>.</p>
+            <p class="font-mono text-zinc-600">PROVIA • REALA ACE • NOSTALGIC NEG</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scene Data with curated photography & detailed analytical notes
+            const scenes = {
+                landscape: {
+                    url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85',
+                    insight: 'Notice how <strong>Reala Ace</strong> renders the foliage greens cleanly with crisp shadow depth, whereas <strong>Nostalgic Neg</strong> shifts greens toward warm yellow and lifts the deepest shadows for a softer, vintage print aesthetic.'
+                },
+                portrait: {
+                    url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1400&q=85',
+                    insight: 'In portraits, <strong>Reala Ace</strong> keeps skin tones clean, neutral, and true-to-life without magenta or orange casts. <strong>Nostalgic Neg</strong> adds an immediate amber warmth that flatters golden-hour lighting.'
+                },
+                street: {
+                    url: 'https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?auto=format&fit=crop&w=1400&q=85',
+                    insight: 'Compare how <strong>Reala Ace</strong> holds deep, punchy blacks in architectural shadows while keeping neutral grays accurate, whereas <strong>Provia</strong> offers slightly higher color vibrancy in urban signage and skies.'
+                }
+            };
+
+            const simLabels = {
+                'provia': { name: 'PROVIA (STD)', colorClass: 'border-zinc-500/40 text-zinc-200' },
+                'reala-ace': { name: 'REALA ACE', colorClass: 'border-emerald-500/40 text-emerald-300' },
+                'nostalgic-neg': { name: 'NOSTALGIC NEG', colorClass: 'border-amber-500/40 text-amber-300' }
+            };
+
+            // Comparison Slider Elements
+            const box = document.getElementById('comparison-box');
+            const leftOverlay = document.getElementById('left-overlay');
+            const leftLayer = document.getElementById('left-layer');
+            const rightLayer = document.getElementById('right-layer');
+            const handle = document.getElementById('slider-handle');
+            const leftImage = document.getElementById('left-image');
+            const rightImage = document.getElementById('right-image');
+            const leftBadge = document.getElementById('left-badge');
+            const rightBadge = document.getElementById('right-badge');
+            const sceneInsight = document.getElementById('scene-insight');
+
+            let isDragging = false;
+            let currentPercentage = 50;
+
+            // Keep inner left image width synced to outer box width so image never squishes
+            function syncInnerWidth() {
+                if (box && leftLayer) {
+                    leftLayer.style.width = `${box.offsetWidth}px`;
+                }
+            }
+            window.addEventListener('resize', syncInnerWidth);
+            syncInnerWidth();
+
+            function updateSliderPosition(clientX) {
+                const rect = box.getBoundingClientRect();
+                let x = clientX - rect.left;
+                x = Math.max(0, Math.min(x, rect.width));
+                currentPercentage = (x / rect.width) * 100;
+                leftOverlay.style.width = `${currentPercentage}%`;
+                handle.style.left = `${currentPercentage}%`;
+            }
+
+            // Mouse & Touch Events for Slider
+            handle.addEventListener('mousedown', () => isDragging = true);
+            box.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateSliderPosition(e.clientX);
+            });
+            window.addEventListener('mouseup', () => isDragging = false);
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                updateSliderPosition(e.clientX);
+            });
+
+            handle.addEventListener('touchstart', () => isDragging = true, { passive: true });
+            box.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                if (e.touches[0]) updateSliderPosition(e.touches[0].clientX);
+            }, { passive: true });
+            window.addEventListener('touchend', () => isDragging = false);
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging || !e.touches[0]) return;
+                updateSliderPosition(e.touches[0].clientX);
+            }, { passive: true });
+
+            // Film Simulation Switcher Buttons
+            document.querySelectorAll('.sim-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const side = btn.dataset.side;
+                    const sim = btn.dataset.sim;
+
+                    // Update active button styles for that side
+                    const container = document.getElementById(`${side}-sim-buttons`);
+                    container.querySelectorAll('.sim-btn').forEach(b => {
+                        b.className = 'sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-zinc-800 text-zinc-300 border border-zinc-700';
+                    });
+
+                    const activeBg = sim === 'reala-ace' ? 'bg-emerald-600 border-emerald-400 text-white shadow' :
+                                     sim === 'nostalgic-neg' ? 'bg-amber-600 border-amber-400 text-white shadow' :
+                                     'bg-zinc-600 border-zinc-400 text-white shadow';
+                    btn.className = `sim-btn px-3 py-1.5 rounded-lg text-xs font-mono font-medium border ${activeBg}`;
+
+                    // Apply simulation class & badge
+                    const targetLayer = side === 'left' ? leftLayer : rightLayer;
+                    const targetBadge = side === 'left' ? leftBadge : rightBadge;
+                    targetLayer.classList.remove('sim-provia', 'sim-reala-ace', 'sim-nostalgic-neg');
+                    targetLayer.classList.add(`sim-${sim}`);
+
+                    targetBadge.textContent = simLabels[sim].name;
+                    targetBadge.className = `px-3 py-1.5 rounded-lg bg-zinc-950/80 backdrop-blur-md border font-mono text-xs font-semibold shadow-lg ${simLabels[sim].colorClass}`;
+                });
+            });
+
+            // Scene Switcher Buttons
+            document.querySelectorAll('.scene-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const sceneKey = btn.dataset.scene;
+                    const scene = scenes[sceneKey];
+                    if (!scene) return;
+
+                    document.querySelectorAll('.scene-btn').forEach(b => {
+                        b.className = 'scene-btn px-3 py-2 rounded-lg text-xs font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white transition';
+                    });
+                    btn.className = 'scene-btn px-3 py-2 rounded-lg text-xs font-medium bg-zinc-800 text-white border border-zinc-600 transition';
+
+                    leftImage.src = scene.url;
+                    rightImage.src = scene.url;
+                    sceneInsight.innerHTML = scene.insight;
+                });
+            });
+
+            // Scenario Recommender Logic
+            const recommendations = {
+                'everyday': {
+                    title: 'REALA ACE',
+                    color: 'text-emerald-400',
+                    tag: 'THE MODERN ALL-ROUNDER',
+                    tagClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+                    desc: 'Reala Ace replaces Provia as an everyday default for many Fujifilm shooters. It tames oversaturated reds and greens while adding pleasing contrast so JPEGs look finished straight out of camera.',
+                    settings: ['Highlight: -1', 'Shadow: -1', 'Color: +1', 'WB: Auto (R:0, B:0)']
+                },
+                'harsh-sun': {
+                    title: 'NOSTALGIC NEG',
+                    color: 'text-amber-400',
+                    tag: 'FORGIVING SHADOWS & WARMTH',
+                    tagClass: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+                    desc: 'Because Nostalgic Neg lifts deep shadows and rolls off highlights gently, it handles harsh midday contrast gracefully while infusing sunlit scenes with a 1970s editorial warmth.',
+                    settings: ['Highlight: -1', 'Shadow: -2', 'Color: +1', 'WB: Daylight (R:+2, B:-3)']
+                },
+                'portraits': {
+                    title: 'REALA ACE',
+                    color: 'text-emerald-400',
+                    tag: 'TRUE-TO-LIFE SKIN TONES',
+                    tagClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+                    desc: 'Born from Fujifilm’s Reala negative stock, Reala Ace avoids the warm amber cast of Nostalgic Neg and the extra saturation of Provia—keeping skin tones natural and clean.',
+                    settings: ['Highlight: -1', 'Shadow: -1', 'Color: 0', 'Color Chrome FX Blue: Weak']
+                },
+                'commercial': {
+                    title: 'PROVIA (STANDARD)',
+                    color: 'text-zinc-200',
+                    tag: 'CLASSIC SLIDE FIDELITY',
+                    tagClass: 'bg-zinc-500/10 text-zinc-300 border-zinc-500/30',
+                    desc: 'When you want punchier blues, richer foliage greens, and the signature Fujifilm slide-film pop without warm color shifts, Provia remains the gold-standard baseline.',
+                    settings: ['Highlight: 0', 'Shadow: 0', 'Color: +1', 'DR: Auto']
+                }
+            };
+
+            document.querySelectorAll('.choice-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.dataset.choice;
+                    const rec = recommendations[key];
+                    if (!rec) return;
+
+                    document.querySelectorAll('.choice-btn').forEach(b => {
+                        b.className = 'choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition';
+                    });
+                    btn.className = 'choice-btn text-left p-4 rounded-xl bg-zinc-950 border border-emerald-500/50 transition';
+
+                    const titleEl = document.getElementById('rec-title');
+                    const tagEl = document.getElementById('rec-tag');
+                    const descEl = document.getElementById('rec-desc');
+                    const settingsEl = document.getElementById('rec-settings');
+
+                    titleEl.textContent = rec.title;
+                    titleEl.className = `text-2xl font-bold mt-0.5 ${rec.color}`;
+                    tagEl.textContent = rec.tag;
+                    tagEl.className = `px-3 py-1 rounded-full text-xs font-mono border ${rec.tagClass}`;
+                    descEl.textContent = rec.desc;
+
+                    settingsEl.innerHTML = rec.settings.map(s => 
+                        `<span class="px-2.5 py-1 rounded bg-zinc-900 text-zinc-300 border border-zinc-800">${s}</span>`
+                    ).join('');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
